@@ -12,7 +12,7 @@
         public string Status { get; set; } = "Pending";
         public string ProblemDescription { get; set; } = string.Empty;
 
-        public string DoctorNote { get; set; } = string.Empty;
-        public string PrescriptionFilePath { get; set; } = string.Empty;
+        public string DoctorNotes { get; set; } = string.Empty;
+        public string PrescriptionPath { get; set; } = string.Empty;
     }
 }
