@@ -12,7 +12,7 @@
         public string AvailableHours { get; set; } = string.Empty;
         public bool IsApprovedByAdmin { get; set; } = false;
 
-        public string DoctorProfilePicture { get; set; } = string.Empty;
+        public string DoctorProfilePicture { get; set; } = "doctor-default.png";
         public decimal AverageRating { get; set; } = 0.0m;
         public int TotalRatingCount { get; set; } = 0;
 
