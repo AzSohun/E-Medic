@@ -14,5 +14,8 @@
         public string ProfilePicture { get; set; } = "profile-photo.png";
         public string Gender { get; set; } = "Male";
 
+        public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
+        public ICollection<Appointment> Appointment { get; set; } = new List<Appointment>();
+
     }
 }
