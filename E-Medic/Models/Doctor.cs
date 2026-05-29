@@ -16,5 +16,7 @@
         public decimal AverageRating { get; set; } = 0.0m;
         public int TotalRatingCount { get; set; } = 0;
 
+        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+
     }
 }
