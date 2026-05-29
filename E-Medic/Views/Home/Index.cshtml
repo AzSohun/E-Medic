@@ -1,8 +1,440 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "E-Medic - Premium Healthcare Solutions";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Custom CSS for Modern Cyan-Lime Gradient UI Layout -->
+<style>
+    :root {
+        /* Premium Fresh Cyan-Lime Ecosystem Colors */
+        --brand-blue: #0d6efd;
+        --brand-cyan: #06b6d4;
+        --brand-lime: #84cc16;
+        --brand-emerald: #10b981;
+        /* Advanced Gradients */
+        --primary-gradient: linear-gradient(135deg, #06b6d4 0%, #0d6efd 100%);
+        --cyan-lime-gradient: linear-gradient(135deg, #06b6d4 0%, #10b981 50%, #84cc16 100%);
+        /* Light Gradient for Stats Panel (Replaced Dark Background from image_c728e8.png) */
+        --stats-light-gradient: linear-gradient(135deg, #f0fdfa 0%, #f6fee8 100%);
+        --text-main: #0f172a;
+        --text-muted: #475569;
+        --text-secondary: #64748b;
+    }
+
+    body {
+        background-color: #ffffff;
+    }
+
+    /* Common Components */
+    .section-spacing {
+        padding: 90px 0;
+    }
+
+    .badge-premium {
+        background: rgba(6, 114, 212, 0.08);
+        color: #0891b2;
+        font-weight: 600;
+        font-size: 0.85rem;
+        padding: 0.6rem 1.4rem;
+        border-radius: 50px;
+        letter-spacing: 0.5px;
+        display: inline-block;
+    }
+
+    .gradient-heading {
+        background: linear-gradient(135deg, #0f172a 30%, #1e293b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .gradient-brand-text {
+        background: var(--cyan-lime-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .btn-gradient-main {
+        background: var(--primary-gradient);
+        color: white !important;
+        border: none;
+        box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+        .btn-gradient-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+        }
+
+    .btn-outline-modern {
+        border: 2px solid #e2e8f0;
+        color: var(--text-main);
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-modern:hover {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+    /* 1. Hero Area */
+    .hero-wrapper {
+        background: radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.06) 0%, rgba(13, 110, 253, 0.02) 50%, #ffffff 100%);
+        padding: 120px 0 90px 0;
+    }
+
+    .hero-img-box {
+        position: relative;
+    }
+
+        .hero-img-box::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 15px;
+            left: 15px;
+            background: var(--cyan-lime-gradient);
+            border-radius: 24px;
+            z-index: 1;
+            opacity: 0.15;
+            filter: blur(10px);
+        }
+
+    /* 2. Solutions Rich Cards */
+    .solution-card {
+        background: #ffffff;
+        border: 1px solid #f1f5f9;
+        border-radius: 24px;
+        padding: 40px 30px;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.08);
+            border-color: #e2e8f0;
+        }
+
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin-bottom: 25px;
+    }
+
+    /* 3. Upgraded Stats Section (Replaced Dark Background with Light Gradient) */
+    .stats-bar {
+        background: var(--stats-light-gradient);
+        border: 1px solid rgba(6, 182, 212, 0.15);
+        color: var(--text-main);
+        border-radius: 32px;
+        padding: 50px;
+        box-shadow: 0 15px 35px rgba(6, 182, 212, 0.04);
+    }
+
+    /* High-contrast colors for numbers over the light background */
+    .stat-number-cyan {
+        color: #0891b2 !important; /* Deep Premium Cyan */
+        font-weight: 800;
+    }
+
+    .stat-number-lime {
+        color: #16a34a !important; /* Deep Emerald Green */
+        font-weight: 800;
+    }
+
+    .stat-number-bright {
+        color: #0284c7 !important; /* Royal Sky Blue */
+        font-weight: 800;
+    }
+
+    /* Highly visible text labels on light bg */
+    .stat-desc {
+        color: #475569 !important;
+        font-size: 0.85rem;
+        letter-spacing: 0.75px;
+        font-weight: 700;
+        margin-top: 6px;
+    }
+
+    /* 4. Specialist Profiles */
+    .doctor-profile-card {
+        background: #ffffff;
+        border: 1px solid #f1f5f9;
+        border-radius: 24px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+        .doctor-profile-card:hover {
+            box-shadow: 0 12px 30px rgba(6, 182, 212, 0.06);
+            border-color: #06b6d4;
+        }
+
+    .doc-avatar {
+        height: 260px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    /* 5. Process Steps */
+    .step-circle {
+        width: 50px;
+        height: 50px;
+        background: rgba(6, 182, 212, 0.1);
+        color: #06b6d4;
+        font-weight: 700;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    /* 6. Testimonials */
+    .review-bubble {
+        background: #ffffff;
+        border: 1px solid #f1f5f9;
+        border-radius: 24px;
+        padding: 35px;
+        height: 100%;
+        transition: border 0.3s;
+    }
+
+        .review-bubble:hover {
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+</style>
+
+<!-- ========================= HERO SECTION ========================= -->
+<section class="hero-wrapper">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 text-center text-lg-start">
+                <div class="badge-premium mb-3">
+                    ✨ Next-Gen Cyan-Lime Medical Platform
+                </div>
+                <h1 class="display-3 fw-extrabold hero-title gradient-heading mb-4" style="font-weight:800; letter-spacing:-1.5px;">
+                    Your Digital <br><span class="gradient-brand-text">Healthcare</span> Ecosystem
+                </h1>
+                <p class="fs-5 text-secondary mb-5" style="max-width: 550px; line-height: 1.7;">
+                    Access global medical expertise. Instantly request delivery for critical medications, clear digital health logs, and route priority telehealth sessions securely.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
+                    <a href="#solutions" class="btn btn-gradient-main btn-lg px-5 py-3 fw-semibold">View Operations</a>
+                    <a href="#workflow" class="btn btn-outline-modern btn-lg px-5 py-3">How it Works</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-img-box">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=650&q=80"
+                         alt="E-Medic Digital Hub" class="img-fluid position-relative rounded-4" style="z-index: 2; max-height:430px; object-fit:cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= STATS BENCHMARK (Replaced Dark Background with Soft Light Gradient) ========================= -->
+<section class="container my-5">
+    <div class="stats-bar">
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <h3 class="display-5 fw-bold stat-number-cyan mb-1">99.4%</h3>
+                <p class="stat-desc text-uppercase mb-0">Prescription Precision</p>
+            </div>
+            <div class="col-md-4 border-start border-end border-secondary border-opacity-25">
+                <h3 class="display-5 fw-bold stat-number-lime mb-1">15 Mins</h3>
+                <p class="stat-desc text-uppercase mb-0">Average Specialist Matching</p>
+            </div>
+            <div class="col-md-4">
+                <h3 class="display-5 fw-bold stat-number-bright mb-1">24/7</h3>
+                <p class="stat-desc text-uppercase mb-0">Live Clinical Dispatch</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= CORE SOLUTIONS ========================= -->
+<section id="solutions" class="section-spacing">
+    <div class="container">
+        <div class="text-center mb-5 max-width-600 mx-auto">
+            <span class="badge-premium mb-2">Capabilities</span>
+            <h2 class="display-5 fw-bold gradient-heading">Engineered Medical Solutions</h2>
+            <p class="text-secondary">Enterprise pipelines optimizing medical dispatch accessibility.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Medicine Delivery -->
+            <div class="col-md-4">
+                <div class="solution-card h-100">
+                    <div class="icon-wrapper" style="background: rgba(6, 182, 212, 0.08); color: #06b6d4;">📦</div>
+                    <h3 class="h5 fw-bold mb-3">Instant Pharmacy</h3>
+                    <p class="text-secondary small mb-4">Secure prescription data structures routing immediate drug dispatch down to automated tracking modules directly to doors.</p>
+                    <a href="#" class="text-info text-decoration-none fw-semibold small" style="color: #06b6d4 !important;">Order Portal &rarr;</a>
+                </div>
+            </div>
+            <!-- Telehealth -->
+            <div class="col-md-4">
+                <div class="solution-card h-100">
+                    <div class="icon-wrapper" style="background: rgba(16, 185, 129, 0.08); color: #10b981;">🩺</div>
+                    <h3 class="h5 fw-bold mb-3">Priority Telehealth</h3>
+                    <p class="text-secondary small mb-4">Real-time WebRTC streams syncing with verified medical consultants globally. Skip waiting blocks instantly.</p>
+                    <a href="#" class="text-success text-decoration-none fw-semibold small" style="color: #10b981 !important;">Request Token &rarr;</a>
+                </div>
+            </div>
+            <!-- Records -->
+            <div class="col-md-4">
+                <div class="solution-card h-100">
+                    <div class="icon-wrapper" style="background: rgba(132, 204, 22, 0.08); color: #84cc16;">📋</div>
+                    <h3 class="h5 fw-bold mb-3">Vault Infrastructure</h3>
+                    <p class="text-secondary small mb-4">End-to-end encrypted ledger syncing appointment diagnostics logs under strict user configuration authorization parameters.</p>
+                    <a href="#" class="text-success text-decoration-none fw-semibold small" style="color: #84cc16 !important;">Access Dashboard &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= PIPELINE WORKFLOW ========================= -->
+<section id="workflow" class="section-spacing border-top border-bottom" style="background-color: #f8fafc;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold gradient-heading">How E-Medic Operates</h2>
+            <p class="text-muted">A clear, optimized 3-step pipeline designed for patient agility.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-circle">01</div>
+                <h4 class="h6 fw-bold">Submit Query or Script</h4>
+                <p class="text-secondary small">Input clinical requirements or drop prescription payloads into our encrypted gateway architecture securely.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="step-circle">02</div>
+                <h4 class="h6 fw-bold">Clinical Verification</h4>
+                <p class="text-secondary small">Automated filters query verified pharmacist frameworks or connect direct live-matching with global consultants within seconds.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="step-circle">03</div>
+                <h4 class="h6 fw-bold">Dispatch Optimization</h4>
+                <p class="text-secondary small">Your approved payload routes through instant home delivery vectors or displays real-time secure treatment plans instantly.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= EXPERT PANEL ========================= -->
+<section class="section-spacing">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold gradient-heading">Verified Medical Board</h2>
+            <p class="text-secondary">Fully credentialed specialists managing clinical workflows. [UK/US/BD Profiles]</p>
+        </div>
+        <div class="row g-4">
+            <!-- Doctor 1 (British Name) -->
+            <div class="col-md-4 col-lg-3">
+                <div class="doctor-profile-card h-100">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Oliver Bennett" class="doc-avatar">
+                    <div class="p-4 text-center">
+                        <h4 class="h6 fw-bold text-dark mb-1">Dr. Oliver Bennett</h4>
+                        <p class="small mb-2" style="color: #06b6d4; font-weight: 600;">Chief Cardiologist [UK]</p>
+                        <div class="small text-warning mb-3">★★★★★ <span class="text-muted text-xs">(4.9)</span></div>
+                        <a href="#" class="btn btn-sm btn-outline-modern w-100 rounded-pill">View Credentials</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Doctor 2 (American Name) -->
+            <div class="col-md-4 col-lg-3">
+                <div class="doctor-profile-card h-100">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Sarah Jenkins" class="doc-avatar">
+                    <div class="p-4 text-center">
+                        <h4 class="h6 fw-bold text-dark mb-1">Dr. Sarah Jenkins</h4>
+                        <p class="small mb-2" style="color: #10b981; font-weight: 600;">Neurologist [US]</p>
+                        <div class="small text-warning mb-3">★★★★★ <span class="text-muted text-xs">(4.8)</span></div>
+                        <a href="#" class="btn btn-sm btn-outline-modern w-100 rounded-pill">View Credentials</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Doctor 3 (Bangladeshi Name) -->
+            <div class="col-md-4 col-lg-3">
+                <div class="doctor-profile-card h-100">
+                    <img src="https://images.unsplash.com/photo-1618498082410-b4aa22193b38?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Asif Rahman" class="doc-avatar">
+                    <div class="p-4 text-center">
+                        <h4 class="h6 fw-bold text-dark mb-1">Dr. Asif Rahman</h4>
+                        <p class="small mb-2" style="color: #84cc16; font-weight: 600;">General Practitioner [BD]</p>
+                        <div class="small text-warning mb-3">★★★★★ <span class="text-muted text-xs">(5.0)</span></div>
+                        <a href="#" class="btn btn-sm btn-outline-modern w-100 rounded-pill">View Credentials</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Doctor 4 (British Name) -->
+            <div class="col-md-4 col-lg-3">
+                <div class="doctor-profile-card h-100">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Emma Watson" class="doc-avatar">
+                    <div class="p-4 text-center">
+                        <h4 class="h6 fw-bold text-dark mb-1">Dr. Emma Watson</h4>
+                        <p class="small mb-2" style="color: #06b6d4; font-weight: 600;">Pediatric Consultant [UK]</p>
+                        <div class="small text-warning mb-3">★★★★☆ <span class="text-muted text-xs">(4.7)</span></div>
+                        <a href="#" class="btn btn-sm btn-outline-modern w-100 rounded-pill">View Credentials</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= VERIFIED PATIENT CLINICAL REVIEWS ========================= -->
+<section class="section-spacing border-top" style="background-color: #fafbfc;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold gradient-heading">Global Clinical Logs</h2>
+            <p class="text-secondary">Authentic deployment evaluation feedback by verified platform accounts.</p>
+        </div>
+        <div class="row g-4">
+            <!-- Review 1 (Bangladeshi Name) -->
+            <div class="col-lg-4">
+                <div class="review-bubble">
+                    <p class="text-dark fs-6 mb-4" style="line-height: 1.7;">"The prescription dispatch processing latency is virtually non-existent. Uploaded my script data and the medical payload cleared directly to my door in Dhaka within hours."</p>
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Tahmid Rahman" class="rounded-circle border" width="45" height="45">
+                        <div>
+                            <h5 class="h6 fw-bold text-dark mb-0">Tahmid Rahman</h5>
+                            <span class="small text-muted">Dhaka, Bangladesh</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Review 2 (American Name) -->
+            <div class="col-lg-4">
+                <div class="review-bubble">
+                    <p class="text-dark fs-6 mb-4" style="line-height: 1.7;">"Superb routing interface. Instantly hooked up with a telehealth consultant without hitting unexpected state blocks. Real-time stream encryption parameters felt top-tier."</p>
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="David Miller" class="rounded-circle border" width="45" height="45">
+                        <div>
+                            <h5 class="h6 fw-bold text-dark mb-0">David Miller</h5>
+                            <span class="small text-muted">Austin, USA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Review 3 (British Name) -->
+            <div class="col-lg-4">
+                <div class="review-bubble">
+                    <p class="text-dark fs-6 mb-4" style="line-height: 1.7;">"The unified healthcare dashboard cleanly organizes previous diagnostics logs and historical tracking tokens. Very reliable framework for family health syncs."</p>
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Charlotte Rose" class="rounded-circle border" width="45" height="45">
+                        <div>
+                            <h5 class="h6 fw-bold text-dark mb-0">Charlotte Rose</h5>
+                            <span class="small text-muted">London, UK</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
