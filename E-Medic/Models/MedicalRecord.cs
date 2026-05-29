@@ -10,6 +10,5 @@
         public string AttachmentFilePath { get; set; } = string.Empty;
         public DateTime RecordDate { get; set; } = DateTime.UtcNow;
 
-        public
     }
 }
