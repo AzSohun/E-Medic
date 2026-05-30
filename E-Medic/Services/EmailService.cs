@@ -13,7 +13,7 @@ namespace E_Medic.Services
         }
 
 
-        public async Task EmailSenderAsync(string emailTo, string subject, string htmlMessage)
+        public async Task EmailSenderAsync(string toEmail, string subject, string htmlMessage)
         {
 
         }
