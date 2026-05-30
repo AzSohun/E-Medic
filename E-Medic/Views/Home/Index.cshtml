@@ -1,169 +1,222 @@
 ﻿@{
-    ViewData["Title"] = "E-Medic - Premium Healthcare Solutions";
+    ViewData["Title"] = "E-Medic - Next-Gen Premium Healthcare Ecosystem";
 }
 
-<!-- Custom CSS for Modern Cyan-Lime Gradient UI Layout -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 <style>
     :root {
-        /* Premium Fresh Cyan-Lime Ecosystem Colors */
-        --brand-blue: #0d6efd;
+        --brand-dark: #0f172a;
         --brand-cyan: #06b6d4;
         --brand-lime: #84cc16;
         --brand-emerald: #10b981;
-        /* Advanced Gradients */
-        --primary-gradient: linear-gradient(135deg, #06b6d4 0%, #0d6efd 100%);
+        --glass-bg: rgba(255, 255, 255, 0.45);
+        --glass-border: rgba(255, 255, 255, 0.25);
         --cyan-lime-gradient: linear-gradient(135deg, #06b6d4 0%, #10b981 50%, #84cc16 100%);
-        /* Light Gradient for Stats Panel (Replaced Dark Background from image_c728e8.png) */
-        --stats-light-gradient: linear-gradient(135deg, #f0fdfa 0%, #f6fee8 100%);
-        --text-main: #0f172a;
-        --text-muted: #475569;
-        --text-secondary: #64748b;
+        --primary-gradient: linear-gradient(135deg, #06b6d4 0%, #0d6efd 100%);
+        --dark-surface: #0b1329;
     }
 
     body {
-        background-color: #ffffff;
+        background-color: #fafdfd;
+        color: var(--brand-dark);
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        overflow-x: hidden;
     }
 
-    /* Common Components */
-    .section-spacing {
-        padding: 90px 0;
+    /* Ambient Floating Animated Blobs */
+    .blob-wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
     }
 
-    .badge-premium {
-        background: rgba(6, 114, 212, 0.08);
-        color: #0891b2;
-        font-weight: 600;
-        font-size: 0.85rem;
-        padding: 0.6rem 1.4rem;
-        border-radius: 50px;
-        letter-spacing: 0.5px;
-        display: inline-block;
+    .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.12;
+        animation: floatBubble 12s infinite alternate ease-in-out;
     }
 
-    .gradient-heading {
-        background: linear-gradient(135deg, #0f172a 30%, #1e293b 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    .blob-1 {
+        width: 400px;
+        height: 400px;
+        background: var(--brand-cyan);
+        top: -10%;
+        right: -5%;
     }
 
-    .gradient-brand-text {
-        background: var(--cyan-lime-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    .blob-2 {
+        width: 500px;
+        height: 500px;
+        background: var(--brand-lime);
+        top: 40%;
+        left: -10%;
+        animation-delay: 2s;
     }
 
-    .btn-gradient-main {
-        background: var(--primary-gradient);
-        color: white !important;
-        border: none;
-        box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    .blob-3 {
+        width: 350px;
+        height: 350px;
+        background: #0d6efd;
+        bottom: 5%;
+        right: 10%;
+        animation-delay: 4s;
     }
 
-        .btn-gradient-main:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+    /* CSS keyframes thoroughly escaped for Razor compilation */
+    @@keyframes floatBubble {
+        0% {
+            transform: translateY(0px) scale(1);
         }
 
-    .btn-outline-modern {
-        border: 2px solid #e2e8f0;
-        color: var(--text-main);
-        font-weight: 500;
+        100% {
+            transform: translateY(40px) scale(1.1);
+        }
+    }
+
+    /* Section Spacing */
+    .section-padding {
+        padding: 120px 0;
+    }
+
+    /* Glassmorphism Premium Utilities */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(6, 182, 212, 0.15);
+        border-radius: 24px;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Badge Design */
+    .badge-modern {
+        background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(132, 204, 22, 0.1) 100%);
+        border: 1px solid rgba(6, 182, 212, 0.2);
+        color: #0891b2;
+        font-weight: 600;
+        padding: 0.6rem 1.4rem;
+        border-radius: 50px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Typography Gradients - Modern CSS Standards */
+    .text-gradient-headline {
+        background: linear-gradient(135deg, #0f172a 20%, #334155 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-brand {
+        background: var(--cyan-lime-gradient);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Button Layouts */
+    .btn-premium-main {
+        background: var(--primary-gradient);
+        color: #ffffff !important;
+        border: none;
+        border-radius: 14px;
+        padding: 14px 32px;
+        box-shadow: 0 8px 24px rgba(6, 182, 212, 0.25);
         transition: all 0.3s ease;
     }
 
-        .btn-outline-modern:hover {
-            background-color: #f8fafc;
+        .btn-premium-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(13, 110, 253, 0.35);
+        }
+
+    .btn-premium-outline {
+        border: 2px solid #e2e8f0;
+        background: transparent;
+        color: var(--brand-dark);
+        border-radius: 14px;
+        padding: 12px 32px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-premium-outline:hover {
+            background: #f8fafc;
             border-color: #cbd5e1;
         }
 
-    /* 1. Hero Area */
-    .hero-wrapper {
-        background: radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.06) 0%, rgba(13, 110, 253, 0.02) 50%, #ffffff 100%);
-        padding: 120px 0 90px 0;
-    }
-
-    .hero-img-box {
+    /* Hero Component Customizations */
+    .hero-container {
         position: relative;
+        padding: 140px 0 100px 0;
     }
 
-        .hero-img-box::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 15px;
-            left: 15px;
-            background: var(--cyan-lime-gradient);
-            border-radius: 24px;
-            z-index: 1;
-            opacity: 0.15;
-            filter: blur(10px);
+    .hero-interactive-img {
+        position: relative;
+        border-radius: 32px;
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
+        transition: transform 0.5s ease;
+    }
+
+        .hero-interactive-img:hover {
+            transform: scale(1.02);
         }
 
-    /* 2. Solutions Rich Cards */
-    .solution-card {
-        background: #ffffff;
-        border: 1px solid #f1f5f9;
-        border-radius: 24px;
-        padding: 40px 30px;
-        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Feature/Solution Matrix Cards */
+    .matrix-card {
+        padding: 45px 35px;
+        height: 100%;
     }
 
-        .solution-card:hover {
+        .matrix-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.08);
-            border-color: #e2e8f0;
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.06);
         }
 
-    .icon-wrapper {
-        width: 60px;
-        height: 60px;
-        border-radius: 16px;
+    .matrix-icon-box {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.4rem;
-        margin-bottom: 25px;
+        font-size: 1.6rem;
+        margin-bottom: 30px;
     }
 
-    /* 3. Upgraded Stats Section (Replaced Dark Background with Light Gradient) */
-    .stats-bar {
-        background: var(--stats-light-gradient);
-        border: 1px solid rgba(6, 182, 212, 0.15);
-        color: var(--text-main);
-        border-radius: 32px;
-        padding: 50px;
-        box-shadow: 0 15px 35px rgba(6, 182, 212, 0.04);
-    }
-
-    /* High-contrast colors for numbers over the light background */
-    .stat-number-cyan {
-        color: #0891b2 !important; /* Deep Premium Cyan */
+    /* Step Workflows */
+    .workflow-step-badge {
+        font-size: 2.5rem;
         font-weight: 800;
+        background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(132, 204, 22, 0.2) 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1;
     }
 
-    .stat-number-lime {
-        color: #16a34a !important; /* Deep Emerald Green */
-        font-weight: 800;
+    /* Dark Feature Showroom */
+    .dark-showroom-section {
+        background: var(--dark-surface);
+        color: #ffffff;
+        border-radius: 40px;
+        padding: 90px 60px;
+        position: relative;
     }
 
-    .stat-number-bright {
-        color: #0284c7 !important; /* Royal Sky Blue */
-        font-weight: 800;
-    }
-
-    /* Highly visible text labels on light bg */
-    .stat-desc {
-        color: #475569 !important;
-        font-size: 0.85rem;
-        letter-spacing: 0.75px;
-        font-weight: 700;
-        margin-top: 6px;
-    }
-
-    /* 4. Specialist Profiles */
-    .doctor-profile-card {
+    /* Specialist Grid Cards */
+    .expert-card {
         background: #ffffff;
         border: 1px solid #f1f5f9;
         border-radius: 24px;
@@ -171,216 +224,209 @@
         transition: all 0.3s ease;
     }
 
-        .doctor-profile-card:hover {
-            box-shadow: 0 12px 30px rgba(6, 182, 212, 0.06);
-            border-color: #06b6d4;
+        .expert-card:hover {
+            border-color: var(--brand-cyan);
+            box-shadow: 0 15px 35px rgba(6, 182, 212, 0.08);
+            transform: translateY(-5px);
         }
 
-    .doc-avatar {
-        height: 260px;
-        object-fit: cover;
-        width: 100%;
+    /* Testimonial Slider/Bubble styles */
+    .testimonial-item {
+        padding: 40px;
+        border: 1px solid rgba(16, 185, 129, 0.15);
     }
-
-    /* 5. Process Steps */
-    .step-circle {
-        width: 50px;
-        height: 50px;
-        background: rgba(6, 182, 212, 0.1);
-        color: #06b6d4;
-        font-weight: 700;
-        border-radius: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    /* 6. Testimonials */
-    .review-bubble {
-        background: #ffffff;
-        border: 1px solid #f1f5f9;
-        border-radius: 24px;
-        padding: 35px;
-        height: 100%;
-        transition: border 0.3s;
-    }
-
-        .review-bubble:hover {
-            border-color: rgba(16, 185, 129, 0.2);
-        }
 </style>
 
-<!-- ========================= HERO SECTION ========================= -->
-<section class="hero-wrapper">
+<div class="blob-wrapper">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<section class="hero-container">
     <div class="container">
         <div class="row align-items-center g-5">
-            <div class="col-lg-6 text-center text-lg-start">
-                <div class="badge-premium mb-3">
-                    ✨ Next-Gen Cyan-Lime Medical Platform
+            <div class="col-lg-6 text-center text-lg-start" data-aos="fade-right" data-aos-duration="1000">
+                <div class="badge-modern mb-4">
+                    <span class="spinner-grow spinner-grow-sm text-cyan" role="status"></span>
+                    ✨ Hyper-Connected 2026 Healthcare Platform
                 </div>
-                <h1 class="display-3 fw-extrabold hero-title gradient-heading mb-4" style="font-weight:800; letter-spacing:-1.5px;">
-                    Your Digital <br><span class="gradient-brand-text">Healthcare</span> Ecosystem
+                <h1 class="display-3 fw-black text-gradient-headline mb-4" style="font-weight: 850; letter-spacing: -2px;">
+                    Your Intelligent <br><span class="text-gradient-brand">Medical</span> Infrastructure
                 </h1>
-                <p class="fs-5 text-secondary mb-5" style="max-width: 550px; line-height: 1.7;">
-                    Access global medical expertise. Instantly request delivery for critical medications, clear digital health logs, and route priority telehealth sessions securely.
+                <p class="fs-5 text-muted mb-5" style="max-width: 540px; line-height: 1.8;">
+                    Deconstruct medical accessibility barriers. Initiate cross-border priority telehealth sessions, optimize automated medication logistics pipelines, and protect your cloud health records instantly.
                 </p>
                 <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
-                    <a href="#solutions" class="btn btn-gradient-main btn-lg px-5 py-3 fw-semibold">View Operations</a>
-                    <a href="#workflow" class="btn btn-outline-modern btn-lg px-5 py-3">How it Works</a>
+                    <a href="#solutions" class="btn btn-premium-main btn-lg px-5 py-3 fw-semibold">Explore Solutions</a>
+                    <a href="#workflow" class="btn btn-premium-outline btn-lg px-5 py-3">View Engine Metrics</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center" data-aos="zoom-in-up" data-aos-duration="1200">
+                <div class="position-relative d-inline-block">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=650&q=80"
+                         alt="E-Medic Digital Command Hub" class="img-fluid hero-interactive-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container my-5" data-aos="fade-up" data-aos-duration="800">
+    <div class="glass-card p-5">
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <h3 class="display-5 fw-extrabold text-info mb-1" style="color: #0891b2 !important;">99.4%</h3>
+                <p class="text-uppercase font-semibold text-secondary small mb-0">Prescription Accuracy Metric</p>
+            </div>
+            <div class="col-md-4 border-start border-end border-secondary border-opacity-10">
+                <h3 class="display-5 fw-extrabold text-success mb-1" style="color: #16a34a !important;">&lt; 15 Mins</h3>
+                <p class="text-uppercase font-semibold text-secondary small mb-0">Consultant Cross-Matching Latency</p>
+            </div>
+            <div class="col-md-4">
+                <h3 class="display-5 fw-extrabold text-primary mb-1" style="color: #0284c7 !important;">24/7/365</h3>
+                <p class="text-uppercase font-semibold text-secondary small mb-0">Active Tele-Clinical Dispatch</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="solutions" class="section-padding">
+    <div class="container">
+        <div class="text-center mb-5 max-width-600 mx-auto" data-aos="fade-up">
+            <span class="badge-modern mb-2">Capabilities</span>
+            <h2 class="display-5 fw-bold text-gradient-headline">Engineered Clinical Paradigms</h2>
+            <p class="text-muted">Enterprise solutions optimizing cloud infrastructure diagnostics and fulfillment speed.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass-card matrix-card">
+                    <div class="matrix-icon-box" style="background: rgba(6, 182, 212, 0.08); color: #06b6d4;">📦</div>
+                    <h3 class="h5 fw-bold mb-3">Hyper-Pharmacy Pipeline</h3>
+                    <p class="text-secondary small mb-4">Secure multi-tenant script parameters dispatching required medicine lines down to local micro-fulfillment spaces with zero latency routing.</p>
+                    <a href="#" class="text-info text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1">Initialize Order Portal <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass-card matrix-card">
+                    <div class="matrix-icon-box" style="background: rgba(16, 185, 129, 0.08); color: #10b981;">🩺</div>
+                    <h3 class="h5 fw-bold mb-3">Ultra-Low-Latency Telehealth</h3>
+                    <p class="text-secondary small mb-4">High-fidelity WebRTC cross-connections matching user nodes with verified clinical medical boards globally within seconds.</p>
+                    <a href="#" class="text-success text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1">Request Secure Token <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="glass-card matrix-card">
+                    <div class="matrix-icon-box" style="background: rgba(132, 204, 22, 0.08); color: #84cc16;">📋</div>
+                    <h3 class="h5 fw-bold mb-3">Encrypted Health Vaults</h3>
+                    <p class="text-secondary small mb-4">Granular, end-to-end encrypted health data nodes logging user history securely, queryable only under strict permission protocols.</p>
+                    <a href="#" class="text-success text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1">Access Root Core Dashboard <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container my-5" data-aos="zoom-in" data-aos-duration="1000">
+    <div class="dark-showroom-section">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="text-gradient-brand fw-bold text-uppercase small tracking-wider mb-2 d-block">High-Availability Infrastructure</span>
+                <h2 class="display-6 fw-bold mb-4 text-white">Automated Micro-Logistics Engine</h2>
+                <p class="text-secondary mb-4" style="color: #94a3b8 !important;">
+                    Our engine features dynamic medical dispatch failovers. If a specific supply point fails to acknowledge, the system redirects queries to backup repositories instantly, minimizing operational bottlenecks.
+                </p>
+                <div class="row g-3">
+                    <div class="col-sm-6 d-flex align-items-center gap-2">
+                        <i class="bi bi-shield-check text-info fs-4"></i> <span class="small text-white">ISO/IEC Cloud Certified</span>
+                    </div>
+                    <div class="col-sm-6 d-flex align-items-center gap-2">
+                        <i class="bi bi-cpu text-lime fs-4" style="color:var(--brand-lime);"></i> <span class="small text-white">Predictated Load Balancing</span>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6 text-center">
-                <div class="hero-img-box">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=650&q=80"
-                         alt="E-Medic Digital Hub" class="img-fluid position-relative rounded-4" style="z-index: 2; max-height:430px; object-fit:cover;">
-                </div>
+                <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=500&q=80" alt="Engine Room Grid" class="img-fluid rounded-4">
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========================= STATS BENCHMARK (Replaced Dark Background with Soft Light Gradient) ========================= -->
-<section class="container my-5">
-    <div class="stats-bar">
-        <div class="row g-4 text-center">
-            <div class="col-md-4">
-                <h3 class="display-5 fw-bold stat-number-cyan mb-1">99.4%</h3>
-                <p class="stat-desc text-uppercase mb-0">Prescription Precision</p>
-            </div>
-            <div class="col-md-4 border-start border-end border-secondary border-opacity-25">
-                <h3 class="display-5 fw-bold stat-number-lime mb-1">15 Mins</h3>
-                <p class="stat-desc text-uppercase mb-0">Average Specialist Matching</p>
-            </div>
-            <div class="col-md-4">
-                <h3 class="display-5 fw-bold stat-number-bright mb-1">24/7</h3>
-                <p class="stat-desc text-uppercase mb-0">Live Clinical Dispatch</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ========================= CORE SOLUTIONS ========================= -->
-<section id="solutions" class="section-spacing">
+<section id="workflow" class="section-padding border-top border-bottom" style="background-color: #f8fafc;">
     <div class="container">
-        <div class="text-center mb-5 max-width-600 mx-auto">
-            <span class="badge-premium mb-2">Capabilities</span>
-            <h2 class="display-5 fw-bold gradient-heading">Engineered Medical Solutions</h2>
-            <p class="text-secondary">Enterprise pipelines optimizing medical dispatch accessibility.</p>
-        </div>
-
-        <div class="row g-4">
-            <!-- Medicine Delivery -->
-            <div class="col-md-4">
-                <div class="solution-card h-100">
-                    <div class="icon-wrapper" style="background: rgba(6, 182, 212, 0.08); color: #06b6d4;">📦</div>
-                    <h3 class="h5 fw-bold mb-3">Instant Pharmacy</h3>
-                    <p class="text-secondary small mb-4">Secure prescription data structures routing immediate drug dispatch down to automated tracking modules directly to doors.</p>
-                    <a href="#" class="text-info text-decoration-none fw-semibold small" style="color: #06b6d4 !important;">Order Portal &rarr;</a>
-                </div>
-            </div>
-            <!-- Telehealth -->
-            <div class="col-md-4">
-                <div class="solution-card h-100">
-                    <div class="icon-wrapper" style="background: rgba(16, 185, 129, 0.08); color: #10b981;">🩺</div>
-                    <h3 class="h5 fw-bold mb-3">Priority Telehealth</h3>
-                    <p class="text-secondary small mb-4">Real-time WebRTC streams syncing with verified medical consultants globally. Skip waiting blocks instantly.</p>
-                    <a href="#" class="text-success text-decoration-none fw-semibold small" style="color: #10b981 !important;">Request Token &rarr;</a>
-                </div>
-            </div>
-            <!-- Records -->
-            <div class="col-md-4">
-                <div class="solution-card h-100">
-                    <div class="icon-wrapper" style="background: rgba(132, 204, 22, 0.08); color: #84cc16;">📋</div>
-                    <h3 class="h5 fw-bold mb-3">Vault Infrastructure</h3>
-                    <p class="text-secondary small mb-4">End-to-end encrypted ledger syncing appointment diagnostics logs under strict user configuration authorization parameters.</p>
-                    <a href="#" class="text-success text-decoration-none fw-semibold small" style="color: #84cc16 !important;">Access Dashboard &rarr;</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ========================= PIPELINE WORKFLOW ========================= -->
-<section id="workflow" class="section-spacing border-top border-bottom" style="background-color: #f8fafc;">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-6 fw-bold gradient-heading">How E-Medic Operates</h2>
-            <p class="text-muted">A clear, optimized 3-step pipeline designed for patient agility.</p>
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-6 fw-bold text-gradient-headline">Engine Architecture Flow</h2>
+            <p class="text-muted">An optimized 3-tier sequence constructed for ultimate clinical agility.</p>
         </div>
         <div class="row g-4">
-            <div class="col-md-4">
-                <div class="step-circle">01</div>
-                <h4 class="h6 fw-bold">Submit Query or Script</h4>
-                <p class="text-secondary small">Input clinical requirements or drop prescription payloads into our encrypted gateway architecture securely.</p>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="workflow-step-badge mb-3">01</div>
+                <h4 class="h6 fw-bold text-uppercase">Payload Secure Injection</h4>
+                <p class="text-secondary small">Upload medical credentials or dynamic script scripts safely into our edge storage layers via TLS tunnels.</p>
             </div>
-            <div class="col-md-4">
-                <div class="step-circle">02</div>
-                <h4 class="h6 fw-bold">Clinical Verification</h4>
-                <p class="text-secondary small">Automated filters query verified pharmacist frameworks or connect direct live-matching with global consultants within seconds.</p>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="workflow-step-badge mb-3">02</div>
+                <h4 class="h6 fw-bold text-uppercase">Automated Cross-Verification</h4>
+                <p class="text-secondary small">Smart query architecture filters request lines against database frameworks for micro-second confirmations.</p>
             </div>
-            <div class="col-md-4">
-                <div class="step-circle">03</div>
-                <h4 class="h6 fw-bold">Dispatch Optimization</h4>
-                <p class="text-secondary small">Your approved payload routes through instant home delivery vectors or displays real-time secure treatment plans instantly.</p>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="workflow-step-badge mb-3">03</div>
+                <h4 class="h6 fw-bold text-uppercase">Autonomous Drone/Courier Routing</h4>
+                <p class="text-secondary small">Cleared vectors prompt rapid tracking APIs, pushing physical payloads to destinations or spawning remote digital files.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========================= EXPERT PANEL ========================= -->
-<section class="section-spacing">
+<section class="section-padding">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold gradient-heading">Verified Medical Board</h2>
-            <p class="text-secondary">Fully credentialed specialists managing clinical workflows. [UK/US/BD Profiles]</p>
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 fw-bold text-gradient-headline">Credentialed Medical Board</h2>
+            <p class="text-secondary">Fully authorized active specialists managing system directives.</p>
         </div>
         <div class="row g-4">
-            <!-- Doctor 1 (British Name) -->
-            <div class="col-md-4 col-lg-3">
-                <div class="doctor-profile-card h-100">
-                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Oliver Bennett" class="doc-avatar">
+            <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="100">
+                <div class="expert-card h-100">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Oliver Bennett" class="w-100" style="height:250px; object-fit:cover;">
                     <div class="p-4 text-center">
                         <h4 class="h6 fw-bold text-dark mb-1">Dr. Oliver Bennett</h4>
-                        <p class="small mb-2" style="color: #06b6d4; font-weight: 600;">Chief Cardiologist [UK]</p>
-                        <div class="small text-warning mb-3">★★★★★ <span class="text-muted text-xs">(4.9)</span></div>
-                        <a href="#" class="btn btn-sm btn-outline-modern w-100 rounded-pill">View Credentials</a>
+                        <p class="small mb-2 fw-semibold" style="color: #06b6d4;">Chief Cardiologist</p>
+                        <div class="small text-warning mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> <span class="text-muted">(4.9)</span></div>
+                        <a href="#" class="btn btn-sm btn-premium-outline w-100 rounded-pill">Verify Credentials</a>
                     </div>
                 </div>
             </div>
-            <!-- Doctor 2 (American Name) -->
-            <div class="col-md-4 col-lg-3">
-                <div class="doctor-profile-card h-100">
-                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Sarah Jenkins" class="doc-avatar">
+            <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="200">
+                <div class="expert-card h-100">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Sarah Jenkins" class="w-100" style="height:250px; object-fit:cover;">
                     <div class="p-4 text-center">
                         <h4 class="h6 fw-bold text-dark mb-1">Dr. Sarah Jenkins</h4>
-                        <p class="small mb-2" style="color: #10b981; font-weight: 600;">Neurologist [US]</p>
-                        <div class="small text-warning mb-3">★★★★★ <span class="text-muted text-xs">(4.8)</span></div>
-                        <a href="#" class="btn btn-sm btn-outline-modern w-100 rounded-pill">View Credentials</a>
+                        <p class="small mb-2 fw-semibold" style="color: #10b981;">Lead Neurologist</p>
+                        <div class="small text-warning mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> <span class="text-muted">(4.8)</span></div>
+                        <a href="#" class="btn btn-sm btn-premium-outline w-100 rounded-pill">Verify Credentials</a>
                     </div>
                 </div>
             </div>
-            <!-- Doctor 3 (Bangladeshi Name) -->
-            <div class="col-md-4 col-lg-3">
-                <div class="doctor-profile-card h-100">
-                    <img src="https://images.unsplash.com/photo-1618498082410-b4aa22193b38?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Asif Rahman" class="doc-avatar">
+            <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="300">
+                <div class="expert-card h-100">
+                    <img src="https://images.unsplash.com/photo-1618498082410-b4aa22193b38?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Asif Rahman" class="w-100" style="height:250px; object-fit:cover;">
                     <div class="p-4 text-center">
                         <h4 class="h6 fw-bold text-dark mb-1">Dr. Asif Rahman</h4>
-                        <p class="small mb-2" style="color: #84cc16; font-weight: 600;">General Practitioner [BD]</p>
-                        <div class="small text-warning mb-3">★★★★★ <span class="text-muted text-xs">(5.0)</span></div>
-                        <a href="#" class="btn btn-sm btn-outline-modern w-100 rounded-pill">View Credentials</a>
+                        <p class="small mb-2 fw-semibold" style="color: #84cc16;">Consultant GP</p>
+                        <div class="small text-warning mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> <span class="text-muted">(5.0)</span></div>
+                        <a href="#" class="btn btn-sm btn-premium-outline w-100 rounded-pill">Verify Credentials</a>
                     </div>
                 </div>
             </div>
-            <!-- Doctor 4 (British Name) -->
-            <div class="col-md-4 col-lg-3">
-                <div class="doctor-profile-card h-100">
-                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Emma Watson" class="doc-avatar">
+            <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="400">
+                <div class="expert-card h-100">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Emma Watson" class="w-100" style="height:250px; object-fit:cover;">
                     <div class="p-4 text-center">
                         <h4 class="h6 fw-bold text-dark mb-1">Dr. Emma Watson</h4>
-                        <p class="small mb-2" style="color: #06b6d4; font-weight: 600;">Pediatric Consultant [UK]</p>
-                        <div class="small text-warning mb-3">★★★★☆ <span class="text-muted text-xs">(4.7)</span></div>
-                        <a href="#" class="btn btn-sm btn-outline-modern w-100 rounded-pill">View Credentials</a>
+                        <p class="small mb-2 fw-semibold" style="color: #06b6d4;">Pediatric Head</p>
+                        <div class="small text-warning mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> <span class="text-muted">(4.7)</span></div>
+                        <a href="#" class="btn btn-sm btn-premium-outline w-100 rounded-pill">Verify Credentials</a>
                     </div>
                 </div>
             </div>
@@ -388,20 +434,18 @@
     </div>
 </section>
 
-<!-- ========================= VERIFIED PATIENT CLINICAL REVIEWS ========================= -->
-<section class="section-spacing border-top" style="background-color: #fafbfc;">
+<section class="section-padding border-top" style="background-color: #fafbfc;">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold gradient-heading">Global Clinical Logs</h2>
-            <p class="text-secondary">Authentic deployment evaluation feedback by verified platform accounts.</p>
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 fw-bold text-gradient-headline">Global Performance Logs</h2>
+            <p class="text-secondary">Authentic deployment evaluation feedback pulled directly from verified user system IDs.</p>
         </div>
         <div class="row g-4">
-            <!-- Review 1 (Bangladeshi Name) -->
-            <div class="col-lg-4">
-                <div class="review-bubble">
-                    <p class="text-dark fs-6 mb-4" style="line-height: 1.7;">"The prescription dispatch processing latency is virtually non-existent. Uploaded my script data and the medical payload cleared directly to my door in Dhaka within hours."</p>
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass-card testimonial-item h-100">
+                    <p class="text-dark fs-6 mb-4" style="line-height: 1.8;">"The payload delivery delay is negligible. Uploaded my prescription file parameters and watched the medical packet clear onto my doorstep in Dhaka in record time."</p>
                     <div class="d-flex align-items-center gap-3">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Tahmid Rahman" class="rounded-circle border" width="45" height="45">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Tahmid Rahman" class="rounded-circle border" width="48" height="48">
                         <div>
                             <h5 class="h6 fw-bold text-dark mb-0">Tahmid Rahman</h5>
                             <span class="small text-muted">Dhaka, Bangladesh</span>
@@ -409,12 +453,11 @@
                     </div>
                 </div>
             </div>
-            <!-- Review 2 (American Name) -->
-            <div class="col-lg-4">
-                <div class="review-bubble">
-                    <p class="text-dark fs-6 mb-4" style="line-height: 1.7;">"Superb routing interface. Instantly hooked up with a telehealth consultant without hitting unexpected state blocks. Real-time stream encryption parameters felt top-tier."</p>
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass-card testimonial-item h-100">
+                    <p class="text-dark fs-6 mb-4" style="line-height: 1.8;">"Excellent peer routing dashboard. Instantly established a video call thread with a verified medical board consultant without geolocation blockades."</p>
                     <div class="d-flex align-items-center gap-3">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="David Miller" class="rounded-circle border" width="45" height="45">
+                        <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="David Miller" class="rounded-circle border" width="48" height="48">
                         <div>
                             <h5 class="h6 fw-bold text-dark mb-0">David Miller</h5>
                             <span class="small text-muted">Austin, USA</span>
@@ -422,12 +465,11 @@
                     </div>
                 </div>
             </div>
-            <!-- Review 3 (British Name) -->
-            <div class="col-lg-4">
-                <div class="review-bubble">
-                    <p class="text-dark fs-6 mb-4" style="line-height: 1.7;">"The unified healthcare dashboard cleanly organizes previous diagnostics logs and historical tracking tokens. Very reliable framework for family health syncs."</p>
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="glass-card testimonial-item h-100">
+                    <p class="text-dark fs-6 mb-4" style="line-height: 1.8;">"The security configuration paradigms applied to the historical record vault are state-of-the-art. Highly structured UI frameworks layout medical history transparently."</p>
                     <div class="d-flex align-items-center gap-3">
-                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Charlotte Rose" class="rounded-circle border" width="45" height="45">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Charlotte Rose" class="rounded-circle border" width="48" height="48">
                         <div>
                             <h5 class="h6 fw-bold text-dark mb-0">Charlotte Rose</h5>
                             <span class="small text-muted">London, UK</span>
@@ -438,3 +480,21 @@
         </div>
     </div>
 </section>
+
+<section class="container my-5" data-aos="fade-up">
+    <div class="glass-card p-5 text-center position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(6,182,212,0.05) 0%, rgba(132,204,22,0.05) 100%); border-color: rgba(6,182,212,0.3);">
+        <h2 class="display-5 fw-extrabold text-gradient-headline mb-3">Initialize Your Ecosystem Today</h2>
+        <p class="text-muted mx-auto mb-4" style="max-width: 600px;">Deploy your custom profile configuration parameters and achieve priority triage optimization slots immediately.</p>
+        <a href="#" class="btn btn-premium-main btn-lg px-5">Launch Health Shell</a>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    AOS.init({
+    once: true,
+    mirror: false
+    });
+    });
+</script>
