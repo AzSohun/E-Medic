@@ -1,5 +1,9 @@
 using E_Medic.Data;
 using E_Medic.Models;
+using E_Medic.Services;
+using E_Medic.Services.Interfaces;
+using E_Medic.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,6 +40,13 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromDays(7);
     options.SlidingExpiration = true;
 });
+
+
+builder.Services.AddScoped<IAccountService, AccountService>();
+
+
+// Fluent Validator Registration
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterDtoValidator>();
 
 
 var app = builder.Build();
