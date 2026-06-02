@@ -10,12 +10,13 @@ namespace E_Medic.Services
     {
 
         private readonly UserManager<User> _userManager;
-        private readonly IEmailService _emailService;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountService(UserManager<User> userManager, IEmailService emailService)
+
+        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
-            _emailService = emailService;
+            _signInManager = signInManager;
         }
 
 
@@ -31,7 +32,7 @@ namespace E_Medic.Services
                 Gender = registerDto.Gender,
                 DateOfBirth = registerDto.DateOfBirth,
                 Role = registerDto.Role,
-                IsEmailVerified = false
+                IsEmailVerified = true
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
@@ -45,5 +46,24 @@ namespace E_Medic.Services
             return result;
 
         }
+
+
+        public async Task<SignInResult> LoginUserAsync(LoginDto dto)
+        {
+            return await _signInManager.PasswordSignInAsync(
+                dto.Email,
+                dto.Password,
+                dto.RememberMe,
+                lockoutOnFailure: false
+
+                );
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
+
     }
 }

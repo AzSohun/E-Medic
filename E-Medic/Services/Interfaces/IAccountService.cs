@@ -6,6 +6,7 @@ namespace E_Medic.Services.Interfaces
     public interface IAccountService
     {
         Task<IdentityResult> RegisterUserAsync(RegisterDto registerDto);
-        Task<IdentityResult> ConfirmEmailAsync(string userId, string token);
+        Task<SignInResult> LoginUserAsync(LoginDto loginDto);
+        Task LogoutAsync();
     }
 }
