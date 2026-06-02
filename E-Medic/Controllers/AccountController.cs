@@ -75,7 +75,7 @@ namespace E_Medic.Controllers
             var result = await _accountService.LoginUserAsync(model);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Dashboard");
             }
 
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
