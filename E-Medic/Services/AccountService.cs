@@ -40,58 +40,10 @@ namespace E_Medic.Services
             {
                 await _userManager.AddToRoleAsync(user, registerDto.Role);
 
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-                var encodedToken = HttpUtility.UrlEncode(token);
-
-                var callbackUrl = $"https://localhost:7287/Account/ConfirmEmail?userId={user.Id}&token={encodedToken}";
-
-                string emailBody = $@"
-                    <h3>Welcome, {user.FullName}!</h3>
-                    <p>Your account has been successfully created on the Gramin Telemedicine App.</p>
-                    <p>Please click the button below to activate and verify your account:</p>
-                    <a href='{callbackUrl}' style='padding:10px 20px; background-color:#0d6efd; color:white; text-decoration:none; border-radius:5px; display:inline-block; font-weight:500;'>Verify Your Account</a>
-                    <br/><br/>
-                    <p>If the button above doesn't work, please copy and paste this URL into your browser:</p>
-                    <p style='color:#64748b;'>{callbackUrl}</p>";
-
-                await _emailService.SendEmailAsync(user.Email, "Verify Your Account", emailBody);
-
             }
 
             return result;
 
-        }
-
-
-
-        public async Task<IdentityResult> ConfirmEmailAsync(string userId, string token)
-        {
-            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
-            {
-                return IdentityResult.Failed(new IdentityError { Description = "User Not Found" });
-            }
-
-            if (!Guid.TryParse(userId, out Guid userGuid))
-            {
-                return IdentityResult.Failed(new IdentityError { Description = "Invalid User Id Format।" });
-            }
-
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                return IdentityResult.Failed(new IdentityError { Description = "User Not Found।" });
-            }
-
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-
-            if (result.Succeeded)
-            {
-                user.IsEmailVerified = true;
-                await _userManager.UpdateAsync(user);
-            }
-
-            return result;
         }
     }
 }

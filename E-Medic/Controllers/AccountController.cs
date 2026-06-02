@@ -62,24 +62,6 @@ namespace E_Medic.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ConfirmEmail(string userId, string token)
-        {
-            var result = await _accountService.ConfirmEmailAsync(userId, token);
-
-            if (result.Succeeded)
-            {
-                ViewBag.StatusMessage = "Your Email Verification has been successfull।";
-                ViewBag.IsSuccess = true;
-            }
-            else
-            {
-                ViewBag.StatusMessage = "URL has been expired!";
-                ViewBag.IsSuccess = false;
-            }
-
-            return View();
-        }
 
         [HttpGet]
         public IActionResult Login() => View();

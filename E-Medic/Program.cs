@@ -25,7 +25,7 @@ builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 8;
-    options.SignIn.RequireConfirmedEmail = true; // Sign in policy for Mandatory E-mail Verification
+    options.SignIn.RequireConfirmedEmail = false; // Sign in policy for Mandatory E-mail Verification
 
 }).AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders(); // Generate Token during E-mail Verification
@@ -43,7 +43,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 
 builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
+//builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 // Fluent Validator Registration
