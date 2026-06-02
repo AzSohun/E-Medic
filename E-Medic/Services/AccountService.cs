@@ -62,5 +62,36 @@ namespace E_Medic.Services
             return result;
 
         }
+
+
+
+        public async Task<IdentityResult> ConfirmEmailAsync(string userId, string token)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "User Not Found" });
+            }
+
+            if (!Guid.TryParse(userId, out Guid userGuid))
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "Invalid User Id Format।" });
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "User Not Found।" });
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
+            {
+                user.IsEmailVerified = true;
+                await _userManager.UpdateAsync(user);
+            }
+
+            return result;
+        }
     }
 }
