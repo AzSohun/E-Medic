@@ -4,8 +4,9 @@
     {
         public Guid AppointmentId { get; set; }
         public Guid PatientId { get; set; }
-        public string Diagnosis { get; set; } = string.Empty;
-        public string Medications { get; set; } = string.Empty;
-        public string DoctorNotes { get; set; } = string.Empty;
+        public Guid DoctorId { get; set; }
+        public string DiseaseName { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public IFormFile? AttachmentFile { get; set; }
     }
 }
