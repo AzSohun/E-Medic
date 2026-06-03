@@ -4,16 +4,16 @@ using E_Medic.Services.Interfaces;
 
 namespace E_Medic.Services
 {
-    public class CloudinaryService: ICloudinaryService
+    public class CloudinaryService : ICloudinaryService
     {
         private readonly Cloudinary _cloudinary;
 
         public CloudinaryService(IConfiguration configuration)
         {
             var account = new Account(
-                configuration["Cloudinary:CloudName"],
-                configuration["Cloudinary:ApiKey"],
-                configuration["Cloudinary:ApiSecret"]
+                configuration["CloudinarySettings:CloudName"],
+                configuration["CloudinarySettings:ApiKey"],
+                configuration["CloudinarySettings:ApiSecret"]
             );
 
             _cloudinary = new Cloudinary(account);
