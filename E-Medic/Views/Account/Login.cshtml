@@ -3,36 +3,82 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4 card p-4 shadow-sm">
-            <h2 class="text-center mb-4">Account Login</h2>
+<div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 75vh;">
+    <div class="row w-100 justify-content-center">
+        <!-- Card Container with glass-style light borders and beautiful soft shadow -->
+        <div class="col-12 col-sm-10 col-md-7 col-lg-5 col-xl-4 bg-white border border-light shadow-lg rounded-4 p-4 p-sm-5">
+
+            <!-- Logo area matching the Nav branding layout -->
+            <div class="text-center mb-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-info bg-opacity-10 border border-info border-opacity-25 rounded-3 mb-2" style="width: 42px; height: 42px;">
+                    <i class="bi bi-plus-lg text-info fs-4"></i>
+                </div>
+                <h2 class="fw-extrabold text-dark tracking-tight mb-1" style="font-weight: 800; letter-spacing: -0.5px;">Welcome Back</h2>
+                <p class="text-muted small">Please sign in to access your E-Medic secure portal</p>
+            </div>
+
             <form asp-action="Login" method="post">
                 @Html.AntiForgeryToken()
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
+                <!-- Universal Model Error Alerts -->
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 px-3 small border-0 rounded-3 mb-3"></div>
+
+                <!-- Email Input Field -->
                 <div class="mb-3">
-                    <label class="form-label">Email Address</label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <label class="form-label fw-semibold small text-secondary">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
+                        <input asp-for="Email" class="form-control bg-light border-start-0 ps-0 shadow-none focus-ring" placeholder="name@example.com" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
                 </div>
 
+                <!-- Password Input Field -->
                 <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input asp-for="Password" type="password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <label class="form-label fw-semibold small text-secondary mb-0">Password</label>
+                        <!-- Optional Forgot Password link for future scaling -->
+                        <a href="#" class="text-decoration-none small text-info fw-medium">Forgot?</a>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-lock"></i></span>
+                        <input asp-for="Password" type="password" class="form-control bg-light border-start-0 ps-0 shadow-none focus-ring" placeholder="••••••••" />
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
                 </div>
 
-                <div class="mb-3 form-check">
-                    <input asp-for="RememberMe" type="checkbox" class="form-check-input" />
-                    <label class="form-check-label">Remember Me</label>
+                <!-- Remember Me Checkbox -->
+                <div class="mb-4 form-check d-flex align-items-center gap-2">
+                    <input asp-for="RememberMe" type="checkbox" class="form-check-input mt-0 shadow-none border-secondary-subtle" />
+                    <label class="form-check-label small fw-medium text-secondary">Keep me signed in</label>
                 </div>
 
-                <button type="submit" class="btn btn-success w-100">Login</button>
+                <!-- Premium Theme Matching Action Button -->
+                <button type="submit" class="btn btn-primary bg-gradient py-2.5 rounded-pill fw-semibold shadow-sm w-100 border-0"
+                        style="background-image: linear-gradient(135deg, #06b6d4 0%, #0d6efd 100%);">
+                    Sign In
+                </button>
             </form>
-            <div class="mt-3 text-center">
-                <a asp-action="Register">Don't have an account? Register here</a>
+
+            <!-- Route Navigation Link -->
+            <div class="mt-4 text-center">
+                <p class="small text-secondary mb-0">
+                    Don't have an account?
+                    <a asp-action="Register" class="text-decoration-none text-info fw-semibold ms-1">Register here</a>
+                </p>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Custom Input Focus Styling to remove raw bootstrap hard blue rings -->
+<style>
+    .form-control:focus {
+        background-color: #fff !important;
+        border-color: #06b6d4 !important;
+    }
+</style>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

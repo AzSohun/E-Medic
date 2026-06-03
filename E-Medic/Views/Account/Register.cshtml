@@ -3,73 +3,234 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 card p-4 shadow-sm">
-            <h2 class="text-center mb-4">Create Account</h2>
+<div class="container d-flex flex-column justify-content-center align-items-center my-5">
+    <div class="row w-100 justify-content-center">
+        <!-- Premium Form Card Container with tight layouts and soft aesthetics -->
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 bg-white border border-light shadow-lg rounded-4 p-4 p-sm-5">
+
+            <!-- Logo & Dynamic Header Section -->
+            <div class="text-center mb-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-info bg-opacity-10 border border-info border-opacity-25 rounded-3 mb-2" style="width: 42px; height: 42px;">
+                    <i class="bi bi-plus-lg text-info fs-4"></i>
+                </div>
+                <h2 class="fw-extrabold text-dark tracking-tight mb-1" style="font-weight: 800; letter-spacing: -0.5px;">Create Account</h2>
+                <p class="text-muted small">Join the E-Medic healthcare ecosystem today</p>
+            </div>
+
             <form asp-action="Register" method="post">
                 @Html.AntiForgeryToken()
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
+                <!-- Universal Form Validation Header Feedback -->
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 px-3 small border-0 rounded-3 mb-3"></div>
+
+                <!-- Full Name Input Element Wrapper -->
                 <div class="mb-3">
-                    <label class="form-label">Full Name</label>
-                    <input asp-for="FullName" class="form-control" />
-                    <span asp-validation-for="FullName" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Email Address</label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Phone Number</label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Gender</label>
-                        <select asp-for="Gender" class="form-select">
-                            <option value="">Select</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    <label class="form-label fw-semibold small text-secondary">Full Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted px-3"><i class="bi bi-person"></i></span>
+                        <input asp-for="FullName" class="form-control bg-light border-start-0 ps-0 shadow-none modern-input" placeholder="John Doe" />
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Date of Birth</label>
-                        <input asp-for="DateOfBirth" type="date" class="form-control" />
-                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    <span asp-validation-for="FullName" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <!-- Email Form Address Input Element Wrapper -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small text-secondary">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted px-3"><i class="bi bi-envelope"></i></span>
+                        <input asp-for="Email" class="form-control bg-light border-start-0 ps-0 shadow-none modern-input" placeholder="name@example.com" />
                     </div>
+                    <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
                 </div>
 
+                <!-- Mobile Phone Segment Input Element Wrapper -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold small text-secondary">Phone Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted px-3"><i class="bi bi-telephone"></i></span>
+                        <input asp-for="PhoneNumber" class="form-control bg-light border-start-0 ps-0 shadow-none modern-input" placeholder="+1 (555) 000-0000" />
+                    </div>
+                    <span asp-validation-for="PhoneNumber" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <!-- Upgraded: Modern Segmented Gender Selection (Fixed image_041c9f.png Old Select Dropdown Issue) -->
                 <div class="mb-3">
-                    <label class="form-label">Register As</label>
-                    <select asp-for="Role" class="form-select">
-                        <option value="Patient">Patient (Village Resident)</option>
-                        <option value="Doctor">Doctor (Medical Professional)</option>
-                    </select>
-                    <span asp-validation-for="Role" class="text-danger"></span>
+                    <label class="form-label fw-semibold small text-secondary mb-2">Gender</label>
+                    <div class="d-flex gap-2 custom-segmented-group">
+                        <div class="flex-grow-1">
+                            <input type="radio" class="btn-check" asp-for="Gender" value="Male" id="genderMale" checked>
+                            <label class="btn btn-outline-gender w-100 py-2.5 px-2" for="genderMale">
+                                <i class="bi bi-gender-male me-1"></i> Male
+                            </label>
+                        </div>
+                        <div class="flex-grow-1">
+                            <input type="radio" class="btn-check" asp-for="Gender" value="Female" id="genderFemale">
+                            <label class="btn btn-outline-gender w-100 py-2.5 px-2" for="genderFemale">
+                                <i class="bi bi-gender-female me-1"></i> Female
+                            </label>
+                        </div>
+                        <div class="flex-grow-1">
+                            <input type="radio" class="btn-check" asp-for="Gender" value="Other" id="genderOther">
+                            <label class="btn btn-outline-gender w-100 py-2.5 px-2" for="genderOther">
+                                <i class="bi bi-gender-ambiguous me-1"></i> Other
+                            </label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Gender" class="text-danger small mt-1 d-block"></span>
                 </div>
 
+                <!-- Date of Birth Block Container -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold small text-secondary">Date of Birth</label>
+                    <input asp-for="DateOfBirth" type="date" class="form-control bg-light shadow-none modern-input" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <!-- Modern Role Matrix Block (From previous configuration upgrade) -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold small text-secondary d-block mb-2">Register As</label>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <input type="radio" class="btn-check" asp-for="Role" value="Patient" id="rolePatient" checked>
+                            <label class="btn btn-outline-modern-pill w-100 p-3 d-flex flex-column align-items-center gap-2" for="rolePatient">
+                                <i class="bi bi-person-workspace fs-4"></i>
+                                <span class="fw-bold small d-block">Patient</span>
+                                <span class="text-muted text-center" style="font-size: 0.72rem; line-height: 1.2;">Village Resident Portal</span>
+                            </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" class="btn-check" asp-for="Role" value="Doctor" id="roleDoctor">
+                            <label class="btn btn-outline-modern-pill w-100 p-3 d-flex flex-column align-items-center gap-2" for="roleDoctor">
+                                <i class="bi bi-heart-pulse fs-4"></i>
+                                <span class="fw-bold small d-block">Doctor</span>
+                                <span class="text-muted text-center" style="font-size: 0.72rem; line-height: 1.2;">Medical Professional</span>
+                            </label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Role" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <!-- Guarded Security Credentials Input Wrapper (Password) -->
                 <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input asp-for="Password" type="password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <label class="form-label fw-semibold small text-secondary">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted px-3"><i class="bi bi-lock"></i></span>
+                        <input asp-for="Password" type="password" class="form-control bg-light border-start-0 ps-0 shadow-none modern-input" placeholder="••••••••" />
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Confirm Password</label>
-                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                <!-- Guarded Security Credentials Input Wrapper (Confirm Password) -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold small text-secondary">Confirm Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted px-3"><i class="bi bi-shield-check"></i></span>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control bg-light border-start-0 ps-0 shadow-none modern-input" placeholder="••••••••" />
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small mt-1 d-block"></span>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Register</button>
+                <!-- Premium Action Button Token Component Wrapper -->
+                <button type="submit" class="btn btn-primary bg-gradient py-2.5 rounded-3 fw-semibold shadow-sm w-100 border-0"
+                        style="background-image: linear-gradient(135deg, #06b6d4 0%, #0d6efd 100%);">
+                    Register Account
+                </button>
             </form>
+
+            <!-- Redirection Backlinks Navigation Directory Footer Link -->
+            <div class="mt-4 text-center">
+                <p class="small text-secondary mb-0">
+                    Already have an account?
+                    <a asp-action="Login" class="text-decoration-none text-info fw-semibold ms-1">Login here</a>
+                </p>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Extra Fine-tuned Overrides for High-End Input Interfaces -->
+<style>
+    /* Sleek rounded styling for inputs */
+    .modern-input {
+        border-radius: 12px !important;
+        border: 1px solid #e2e8f0 !important;
+        padding-top: 0.6rem !important;
+        padding-bottom: 0.6rem !important;
+        font-size: 0.92rem !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    /* Fixed border radius alignment when group prepend icon is appended */
+    .input-group > .input-group-text {
+        border-top-left-radius: 12px !important;
+        border-bottom-left-radius: 12px !important;
+        border: 1px solid #e2e8f0 !important;
+        border-right: none !important;
+    }
+
+    .input-group > .modern-input {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+
+    /* Soft neon focus animation ring */
+    .modern-input:focus {
+        background-color: #ffffff !important;
+        border-color: #06b6d4 !important;
+        box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1) !important;
+    }
+
+    /* Modern Styled Segmented Capsule for Gender Choices */
+    .btn-outline-gender {
+        border: 1px solid #e2e8f0;
+        background-color: #f8fafc;
+        color: #475569;
+        border-radius: 10px;
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+        .btn-outline-gender:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            color: #1e293b;
+        }
+
+    .btn-check:checked + .btn-outline-gender {
+        background-color: #ecfeff !important;
+        border-color: #06b6d4 !important;
+        color: #0891b2 !important;
+    }
+
+    /* Upgrade Segment for Radio Selection Grid Modules */
+    .btn-outline-modern-pill {
+        border: 1px solid #e2e8f0;
+        background-color: #f8fafc;
+        color: #334155;
+        border-radius: 14px;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+    }
+
+        .btn-outline-modern-pill i {
+            color: #64748b;
+            transition: color 0.25s;
+        }
+
+    /* Active Radio Glow Styling Mapping */
+    .btn-check:checked + .btn-outline-modern-pill {
+        background-color: #ecfeff !important;
+        border-color: #06b6d4 !important;
+        color: #0891b2 !important;
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.08) !important;
+    }
+
+        .btn-check:checked + .btn-outline-modern-pill i {
+            color: #06b6d4 !important;
+        }
+</style>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
