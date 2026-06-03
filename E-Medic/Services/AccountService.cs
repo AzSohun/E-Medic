@@ -51,6 +51,18 @@ namespace E_Medic.Services
 
         public async Task<SignInResult> LoginUserAsync(LoginDto dto)
         {
+
+            var user = await _userManager.FindByEmailAsync(dto.Email);
+
+            if (user != null)
+            {
+                if (user.Role == "Doctor" && !user.IsApprovedByAdmin)
+                {
+                    return SignInResult.NotAllowed;
+                }
+            }
+
+
             return await _signInManager.PasswordSignInAsync(
                 dto.Email,
                 dto.Password,
