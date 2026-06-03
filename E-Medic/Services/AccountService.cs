@@ -22,13 +22,12 @@ namespace E_Medic.Services
 
         public async Task<IdentityResult> RegisterUserAsync(RegisterDto registerDto)
         {
-
             var user = new User
             {
                 FullName = registerDto.FullName,
+                UserName = registerDto.Email,
                 Email = registerDto.Email,
                 PhoneNumber = registerDto.PhoneNumber,
-                PasswordHash = registerDto.Password,
                 Gender = registerDto.Gender,
                 DateOfBirth = registerDto.DateOfBirth,
                 Role = registerDto.Role,
@@ -40,11 +39,9 @@ namespace E_Medic.Services
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, registerDto.Role);
-
             }
 
             return result;
-
         }
 
 
