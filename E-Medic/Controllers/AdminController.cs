@@ -38,5 +38,12 @@ namespace E_Medic.Controllers
 
             return RedirectToAction(nameof(PendingDoctors));
         }
+
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
