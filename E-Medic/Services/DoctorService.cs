@@ -19,12 +19,15 @@ namespace E_Medic.Services
 
         public async Task<Doctor?> GetProfileByUserIdAsync(Guid userId)
         {
-            return await _context.Doctors.Include(d => d.User).FirstOrDefaultAsync(d => d.UserId == userId);
+            return await _context.Doctors
+                .Include(d => d.User)
+                .FirstOrDefaultAsync(d => d.UserId == userId);
         }
 
         public async Task<bool> CompleteProfileAsync(Guid userId, DoctorProfileDto dto)
         {
             var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == userId);
+
             if (doctor == null) return false;
 
             if (dto.ProfilePicture != null && dto.ProfilePicture.Length > 0)
