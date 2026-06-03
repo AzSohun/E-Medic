@@ -7,5 +7,7 @@
         public string AvailableHours { get; set; } = string.Empty;
         public decimal ConsultationFee { get; set; }
         public int ExperienceYears { get; set; }
+
+        public IFormFile? ProfilePicture { get; set; }
     }
 }
