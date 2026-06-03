@@ -93,7 +93,13 @@ namespace E_Medic.Controllers
                 return RedirectToAction("Index", "Dashboard");
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            if (result.IsNotAllowed)
+            {
+                ModelState.AddModelError(string.Empty, "Your account is pending admin approval. Please wait until verified.");
+                return View(model);
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid login attempt. Please check your email and password.");
             return View(model);
         }
 
