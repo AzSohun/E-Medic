@@ -1,0 +1,103 @@
+﻿@model IEnumerable<E_Medic.Models.User>
+@{
+    ViewData["Title"] = "Pending Doctors";
+}
+
+<div class="container my-5">
+    <!-- 🎯 Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark tracking-tight mb-1" style="font-weight: 800; letter-spacing: -0.5px;">Doctor Approvals</h2>
+            <p class="text-secondary small mb-0">Manage and verify newly registered healthcare professionals</p>
+        </div>
+        <div class="badge bg-info-subtle text-info px-3 py-2 rounded-pill fw-bold" style="background-color: #ecfeff; color: #0891b2 !important;">
+            Pending: @Model.Count()
+        </div>
+    </div>
+
+    <!-- 🔥 Toast Alerts for Actions Feedback -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show border-0 rounded-3 mb-4 small" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- 📊 Data Table / Empty State Container -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        @if (!Model.Any())
+        {
+            <!-- 🍃 Clean Empty State UI -->
+            <div class="card-body text-center py-5">
+                <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-person-check text-muted fs-3"></i>
+                </div>
+                <h5 class="fw-bold text-secondary mb-1">All Caught Up!</h5>
+                <p class="text-muted small mb-0">There are no pending doctor registration requests at the moment.</p>
+            </div>
+        }
+        else
+        {
+            <!-- 📋 Responsive Modern Table -->
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0" style="font-size: 0.9rem;">
+                    <thead class="table-light text-uppercase tracking-wider" style="font-size: 0.75rem; background-color: #f8fafc;">
+                        <tr>
+                            <th class="ps-4 py-3 text-secondary fw-bold">Full Name</th>
+                            <th class="py-3 text-secondary fw-bold">Email Address</th>
+                            <th class="py-3 text-secondary fw-bold">Phone Number</th>
+                            <th class="py-3 text-secondary fw-bold">Gender</th>
+                            <th class="text-end pe-4 py-3 text-secondary fw-bold">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var doctor in Model)
+                        {
+                            <tr class="border-bottom" style="transition: background-color 0.2s;">
+                                <td class="ps-4 py-3">
+                                    <div class="fw-bold text-dark">@doctor.FullName</div>
+                                </td>
+                                <td class="py-3 text-secondary">@doctor.Email</td>
+                                <td class="py-3 text-secondary">@(string.IsNullOrEmpty(doctor.PhoneNumber) ? "N/A" : doctor.PhoneNumber)</td>
+                                <td class="py-3">
+                                    <span class="badge bg-light text-dark border rounded-pill px-2.5 py-1 small fw-normal">@doctor.Gender</span>
+                                </td>
+                                <td class="text-end pe-4 py-3">
+                                    <!-- 🚀 Form submission for Approval Action -->
+                                    <form asp-controller="Admin" asp-action="ApproveDoctor" asp-route-id="@doctor.Id" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-approve-submit px-3 py-1.5 rounded-3 fw-bold border-0 text-white">
+                                            <i class="bi bi-check-lg me-1"></i> Approve
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    /* Premium Hover effect on Table rows */
+    .table tbody tr:hover {
+        background-color: #f8fafc !important;
+    }
+
+    /* Action Button Custom Gradient Styling */
+    .btn-approve-submit {
+        background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%) !important;
+        box-shadow: 0 2px 6px rgba(6, 182, 212, 0.15);
+        font-size: 0.82rem;
+        transition: all 0.2s ease;
+    }
+
+        .btn-approve-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+            opacity: 0.95;
+        }
+</style>
