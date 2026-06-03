@@ -9,17 +9,23 @@
         <div class="col-md-8 col-lg-6">
             <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
                 <div class="text-center mb-4">
-                    <div class="p-3 bg-light-cyan d-inline-block rounded-circle mb-2">
+                    <div class="p-3 bg-light d-inline-block rounded-circle mb-2">
                         <i class="bi bi-person-vcard text-info fs-1"></i>
                     </div>
                     <h3 class="fw-bold text-dark">Complete Professional Profile</h3>
                     <p class="text-muted small">Please provide your medical practicing details to start receiving appointments.</p>
                 </div>
 
-                <form asp-controller="Doctor" asp-action="CompleteProfile" method="post">
+                <form asp-controller="Doctor" asp-action="CompleteProfile" method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
 
                     <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProfilePicture" class="form-label fw-semibold small text-secondary">Upload Profile Picture</label>
+                        <input asp-for="ProfilePicture" type="file" class="form-control py-2 rounded-3" accept="image/jpeg, image/jpg, image/png" />
+                        <span asp-validation-for="ProfilePicture" class="text-danger small"></span>
+                    </div>
 
                     <div class="mb-3">
                         <label asp-for="Qualifications" class="form-label fw-semibold small text-secondary">Medical Qualifications</label>
