@@ -90,5 +90,12 @@ namespace E_Medic.Controllers
             await _accountService.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
