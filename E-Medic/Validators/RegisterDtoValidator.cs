@@ -28,7 +28,7 @@ namespace E_Medic.Validators
                 .Equal(x => x.Password).WithMessage("Password doesn't match");
 
             RuleFor(x => x.Gender)
-                .NotEmpty().WithMessage("Enter your password");
+                .NotEmpty().WithMessage("Enter your Gender");
 
             RuleFor(x => x.DateOfBirth)
                 .NotEmpty().WithMessage("Enter your date of birth")
