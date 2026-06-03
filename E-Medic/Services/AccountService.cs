@@ -11,12 +11,14 @@ namespace E_Medic.Services
 
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IDoctorService _doctorService;
 
 
-        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager, IDoctorService doctorService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _doctorService = doctorService;
         }
 
 
@@ -77,6 +79,22 @@ namespace E_Medic.Services
             await _signInManager.SignOutAsync();
         }
 
+        public async Task<bool> IsDoctorProfilePendingAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user != null && user.Role == "Doctor")
+            {
+                var doctorProfile = await _doctorService.GetProfileByUserIdAsync(user.Id);
+
+                if (doctorProfile != null && !doctorProfile.IsProfileCompleted)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
     }
 }
