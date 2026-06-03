@@ -17,8 +17,9 @@ namespace E_Medic.Controllers
         [HttpGet]
         public IActionResult CompleteProfile()
         {
-            return View();
+            return View("CompleteProfile");
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
