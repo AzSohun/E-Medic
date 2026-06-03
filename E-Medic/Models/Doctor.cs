@@ -2,7 +2,6 @@
 {
     public class Doctor: BaseEntity
     {
-
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
         public string Qualifications { get; set; } = string.Empty;
@@ -12,6 +11,9 @@
         public string DoctorProfilePicture { get; set; } = "doctor-default.png";
         public decimal AverageRating { get; set; } = 0.0m;
         public int TotalRatingsCount { get; set; } = 0;
+        public decimal ConsultationFee { get; set; }
+        public int ExperienceYears { get; set; }
+        public bool IsProfileCompleted { get; set; } = false;
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }
