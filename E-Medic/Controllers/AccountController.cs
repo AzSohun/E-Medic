@@ -1,5 +1,6 @@
 ﻿using E_Medic.DTOs;
 using E_Medic.Services;
+using E_Medic.Services.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,11 @@ namespace E_Medic.Controllers
     public class AccountController : Controller
     {
 
-        private readonly AccountService _accountService;
+        private readonly IAccountService _accountService;
         private readonly IValidator<RegisterDto> _validator;
 
 
-        public AccountController(AccountService accountService, IValidator<RegisterDto> validator)
+        public AccountController(IAccountService accountService, IValidator<RegisterDto> validator)
         {
             _accountService = accountService;
             _validator = validator;

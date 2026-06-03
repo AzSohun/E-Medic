@@ -1,0 +1,75 @@
+﻿@model E_Medic.DTOs.RegisterDto
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 card p-4 shadow-sm">
+            <h2 class="text-center mb-4">Create Account</h2>
+            <form asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Gender</label>
+                        <select asp-for="Gender" class="form-select">
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input asp-for="DateOfBirth" type="date" class="form-control" />
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Register As</label>
+                    <select asp-for="Role" class="form-select">
+                        <option value="Patient">Patient (Village Resident)</option>
+                        <option value="Doctor">Doctor (Medical Professional)</option>
+                    </select>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
