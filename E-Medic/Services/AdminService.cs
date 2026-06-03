@@ -20,5 +20,20 @@ namespace E_Medic.Services
                 .Where(u => u.Role == "Doctor" && !u.IsApprovedByAdmin)
                 .ToListAsync();
         }
+
+
+        public async Task<IdentityResult> ApproveDoctorAsync(Guid doctorId)
+        {
+            var doctor = await _userManager.FindByIdAsync(doctorId.ToString());
+
+            if (doctor == null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "Doctor not found." });
+            }
+
+            doctor.IsApprovedByAdmin = true;
+
+            return await _userManager.UpdateAsync(doctor);
+        }
     }
 }
