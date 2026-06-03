@@ -11,7 +11,6 @@
             </h3>
             <hr />
 
-            <!-- ⚠️ ফাইল আপলোডের জন্য enctype="multipart/form-data" দেওয়া আবশ্যক -->
             <form asp-action="Create" method="post" enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
 
@@ -19,21 +18,18 @@
                 <input type="hidden" asp-for="PatientId" />
                 <input type="hidden" asp-for="DoctorId" />
 
-                <!-- ১. রোগ নির্ণয় বা রোগের নাম -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Disease Name / Diagnosis</label>
                     <input asp-for="DiseaseName" class="form-control" placeholder="e.g., Seasonal Fever, Typhoid, Hypertension" required />
                     <span asp-validation-for="DiseaseName" class="text-danger"></span>
                 </div>
 
-                <!-- ২. ওষুধের বিবরণ এবং পরামর্শ -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Medications & Clinical Description</label>
                     <textarea asp-for="Description" rows="6" class="form-control" placeholder="Write prescription blueprint here...&#10;e.g.&#10;1. Napa Extend (1+0+1) - 5 days&#10;2. Entacyd (1+0+1) - Before meal" required></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
-                <!-- 📄 ৩. ডিজিটাল প্রেসক্রিপশন বা রিপোর্ট আপলোড (তোর রিকোয়ারমেন্ট!) -->
                 <div class="mb-4">
                     <label class="form-label fw-semibold">Attach Digital Prescription / Report (PDF, Image)</label>
                     <input asp-for="AttachmentFile" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png" />
