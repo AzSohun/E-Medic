@@ -24,6 +24,12 @@ namespace E_Medic.Controllers
         [HttpGet]
         public IActionResult Register() 
         {
+
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -65,7 +71,15 @@ namespace E_Medic.Controllers
 
 
         [HttpGet]
-        public IActionResult Login() => View();
+        public IActionResult Login()
+        {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
