@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center my-5 py-5">
+    <div class="row w-100 justify-content-center">
+        <!-- 🛡️ Access Denied Card Box -->
+        <div class="col-12 col-md-8 col-lg-6 bg-white border border-0 shadow-lg rounded-4 p-5 text-center" style="box-shadow: 0 20px 40px rgba(0,0,0,0.06) !important;">
+
+            <!-- 🛑 Warning Animation Shield -->
+            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-4 animate-shield" style="width: 80px; height: 80px; background-color: #fef2f2; border: 2px solid #fee2e2;">
+                <i class="bi bi-shield-lock-fill text-danger fs-1" style="color: #dc2626 !important;"></i>
+            </div>
+
+            <!-- 📝 Content text -->
+            <h2 class="fw-bold text-dark tracking-tight mb-2" style="font-weight: 800; font-size: 2rem; letter-spacing: -0.75px;">Access Denied</h2>
+            <p class="text-secondary mb-4 mx-auto" style="max-width: 85%; font-size: 0.95rem;">
+                Oops! You don't have permission to access this page. This area is strictly reserved for administrative personnel only.
+            </p>
+
+            <!-- 🔗 Action Backlinks Navigation -->
+            <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center mt-2">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary py-2 px-4 rounded-3 fw-bold small transition-btn">
+                    <i class="bi bi-house-door me-1"></i> Go to Homepage
+                </a>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-login-redirect py-2 px-4 rounded-3 fw-bold small text-white border-0">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Switch Account
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Premium Hover Animation Effects */
+    .animate-shield {
+        transition: transform 0.3s ease;
+    }
+
+        .animate-shield:hover {
+            transform: scale(1.08) rotate(-5deg);
+        }
+
+    .transition-btn {
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+    }
+
+        .transition-btn:hover {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+    /* Master Button Gradient Layout Configuration */
+    .btn-login-redirect {
+        background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%) !important;
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.15);
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+
+        .btn-login-redirect:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.25);
+            opacity: 0.95;
+        }
+</style>
