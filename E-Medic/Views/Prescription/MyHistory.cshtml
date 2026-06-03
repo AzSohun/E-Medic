@@ -36,10 +36,17 @@
 
                             @if (!string.IsNullOrEmpty(record.AttachmentFilePath))
                             {
-                                <div class="mt-3">
-                                    <a href="@record.AttachmentFilePath" target="_blank" class="btn btn-sm btn-outline-primary w-100 fw-semibold">
-                                        <i class="bi bi-file-earmark-arrow-down"></i> View / Download Attached Prescription File
+                                <div class="mt-3 d-flex flex-column gap-2">
+                                    <a asp-controller="Prescription" asp-action="DownloadPdf" asp-route-id="@record.Id" class="btn btn-sm btn-dark w-100 fw-semibold">
+                                        <i class="bi bi-file-earmark-pdf-fill text-danger"></i> Download Official Prescription PDF
                                     </a>
+
+                                    @if (!string.IsNullOrEmpty(record.AttachmentFilePath))
+                                    {
+                                        <a href="@record.AttachmentFilePath" target="_blank" class="btn btn-sm btn-outline-primary w-100 fw-semibold">
+                                            <i class="bi bi-file-earmark-arrow-down"></i> View Doctor's Uploaded Attachment
+                                        </a>
+                                    }
                                 </div>
                             }
                             else
