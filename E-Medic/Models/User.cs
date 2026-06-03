@@ -15,5 +15,7 @@ namespace E_Medic.Models
         public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
+        public bool IsApprovedByAdmin { get; set; } = false;
+
     }
 }

@@ -1,24 +1,5 @@
-services:
-    db:
-        image: postgres:18.3
-        container_name: telemedicine_postgres
-        restart: always
-        environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: your_secure_password
-            POSTGRES_DB: VillageTelemedicineDb
-        ports:
-            - "5432:5432"
-        volumes:
-            - postgres_data:/var/lib/postgresql/data
-
-    mailpit:
-        image: axllent/mailpit
-        container_name: telemedicine_mailpit
-        restart: always
-        ports:
-            - "1025:1025"
-            - "8025:8025"
-
-volumes:
-    postgres_data:
+  "CloudinarySettings": {
+    "CloudName": "dcrun2n7j",
+    "ApiKey": "294688468842687",
+    "ApiSecret": "2mcXYws8l34Ypd60m5ye6nqKJgU"
+  }
