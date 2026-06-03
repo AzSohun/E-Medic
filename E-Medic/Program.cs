@@ -48,6 +48,7 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
 builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 builder.Services.AddScoped<IPdfService, PdfService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 //builder.Services.AddScoped<IEmailService, EmailService>();
 
 
