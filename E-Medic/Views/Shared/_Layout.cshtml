@@ -4,146 +4,179 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - E-Medic</title>
-    <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/E_Medic.styles.css" asp-append-version="true" />
 
-    <!-- Bootstrap Icons Extension Included for UI Icons -->
+    <!-- Google Fonts: Inter & Bootstrap Icons Included -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- Google Fonts: Inter integrated for premium look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Force full screen height layout structure */
-        html, body {
-        height: 100%;
-        margin: 0;
-        }
+            html, body {
+                height: 100%;
+                margin: 0;
+            }
 
-        body {
-        font-family: 'Inter', sans-serif;
-        background-color: #ffffff;
-        color: #0f172a;
-        display: flex;
-        flex-direction: column;
-        }
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: #ffffff;
+                color: #0f172a;
+                display: flex;
+                flex-direction: column;
+                -webkit-font-smoothing: antialiased;
+            }
 
-        /* Container layout mapping wrapper to freeze dynamic sticky placement */
-        .main-wrapper {
-        flex: 1 0 auto;
-        }
+            .main-wrapper {
+                flex: 1 0 auto;
+            }
 
-        /* Smooth backdrop filters for transparent navbar */
-        .modern-nav {
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        padding: 0.6rem 0 !important;
-        }
+            /* Modern Glassmorphic Navbar Custom Styles */
+            .modern-nav {
+                background-color: rgba(255, 255, 255, 0.85) !important;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border-bottom: 1px solid #e2e8f0 !important;
+                padding: 0.75rem 0 !important;
+            }
 
-        /* Branding Text Engine overrides */
-        .logo-text-gradient {
-        background: linear-gradient(135deg, #0f172a 30%, #06b6d4 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        }
+            .logo-text {
+                font-weight: 700;
+                color: #0f172a;
+                letter-spacing: -0.5px;
+            }
 
-        /* Fixed Register Button Theme and Matching Tone (Based on image_0395bb.jpg) */
-        .btn-register-theme {
-        background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%) !important;
-        color: white !important;
-        font-weight: 600;
-        font-size: 0.88rem;
-        box-shadow: 0 4px 10px rgba(6, 182, 212, 0.15);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+            .logo-accent {
+                color: #06b6d4;
+            }
 
-        .btn-register-theme:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 14px rgba(2, 132, 199, 0.25);
-        }
+            /* High-End Clean Nav Links Interaction */
+            .nav-link-custom {
+                color: #475569 !important;
+                font-weight: 500;
+                font-size: 0.92rem;
+                padding: 0.5rem 0.85rem !important;
+                border-radius: 6px;
+                transition: all 0.15s ease-in-out;
+            }
 
-        /* Professional Solid Light Footer (No Gradients, No Heavy Shadows) */
-        .modern-footer {
-        flex-shrink: 0;
-        background-color: #f8fafc !important; /* Premium Clean Slate Light Gray */
-        border-top: 1px solid #e2e8f0 !important; /* Subtle dividing border */
-        }
+                .nav-link-custom:hover {
+                    color: #0f172a !important;
+                    background-color: #f1f5f9;
+                }
 
-        .hover-text-info:hover {
-        color: #06b6d4 !important;
-        }
+            /* Premium Cyan Theme Active Buttons and Badges */
+            .btn-register-theme {
+                background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%) !important;
+                color: #ffffff !important;
+                font-weight: 600;
+                font-size: 0.88rem;
+                border: none;
+                box-shadow: 0 4px 12px rgba(6, 182, 212, 0.15);
+                transition: all 0.2s ease;
+            }
 
-        .transition-all {
-        transition: all 0.2s ease-in-out;
-        }
+                .btn-register-theme:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 0 6px 16px rgba(2, 132, 199, 0.25);
+                }
+
+            /* Ultra-Clean Slate Light Footer Layout */
+            .modern-footer {
+                flex-shrink: 0;
+                background-color: #f8fafc !important;
+                border-top: 1px solid #e2e8f0 !important;
+            }
+
+            .footer-link {
+                color: #64748b !important;
+                font-weight: 500;
+                font-size: 0.88rem;
+                transition: color 0.15s ease;
+            }
+
+                .footer-link:hover {
+                    color: #06b6d4 !important;
+                }
     </style>
 </head>
 <body>
+
     <header class="sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white bg-opacity-75 border-bottom border-light shadow-sm modern-nav">
+        <nav class="navbar navbar-expand-lg navbar-light modern-nav">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center gap-2 fw-extrabold fs-4" style="letter-spacing: -0.75px;" asp-area="" asp-controller="Home" asp-action="Index">
-                    <div class="d-flex align-items-center justify-content-center bg-info bg-opacity-10 border border-info border-opacity-25 rounded-3" style="width: 36px; height: 36px;">
-                        <i class="bi bi-plus-lg text-info fs-5"></i>
+
+                <!-- Brand Identity Core Component -->
+                <a class="navbar-brand d-flex align-items-center gap-2 m-0 p-0" asp-controller="Home" asp-action="Index">
+                    <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 32px; height: 32px; background-color: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.25);">
+                        <i class="bi bi-plus-lg logo-accent fs-5"></i>
                     </div>
-                    <span class="logo-text-gradient fw-bold">E-Medic</span>
+                    <span class="logo-text fs-4">E<span class="logo-accent">-</span>Medic</span>
                 </a>
 
-                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <!-- Custom Minimal Native Hamburger Trigger -->
+                <button class="navbar-toggler border-0 p-1 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="bi bi-list fs-2 text-dark"></i>
                 </button>
 
-                <div class="navbar-collapse collapse justify-content-between align-items-center mt-3 mt-lg-0">
-                    <ul class="navbar-nav gap-1 ps-lg-3">
+                <!-- Collapsible Navigation Context Container -->
+                <div class="collapse navbar-collapse id=" mainNavbar"">
+
+                    <!-- Left Contextual Operations Loop -->
+                    <ul class="navbar-nav mx-auto gap-1 mt-3 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link px-3 py-2 rounded-2 fw-medium text-secondary hover-bg-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link nav-link-custom" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link px-3 py-2 rounded-2 fw-medium text-dark" asp-controller="Dashboard" asp-action="Index">My Dashboard</a>
+                                <a class="nav-link nav-link-custom" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                             </li>
 
                             @if (User.IsInRole("Patient"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link px-3 py-2 rounded-2 fw-medium text-primary d-flex align-items-center gap-2" asp-controller="Appointment" asp-action="FindDoctors">
-                                        <i class="bi bi-search"></i> Find & Book Doctor
+                                    <a class="nav-link nav-link-custom text-info" asp-controller="Appointment" asp-action="FindDoctors">
+                                        <i class="bi bi-search me-1"></i> Find & Book Doctor
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link nav-link-custom" asp-controller="Prescription" asp-action="MyHistory">
+                                        <i class="bi bi-clock-history me-1"></i> Medical Records
                                     </a>
                                 </li>
                             }
                             @if (User.IsInRole("Doctor"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link px-3 py-2 rounded-2 fw-medium text-success d-flex align-items-center gap-2" asp-controller="Appointment" asp-action="DoctorQueue">
-                                        <i class="bi bi-calendar-check"></i> Patients Queue
+                                    <a class="nav-link nav-link-custom text-success" asp-controller="Appointment" asp-action="DoctorQueue">
+                                        <i class="bi bi-calendar-check me-1"></i> Patients Queue
                                     </a>
                                 </li>
                             }
                         }
                     </ul>
 
-                    <ul class="navbar-nav align-items-center gap-2 mt-3 mt-lg-0">
+                    <!-- Right Session Authentication Management Wrapper -->
+                    <ul class="navbar-nav align-items-center gap-3 m-0 p-0 mt-3 mt-lg-0">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <span class="d-inline-flex align-items-center gap-2 bg-light px-3 py-2 rounded-pill text-dark fw-semibold small">
-                                    <i class="bi bi-person-circle text-secondary fs-6"></i> @User.Identity.Name
-                                    <span class="badge bg-dark rounded-pill fw-medium px-2 py-1">
+                                <div class="d-inline-flex align-items-center gap-2 bg-light px-3 py-1.5 rounded-pill border">
+                                    <i class="bi bi-person-circle text-secondary fs-6"></i>
+                                    <span class="text-dark fw-semibold small">@User.Identity.Name</span>
+                                    <span class="badge bg-dark rounded-pill fw-medium px-2 py-0.5" style="font-size: 0.72rem;">
                                         @(User.IsInRole("Admin") ? "Admin" : User.IsInRole("Doctor") ? "Doctor" : "Patient")
                                     </span>
-                                </span>
+                                </div>
                             </li>
                             <li class="nav-item w-100 w-lg-auto">
                                 <form class="d-inline" asp-controller="Account" asp-action="Logout" method="post">
                                     @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn btn-link text-danger text-decoration-none w-100 px-3 py-2 rounded-pill d-flex align-items-center justify-content-center gap-2">
+                                    <button type="submit" class="btn nav-link-custom text-danger border-0 w-100 bg-transparent px-3 py-1.5 d-flex align-items-center justify-content-center gap-1.5">
                                         <i class="bi bi-box-arrow-right"></i> Logout
                                     </button>
                                 </form>
@@ -152,44 +185,45 @@
                         else
                         {
                             <li class="nav-item w-100 w-lg-auto">
-                                <a class="nav-link px-4 py-2 rounded-pill fw-medium text-center text-secondary" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link nav-link-custom text-center px-4" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
-                            <li class="nav-item w-100 w-lg-auto mt-2 mt-lg-0">
-                                <!-- Replaced generic blue with exact matched clinical cyan gradient styling -->
-                                <a class="btn btn-register-theme px-4 py-2 rounded-pill shadow-sm w-100 border-0" asp-controller="Account" asp-action="Register">Register</a>
+                            <li class="nav-item w-100 w-lg-auto">
+                                <a class="btn btn-register-theme px-4 py-1.5 rounded-pill w-100" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                         }
                     </ul>
+
                 </div>
             </div>
         </nav>
     </header>
 
+    <!-- Structural Dynamic Layout Content Root -->
     <div class="main-wrapper">
         <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <!-- Upgraded Sleek Solid Light Footer -->
+    <!-- Minimal Slate Light Structural Footer Core Component -->
+    <!-- Minimal Slate Light Structural Footer Core Component (Fixed Padding) -->
     <footer class="modern-footer py-4">
         <div class="container">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
 
-                <!-- Left: Branding & Copyright Core -->
-                <div class="d-flex align-items-center gap-2">
-                    <span class="text-info font-bold fw-bold" style="font-size: 1.1rem; line-height: 1;">➕</span>
-                    <span class="fw-bold tracking-tight text-dark" style="font-size: 1.05rem; letter-spacing: -0.3px;">E-Medic</span>
-                    <span class="text-muted mx-1" style="font-size: 0.85rem;">•</span>
-                    <span class="text-secondary small">&copy; 2026 All rights reserved.</span>
+                <!-- Left Structural Matrix Component -->
+                <div class="d-flex align-items-center gap-2 text-secondary small">
+                    <span class="text-info fw-bold" style="font-size: 1.1rem; line-height: 1;">+</span>
+                    <span class="fw-bold text-dark" style="font-size: 0.95rem; letter-spacing: -0.2px;">E-Medic</span>
+                    <span>&copy; 2026 All rights reserved.</span>
                 </div>
 
-                <!-- Right: High-End Minimal Horizontal Links Grid -->
-                <div class="d-flex flex-wrap align-items-center justify-content-center gap-4" style="font-size: 0.88rem;">
-                    <a class="text-decoration-none text-secondary hover-text-info transition-all fw-medium" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    <a class="text-decoration-none text-secondary hover-text-info transition-all fw-medium" href="#solutions">Solutions</a>
-                    <a class="text-decoration-none text-secondary hover-text-info transition-all fw-medium" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
-                    <a class="text-decoration-none text-secondary hover-text-info transition-all fw-medium" href="#">Terms</a>
+                <!-- Right Inter-Domain Horizontal Hyperlinks Alignment -->
+                <div class="d-flex align-items-center justify-content-center gap-4">
+                    <a class="text-decoration-none footer-link" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="text-decoration-none footer-link" href="#solutions">Solutions</a>
+                    <a class="text-decoration-none footer-link" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                    <a class="text-decoration-none footer-link" href="#">Terms</a>
                 </div>
 
             </div>
