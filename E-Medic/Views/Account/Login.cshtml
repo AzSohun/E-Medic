@@ -28,7 +28,7 @@
                     <label class="form-label fw-semibold small text-secondary">Email Address</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
-                        <input asp-for="Email" class="form-control bg-light border-start-0 ps-0 shadow-none focus-ring" placeholder="name@example.com" />
+                        <input asp-for="Email" class="form-control bg-light border-start-0 ps-0 shadow-none modern-input focus-ring" placeholder="name@example.com" />
                     </div>
                     <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
                 </div>
@@ -37,12 +37,11 @@
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <label class="form-label fw-semibold small text-secondary mb-0">Password</label>
-                        <!-- Optional Forgot Password link for future scaling -->
                         <a href="#" class="text-decoration-none small text-info fw-medium">Forgot?</a>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-lock"></i></span>
-                        <input asp-for="Password" type="password" class="form-control bg-light border-start-0 ps-0 shadow-none focus-ring" placeholder="••••••••" />
+                        <input asp-for="Password" type="password" class="form-control bg-light border-start-0 ps-0 shadow-none modern-input focus-ring" placeholder="••••••••" />
                     </div>
                     <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
                 </div>
@@ -53,9 +52,8 @@
                     <label class="form-check-label small fw-medium text-secondary">Keep me signed in</label>
                 </div>
 
-                <!-- Premium Theme Matching Action Button -->
-                <button type="submit" class="btn btn-primary bg-gradient py-2.5 rounded-pill fw-semibold shadow-sm w-100 border-0"
-                        style="background-image: linear-gradient(135deg, #06b6d4 0%, #0d6efd 100%);">
+                <!-- Upgraded: Matched Premium Theme Cyan-Blue Gradient Action Button (Based on Navbar config) -->
+                <button type="submit" class="btn btn-login-submit py-2.5 rounded-pill fw-semibold shadow-sm w-100 border-0">
                     Sign In
                 </button>
             </form>
@@ -71,12 +69,47 @@
     </div>
 </div>
 
-<!-- Custom Input Focus Styling to remove raw bootstrap hard blue rings -->
+<!-- Custom Input Focus Styling & Login Button overrides -->
 <style>
+    .modern-input {
+        border-radius: 12px !important;
+        border: 1px solid #e2e8f0 !important;
+        padding-top: 0.6rem !important;
+        padding-bottom: 0.6rem !important;
+        font-size: 0.92rem !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    .input-group > .input-group-text {
+        border-top-left-radius: 12px !important;
+        border-bottom-left-radius: 12px !important;
+        border: 1px solid #e2e8f0 !important;
+        border-right: none !important;
+    }
+
+    .input-group > .modern-input {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+
     .form-control:focus {
         background-color: #fff !important;
         border-color: #06b6d4 !important;
+        box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1) !important;
     }
+
+    /* Cyan-Blue Gradient Action Submit Button Utility */
+    .btn-login-submit {
+        background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%) !important;
+        color: white !important;
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.15);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .btn-login-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.25);
+        }
 </style>
 
 @section Scripts {
