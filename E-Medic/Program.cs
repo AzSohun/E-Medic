@@ -43,6 +43,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
 //builder.Services.AddScoped<IEmailService, EmailService>();
 
 

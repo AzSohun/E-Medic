@@ -1,11 +1,12 @@
 ﻿using E_Medic.Data;
 using E_Medic.DTOs;
 using E_Medic.Models;
+using E_Medic.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_Medic.Services
 {
-    public class PrescriptionService
+    public class PrescriptionService: IPrescriptionService
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
