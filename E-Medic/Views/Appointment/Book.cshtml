@@ -1,0 +1,38 @@
+﻿@model E_Medic.DTOs.BookAppointmentDto
+@{
+    ViewData["Title"] = "Book Appointment";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 card p-4 shadow-sm border-0 bg-light">
+            <h3 class="text-center mb-4 text-primary"><i class="bi bi-file-earmark-medical"></i> Appointment Request Form</h3>
+
+            <form asp-action="Book" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="DoctorId" />
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Select Appointment Date</label>
+                    <input asp-for="AppointmentDate" type="date" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                    <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Describe Your Symptoms / Problem</label>
+                    <textarea asp-for="ProblemDescription" rows="4" class="form-control" placeholder="Please describe what problems you are facing (e.g., fever, chest pain, cough)..." required></textarea>
+                    <span asp-validation-for="ProblemDescription" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <a asp-action="FindDoctors" class="btn btn-outline-secondary w-100">Cancel</a>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success w-100fw-semibold">Confirm Request</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
