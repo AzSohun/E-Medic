@@ -8,5 +8,6 @@ namespace E_Medic.Services.Interfaces
         Task<IdentityResult> RegisterUserAsync(RegisterDto registerDto);
         Task<SignInResult> LoginUserAsync(LoginDto loginDto);
         Task LogoutAsync();
+        Task<bool> IsDoctorProfilePendingAsync(string email);
     }
 }
