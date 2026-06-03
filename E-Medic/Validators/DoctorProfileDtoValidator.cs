@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace E_Medic.Validators
 {
-    public class DoctorProfileDtoValidator: AbstractValidator<DoctorProfileDto>
+    public class DoctorProfileDtoValidator : AbstractValidator<DoctorProfileDto>
     {
         public DoctorProfileDtoValidator()
         {
@@ -26,6 +26,12 @@ namespace E_Medic.Validators
             RuleFor(x => x.ExperienceYears)
                 .GreaterThanOrEqualTo(0).WithMessage("Experience years cannot be negative.")
                 .LessThanOrEqualTo(50).WithMessage("Invalid experience years.");
+
+            RuleFor(x => x.ProfilePicture)
+                .Must(file => file == null || file.Length <= 2 * 1024 * 1024)
+                .WithMessage("Profile picture size must be less than 2MB.")
+                .Must(file => file == null || new[] { ".jpg", ".jpeg", ".png" }.Contains(Path.GetExtension(file.FileName).ToLower()))
+                .WithMessage("Only JPEG, JPG, and PNG images are allowed.");
         }
     }
 }
