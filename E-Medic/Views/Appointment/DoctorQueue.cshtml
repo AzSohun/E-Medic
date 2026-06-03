@@ -38,14 +38,6 @@
                         @foreach (var app in Model)
                         {
                             <tr>
-                                <td class="fw-bold text-dark">@app.Patient?.FullName</td>
-                                <td>@app.AppointmentDate.ToString("dd MMM yyyy")</td>
-                                <td class="text-truncate" style="max-width: 300px;">@app.ProblemDescription</td>
-                                <td>
-                                    <span class="badge @(app.Status == "Pending" ? "bg-warning text-dark" : app.Status == "Approved" ? "bg-success" : "bg-danger")">
-                                        @app.Status
-                                    </span>
-                                </td>
                                 <td class="text-center">
                                     @if (app.Status == "Pending")
                                     {
@@ -63,6 +55,16 @@
                                                 <button type="submit" class="btn btn-sm btn-danger px-3"><i class="bi bi-x-lg"></i> Reject</button>
                                             </form>
                                         </div>
+                                    }
+                                    else if (app.Status == "Approved")
+                                    {
+                                        <a asp-controller="Prescription" asp-action="Create" asp-route-appointmentId="@app.Id" class="btn btn-sm btn-primary px-3">
+                                            <i class="bi bi-pencil-square"></i> Write Prescription
+                                        </a>
+                                    }
+                                    else if (app.Status == "Completed")
+                                    {
+                                        <span class="badge bg-secondary px-3 py-1.5"><i class="bi bi-file-earmark-check"></i> Consulted</span>
                                     }
                                     else
                                     {
