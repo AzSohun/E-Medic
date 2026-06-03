@@ -1,3 +1,5 @@
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using E_Medic.Data;
 using E_Medic.Models;
 using E_Medic.Services;
@@ -44,6 +46,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+builder.Services.AddScoped<IPdfService, PdfService>();
 //builder.Services.AddScoped<IEmailService, EmailService>();
 
 

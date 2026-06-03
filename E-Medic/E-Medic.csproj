@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="CloudinaryDotNet" Version="1.29.1" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="MailKit" Version="4.17.0" />
