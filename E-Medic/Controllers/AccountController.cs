@@ -90,6 +90,13 @@ namespace E_Medic.Controllers
             var result = await _accountService.LoginUserAsync(model);
             if (result.Succeeded)
             {
+                var isPendingDoctor = await _accountService.IsDoctorProfilePendingAsync(model.Email);
+
+                if (isPendingDoctor)
+                {
+                    return RedirectToAction("CompleteProfile", "Doctor");
+                }
+
                 return RedirectToAction("Index", "Dashboard");
             }
 
