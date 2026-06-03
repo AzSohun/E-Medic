@@ -28,8 +28,12 @@ namespace E_Medic.Services
                 UserName = registerDto.Email,
                 Email = registerDto.Email,
                 PhoneNumber = registerDto.PhoneNumber,
-                Gender = registerDto.Gender,
-                DateOfBirth = registerDto.DateOfBirth,
+                Gender = registerDto.Gender!,
+
+                DateOfBirth = registerDto.DateOfBirth.HasValue
+                    ? DateTime.SpecifyKind(registerDto.DateOfBirth.Value, DateTimeKind.Utc)
+                    : null,
+
                 Role = registerDto.Role,
                 IsEmailVerified = true
             };
