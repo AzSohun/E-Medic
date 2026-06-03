@@ -1,0 +1,63 @@
+﻿@model E_Medic.DTOs.DoctorProfileDto
+
+@{
+    ViewData["Title"] = "Complete Your Profile";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+                <div class="text-center mb-4">
+                    <div class="p-3 bg-light-cyan d-inline-block rounded-circle mb-2">
+                        <i class="bi bi-person-vcard text-info fs-1"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark">Complete Professional Profile</h3>
+                    <p class="text-muted small">Please provide your medical practicing details to start receiving appointments.</p>
+                </div>
+
+                <form asp-controller="Doctor" asp-action="CompleteProfile" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Qualifications" class="form-label fw-semibold small text-secondary">Medical Qualifications</label>
+                        <input asp-for="Qualifications" class="form-control py-2 rounded-3" placeholder="e.g., MBBS, FCPS (Cardiology)" />
+                        <span asp-validation-for="Qualifications" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Specialty" class="form-label fw-semibold small text-secondary">Specialty Department</label>
+                        <input asp-for="Specialty" class="form-control py-2 rounded-3" placeholder="e.g., Cardiologist, Neurologist" />
+                        <span asp-validation-for="Specialty" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="AvailableHours" class="form-label fw-semibold small text-secondary">Chamber / Available Hours</label>
+                        <input asp-for="AvailableHours" class="form-control py-2 rounded-3" placeholder="e.g., Sat-Wed (5:00 PM - 9:00 PM)" />
+                        <span asp-validation-for="AvailableHours" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ConsultationFee" class="form-label fw-semibold small text-secondary">Consultation Fee (TK)</label>
+                            <input asp-for="ConsultationFee" type="number" class="form-control py-2 rounded-3" placeholder="e.g., 500" />
+                            <span asp-validation-for="ConsultationFee" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ExperienceYears" class="form-label fw-semibold small text-secondary">Years of Experience</label>
+                            <input asp-for="ExperienceYears" type="number" class="form-control py-2 rounded-3" placeholder="e.g., 8" />
+                            <span asp-validation-for="ExperienceYears" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-info text-white w-100 py-2.5 rounded-3 fw-bold mt-3 border-0 bg-gradient shadow-sm">
+                        Save & Activate Profile <i class="bi bi-check-circle ms-1"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
