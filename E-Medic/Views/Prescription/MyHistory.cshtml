@@ -1,0 +1,57 @@
+﻿@model IEnumerable<E_Medic.Models.MedicalRecord>
+@{
+    ViewData["Title"] = "My Medical History";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4"><i class="bi bi-clock-history text-primary"></i> My Medical Records & Prescription History</h2>
+
+    <div class="row">
+        @if (!Model.Any())
+        {
+            <div class="col-12 text-center my-5">
+                <div class="alert alert-info py-4">
+                    <i class="bi bi-folder-x fs-1 d-block mb-2"></i>
+                    You don't have any prescription or medical records saved yet.
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (var record in Model)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm border-0 bg-light">
+                        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                            <span class="fw-semibold"><i class="bi bi-calendar3"></i> @record.RecordDate.ToString("dd MMM yyyy hh:mm tt")</span>
+                            <span class="badge bg-primary">Consultant: @record.Doctor?.User?.FullName</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-success fw-bold"><i class="bi bi-patch-check"></i> Diagnosis: @record.DiseaseName</h5>
+                            <hr />
+                            <p class="card-text bg-white p-3 rounded border" style="white-space: pre-line;">
+                                <strong>Prescribed Medications:</strong><br />
+                                @record.Description
+                            </p>
+
+                            @if (!string.IsNullOrEmpty(record.AttachmentFilePath))
+                            {
+                                <div class="mt-3">
+                                    <a href="@record.AttachmentFilePath" target="_blank" class="btn btn-sm btn-outline-primary w-100 fw-semibold">
+                                        <i class="bi bi-file-earmark-arrow-down"></i> View / Download Attached Prescription File
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="mt-3 text-center">
+                                    <span class="text-muted small"><i class="bi bi-info-circle"></i> No external file attached by doctor</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
