@@ -32,12 +32,27 @@
                 flex: 1 0 auto;
             }
 
+            /* 🚫 ডার্ক টপ-বার এবং হেডার মার্জিন ইসু রিমুভার */
+            header.sticky-top {
+                background-color: transparent !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                /* 🛡️ 🔍 Z-Index ফিক্স: ড্রপডাউন বা ইনপুট ফিল্ড যাতে নেভবার ভেদ না করে */
+                z-index: 1100 !important;
+            }
+
+            body {
+                padding-top: 0 !important;
+            }
+
             /* Modern Glassmorphic Navbar Custom Styles */
             .modern-nav {
                 background-color: rgba(255, 255, 255, 0.85) !important;
                 backdrop-filter: blur(12px);
                 -webkit-backdrop-filter: blur(12px);
                 border-bottom: 1px solid #e2e8f0 !important;
+                border-top: none !important;
                 padding: 0.75rem 0 !important;
             }
 
@@ -165,6 +180,18 @@
                                 </li>
                             }
                         }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" href="#services">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" href="#pricing">Memberships</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" asp-controller="Home" asp-action="About">About Us</a>
+                            </li>
+                        }
                     </ul>
 
                     <ul class="navbar-nav align-items-center gap-3 m-0 p-0 mt-3 mt-lg-0">
@@ -181,7 +208,6 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-3 mt-2" aria-labelledby="doctorMenuDropdown">
                                         <li>
-                                            <!-- 🎯 জাস্ট শুধু "Profile" করা হলো এবং অ্যাকশন লিংক Profile পেজে ম্যাপড -->
                                             <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Doctor" asp-action="Profile">
                                                 <i class="bi bi-person-vcard text-info fs-6"></i> Profile
                                             </a>
@@ -258,7 +284,7 @@
 
                 <div class="d-flex align-items-center justify-content-center gap-4">
                     <a class="text-decoration-none footer-link" asp-controller="Home" asp-action="Index">Home</a>
-                    <a class="text-decoration-none footer-link" href="#solutions">Solutions</a>
+                    <a class="text-decoration-none footer-link" href="#services">Services</a>
                     <a class="text-decoration-none footer-link" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
                     <a class="text-decoration-none footer-link" href="#">Terms</a>
                 </div>
