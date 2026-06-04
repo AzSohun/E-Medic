@@ -1,81 +1,73 @@
 ﻿@model E_Medic.Models.Doctor
-@using E_Medic.DTOs
 
 @{
-    ViewData["Title"] = "My Profile";
-    bool isNewOrEditing = (Model == null || !Model.IsProfileCompleted);
+    ViewData["Title"] = "Doctor Profile";
+    bool isNewUser = (Model == null || !Model.IsProfileCompleted);
 }
 
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
 
-            @if (!isNewOrEditing)
-            {
-                <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white mb-4 shadow">
-                    <div class="p-4 text-center text-white" style="background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%) !important;">
-                        <div class="mb-3">
-                            @if (Model != null && !string.IsNullOrEmpty(Model.DoctorProfilePicture))
-                            {
-                                <img src="@Model.DoctorProfilePicture" alt="Profile" class="rounded-circle border border-4 border-white shadow-sm" style="width: 120px; height: 120px; object-fit: cover;" />
-                            }
-                            else
-                            {
-                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-white text-info shadow-sm" style="width: 120px; height: 120px;">
-                                    <i class="bi bi-person-fill fs-1 text-primary"></i>
-                                </div>
-                            }
-                        </div>
-                        <h3 class="fw-bold mb-0">@(Model?.User?.FullName ?? User.Identity?.Name)</h3>
-                        <p class="small mb-0 opacity-75"><i class="bi bi-envelope"></i> @(Model?.User?.Email ?? "Doctor Account")</p>
-                    </div>
+            <div id="ajaxErrorAlert" class="alert alert-danger d-none rounded-3 small fw-bold mb-4" role="alert"></div>
 
-                    <div class="card-body p-4 bg-white">
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="p-3 bg-light rounded-3 h-100">
-                                    <h6 class="text-muted small fw-bold mb-1"><i class="bi bi-patch-check text-primary me-1"></i> Specialty Department</h6>
-                                    <p class="fw-semibold text-dark mb-0">@Model?.Specialty</p>
-                                </div>
+            <div id="profileViewSection" class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white mb-4 shadow @(isNewUser ? "d-none" : "")">
+                <div class="p-4 text-center text-white" style="background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%) !important;">
+                    <div class="mb-3">
+                        <img id="viewAvatar" src="@(Model?.DoctorProfilePicture ?? "")" alt="Profile" class="rounded-circle border border-4 border-white shadow-sm @(string.IsNullOrEmpty(Model?.DoctorProfilePicture) ? "d-none" : "")" style="width: 120px; height: 120px; object-fit: cover;" />
+                        <div id="viewDefaultAvatar" class="d-inline-flex align-items-center justify-content-center rounded-circle bg-white text-info shadow-sm @(!string.IsNullOrEmpty(Model?.DoctorProfilePicture) ? "d-none" : "")" style="width: 120px; height: 120px;">
+                            <i class="bi bi-person-fill fs-1 text-primary"></i>
+                        </div>
+                    </div>
+                    <h3 id="viewFullName" class="fw-bold mb-0">@(Model?.User?.FullName ?? User.Identity?.Name)</h3>
+                    <p class="small mb-0 opacity-75"><i class="bi bi-envelope"></i> @(Model?.User?.Email ?? "Doctor Account")</p>
+                </div>
+
+                <div class="card-body p-4 bg-white">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <h6 class="text-muted small fw-bold mb-1"><i class="bi bi-patch-check text-primary me-1"></i> Specialty Department</h6>
+                                <p id="lblSpecialty" class="fw-semibold text-dark mb-0">@Model?.Specialty</p>
                             </div>
-                            <div class="col-md-6">
-                                <div class="p-3 bg-light rounded-3 h-100">
-                                    <h6 class="text-muted small fw-bold mb-1"><i class="bi bi-mortarboard text-primary me-1"></i> Qualifications</h6>
-                                    <p class="fw-semibold text-dark mb-0">@Model?.Qualifications</p>
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <h6 class="text-muted small fw-bold mb-1"><i class="bi bi-mortarboard text-primary me-1"></i> Qualifications</h6>
+                                <p id="lblQualifications" class="fw-semibold text-dark mb-0">@Model?.Qualifications</p>
                             </div>
-                            <div class="col-md-6">
-                                <div class="p-3 bg-light rounded-3 h-100">
-                                    <h6 class="text-muted small fw-bold mb-1"><i class="bi bi-clock text-primary me-1"></i> Chamber / Available Hours</h6>
-                                    <p class="fw-semibold text-dark mb-0">@Model?.AvailableHours</p>
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <h6 class="text-muted small fw-bold mb-1"><i class="bi bi-clock text-primary me-1"></i> Chamber / Available Hours</h6>
+                                <p id="lblAvailableHours" class="fw-semibold text-dark mb-0">@Model?.AvailableHours</p>
                             </div>
-                            <div class="col-md-6">
-                                <div class="p-3 bg-light rounded-3 h-100">
-                                    <div class="row">
-                                        <div class="col-6 border-end">
-                                            <h6 class="text-muted small fw-bold mb-1">Experience</h6>
-                                            <p class="fw-bold text-dark mb-0">@Model?.ExperienceYears Years</p>
-                                        </div>
-                                        <div class="col-6 ps-3">
-                                            <h6 class="text-muted small fw-bold mb-1">Visit Fee</h6>
-                                            <p class="fw-bold text-success mb-0">@Model?.ConsultationFee TK</p>
-                                        </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <div class="row">
+                                    <div class="col-6 border-end">
+                                        <h6 class="text-muted small fw-bold mb-1">Experience</h6>
+                                        <p id="lblExperience" class="fw-bold text-dark mb-0">@Model?.ExperienceYears Years</p>
+                                    </div>
+                                    <div class="col-6 ps-3">
+                                        <h6 class="text-muted small fw-bold mb-1">Visit Fee</h6>
+                                        <p id="lblFee" class="fw-bold text-success mb-0">@Model?.ConsultationFee TK</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="text-center mt-5">
-                            <button type="button" class="btn btn-outline-primary px-4 py-2 rounded-pill fw-semibold small" onclick="toggleEditMode(true)">
-                                <i class="bi bi-pencil-square me-1"></i> Edit Profile Card
-                            </button>
-                        </div>
+                    <div class="text-center mt-5">
+                        <button type="button" class="btn btn-outline-primary px-4 py-2 rounded-pill fw-semibold small" onclick="switchMode(true)">
+                            <i class="bi bi-pencil-square me-1"></i> Edit Profile Card
+                        </button>
                     </div>
                 </div>
-            }
+            </div>
 
-            <div id="editProfileSection" class="card border-0 shadow-sm rounded-4 bg-white shadow @(isNewOrEditing ? "" : "d-none")">
+            <div id="profileFormSection" class="card border-0 shadow-sm rounded-4 bg-white shadow @(isNewUser ? "" : "d-none")">
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
                         <div class="d-inline-flex align-items-center justify-content-center rounded-3 bg-light text-primary mb-3" style="width: 48px; height: 48px; background-color: rgba(2, 132, 199, 0.1) !important;">
@@ -85,9 +77,8 @@
                         <p class="text-muted small">Please provide your medical practicing details below.</p>
                     </div>
 
-                    <form asp-controller="Doctor" asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+                    <form id="doctorProfileCoreForm" enctype="multipart/form-data">
                         @Html.AntiForgeryToken()
-                        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
 
                         <div class="mb-4">
                             <label class="form-label small fw-bold text-secondary">Upload Profile Picture</label>
@@ -96,38 +87,38 @@
 
                         <div class="mb-4">
                             <label class="form-label small fw-bold text-secondary">Medical Qualifications</label>
-                            <input type="text" name="Qualifications" value="@(Model?.Qualifications ?? "")" class="form-control rounded-3 py-2.5 shadow-none" placeholder="e.g., MBBS, FCPS (Cardiology)" required />
+                            <input type="text" id="inputQualifications" name="Qualifications" value="@(Model?.Qualifications ?? "")" class="form-control rounded-3 py-2.5 shadow-none" required />
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label small fw-bold text-secondary">Specialty Department</label>
-                            <input type="text" name="Specialty" value="@(Model?.Specialty ?? "")" class="form-control rounded-3 py-2.5 shadow-none" placeholder="e.g., Cardiologist, Neurologist" required />
+                            <input type="text" id="inputSpecialty" name="Specialty" value="@(Model?.Specialty ?? "")" class="form-control rounded-3 py-2.5 shadow-none" required />
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label small fw-bold text-secondary">Chamber / Available Hours</label>
-                            <input type="text" name="AvailableHours" value="@(Model?.AvailableHours ?? "")" class="form-control rounded-3 py-2.5 shadow-none" placeholder="e.g., Sat-Wed (5:00 PM - 9:00 PM)" required />
+                            <input type="text" id="inputAvailableHours" name="AvailableHours" value="@(Model?.AvailableHours ?? "")" class="form-control rounded-3 py-2.5 shadow-none" required />
                         </div>
 
                         <div class="row mb-4">
                             <div class="col-6">
                                 <label class="form-label small fw-bold text-secondary">Consultation Fee (TK)</label>
-                                <input type="number" name="ConsultationFee" value="@(Model != null ? Model.ConsultationFee.ToString("0") : "0")" class="form-control rounded-3 py-2.5 shadow-none" min="0" required />
+                                <input type="number" id="inputConsultationFee" name="ConsultationFee" value="@(Model != null ? Model.ConsultationFee.ToString("0") : "0")" class="form-control rounded-3 py-2.5 shadow-none" min="0" required />
                             </div>
                             <div class="col-6">
                                 <label class="form-label small fw-bold text-secondary">Years of Experience</label>
-                                <input type="number" name="ExperienceYears" value="@(Model?.ExperienceYears ?? 0)" class="form-control rounded-3 py-2.5 shadow-none" min="0" required />
+                                <input type="number" id="inputExperienceYears" name="ExperienceYears" value="@(Model?.ExperienceYears ?? 0)" class="form-control rounded-3 py-2.5 shadow-none" min="0" required />
                             </div>
                         </div>
 
                         <div class="d-grid gap-2 mt-5">
-                            <button type="submit" class="btn btn-info text-white rounded-pill py-2.5 fw-bold" style="background-color: #06b6d4 !important; border:none;">
+                            <button type="submit" id="btnSubmitProfile" class="btn btn-info text-white rounded-pill py-2.5 fw-bold" style="background-color: #06b6d4 !important; border:none;">
                                 Save & Activate Profile <i class="bi bi-check-circle ms-1"></i>
                             </button>
 
-                            @if (!isNewOrEditing)
+                            @if (!isNewUser)
                             {
-                                <button type="button" class="btn btn-light rounded-pill py-2.5 fw-semibold small border" onclick="toggleEditMode(false)">
+                                <button type="button" class="btn btn-light rounded-pill py-2.5 fw-semibold small border" onclick="switchMode(false)">
                                     Cancel
                                 </button>
                             }
@@ -140,15 +131,60 @@
     </div>
 </div>
 
-<script>
-    function toggleEditMode(showEdit) {
-        var editSection = document.getElementById('editProfileSection');
-        if (showEdit) {
-            editSection.classList.remove('d-none');
-            window.scrollTo({ top: editSection.offsetTop, behavior: 'smooth' });
-        } else {
-            editSection.classList.add('d-none');
-            window.location.reload();
+@section Scripts {
+    <script>
+        function switchMode(showForm) {
+            if (showForm) {
+                document.getElementById('profileViewSection').classList.add('d-none');
+                document.getElementById('profileFormSection').classList.remove('d-none');
+            } else {
+                document.getElementById('profileFormSection').classList.add('d-none');
+                document.getElementById('profileViewSection').classList.remove('d-none');
+            }
+            document.getElementById('ajaxErrorAlert').classList.add('d-none');
         }
-    }
-</script>
+
+        document.getElementById('doctorProfileCoreForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var btn = document.getElementById('btnSubmitProfile');
+            var alertBox = document.getElementById('ajaxErrorAlert');
+
+            btn.disabled = true;
+            btn.innerHTML = 'Processing Data... <span class="spinner-border spinner-border-sm"></span>';
+            alertBox.classList.add('d-none');
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '@Url.Action("UpdateProfile", "Doctor")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        document.getElementById('lblQualifications').innerText = document.getElementById('inputQualifications').value;
+                        document.getElementById('lblSpecialty').innerText = document.getElementById('inputSpecialty').value;
+                        document.getElementById('lblAvailableHours').innerText = document.getElementById('inputAvailableHours').value;
+                        document.getElementById('lblExperience').innerText = document.getElementById('inputExperienceYears').value + ' Years';
+                        document.getElementById('lblFee').innerText = document.getElementById('inputConsultationFee').value + ' TK';
+
+                        window.location.reload();
+                    } else {
+                        btn.disabled = false;
+                        btn.innerHTML = 'Save & Activate Profile <i class="bi bi-check-circle ms-1"></i>';
+                        alertBox.innerText = response.message;
+                        alertBox.classList.remove('d-none');
+                    }
+                },
+                error: function () {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Save & Activate Profile <i class="bi bi-check-circle ms-1"></i>';
+                    alertBox.innerText = 'Network error or token expiration occurred. Please check terminal.';
+                    alertBox.classList.remove('d-none');
+                }
+            });
+        });
+    </script>
+}

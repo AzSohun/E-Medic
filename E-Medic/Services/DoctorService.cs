@@ -27,8 +27,17 @@ namespace E_Medic.Services
         public async Task<bool> CompleteProfileAsync(Guid userId, DoctorProfileDto dto)
         {
             var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == userId);
+            bool isNewDoctor = false;
 
-            if (doctor == null) return false;
+            if (doctor == null)
+            {
+                isNewDoctor = true;
+                doctor = new Doctor
+                {
+                    UserId = userId,
+                    DoctorProfilePicture = string.Empty
+                };
+            }
 
             if (dto.ProfilePicture != null && dto.ProfilePicture.Length > 0)
             {
@@ -45,10 +54,17 @@ namespace E_Medic.Services
             doctor.AvailableHours = dto.AvailableHours;
             doctor.ConsultationFee = dto.ConsultationFee;
             doctor.ExperienceYears = dto.ExperienceYears;
-
             doctor.IsProfileCompleted = true;
 
-            _context.Doctors.Update(doctor);
+            if (isNewDoctor)
+            {
+                await _context.Doctors.AddAsync(doctor);
+            }
+            else
+            {
+                _context.Doctors.Update(doctor);
+            }
+
             var saved = await _context.SaveChangesAsync();
             return saved > 0;
         }

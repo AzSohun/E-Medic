@@ -35,30 +35,24 @@ namespace E_Medic.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var userId = Guid.Parse(userIdString!);
-                var doctor = await _doctorService.GetProfileByUserIdAsync(userId);
-                return View("Profile", doctor);
+                return Json(new { success = false, message = "Validation failed. Please check your inputs." });
             }
 
-            var currentUserIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (currentUserIdString == null) return RedirectToAction("Login", "Account");
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userIdString == null) return Json(new { success = false, message = "Unauthorized access." });
 
-            var currentUserId = Guid.Parse(currentUserIdString);
+            var userId = Guid.Parse(userIdString);
 
-            var success = await _doctorService.CompleteProfileAsync(currentUserId, model);
+            var success = await _doctorService.CompleteProfileAsync(userId, model);
 
             if (success)
             {
-                return RedirectToAction("Profile");
+                return Json(new { success = true });
             }
 
-            ModelState.AddModelError(string.Empty, "Failed to update profile. Please try again.");
-
-            var failedUserId = Guid.Parse(currentUserIdString);
-            var failedDoctor = await _doctorService.GetProfileByUserIdAsync(failedUserId);
-            return View("Profile", failedDoctor);
+            return Json(new { success = false, message = "Database integration failed. Please check server logs." });
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Dashboard()
