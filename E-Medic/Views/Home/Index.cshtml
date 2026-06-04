@@ -1,436 +1,252 @@
 ﻿@{
-    ViewData["Title"] = "E-Medic - Modern Digital Triage & Telehealth";
+    ViewData["Title"] = "E-Medic - Digital Triage & Premium Telehealth";
 }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<!-- 📦 Core Icon Engine Only -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
     :root {
-        --clinical-blue: #0284c7;
-        --clinical-cyan: #06b6d4;
-        --clinical-mint: #10b981;
-        --text-heading: #0f172a;
-        --text-body: #475569;
-        --bg-soft: #f8fafc;
+        --md-primary: #0284c7; /* Clinical Trust Blue */
+        --md-secondary: #0ea5e9; /* Soft Sky Blue */
+        --md-success: #10b981; /* Mint Green */
+        --md-dark: #0f172a; /* Slate Dark Header */
+        --md-body: #475569; /* Readable Slate Body */
+        --md-bg-light: #f8fafc; /* Clean Light Section Background */
     }
 
     body {
         background-color: #ffffff;
-        color: var(--text-body);
+        color: var(--md-body);
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
-    /* Ambient soft background glow */
-    .clinical-glow {
-        position: absolute;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(6, 182, 212, 0.04) 0%, rgba(255,255,255,0) 70%);
-        top: -10%;
-        right: -5%;
-        z-index: -1;
-        pointer-events: none;
+    /* 🎯 Professional Hero Dynamic Adjustments */
+    .hero-badge {
+        background-color: rgba(2, 132, 199, 0.08);
+        color: var(--md-primary);
+        font-weight: 600;
+        font-size: 0.85rem;
+        letter-spacing: -0.1px;
     }
 
-    .section-gap {
-        padding: 80px 0;
-    }
-
-    /* Sleek Clinic Card System */
-    .clinic-feature-card {
+    /* 💳 High-End Soft-Shadow Service Cards */
+    .medical-card {
         background: #ffffff;
         border: 1px solid #e2e8f0;
-        border-radius: 20px;
-        padding: 35px 25px;
+        border-radius: 16px;
+        padding: 32px 24px;
         height: 100%;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: all 0.2s ease-in-out;
     }
 
-        .clinic-feature-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(6, 182, 212, 0.3);
-            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.04);
+        .medical-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
+            transform: translateY(-2px);
         }
 
-    .clinic-icon-shape {
-        width: 52px;
-        height: 52px;
+    .medical-icon-box {
+        width: 48px;
+        height: 48px;
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.3rem;
-        margin-bottom: 20px;
+        font-size: 1.25rem;
+        font-weight: bold;
     }
 
-    /* Premium Pill Buttons */
-    .btn-clinic-primary {
-        background: linear-gradient(135deg, var(--clinical-cyan) 0%, var(--clinical-blue) 100%);
+    /* 🔘 Clean Flat Action Buttons */
+    .btn-md-primary {
+        background-color: var(--md-primary);
         color: #ffffff !important;
-        border: none;
-        border-radius: 50px;
-        padding: 13px 32px;
         font-weight: 600;
-        box-shadow: 0 4px 14px rgba(6, 182, 212, 0.2);
-        transition: all 0.2s ease;
+        font-size: 0.9rem;
+        border: none;
+        border-radius: 12px;
+        padding: 12px 28px;
+        transition: background-color 0.15s ease;
     }
 
-        .btn-clinic-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
+        .btn-md-primary:hover {
+            background-color: #0369a1;
         }
 
-    .btn-clinic-outline {
+    .btn-md-outline {
+        background-color: transparent;
         border: 1px solid #cbd5e1;
-        background: transparent;
-        color: var(--text-heading);
-        border-radius: 50px;
-        padding: 12px 32px;
+        color: var(--md-dark);
         font-weight: 500;
-        transition: all 0.2s ease;
+        font-size: 0.9rem;
+        border-radius: 12px;
+        padding: 12px 28px;
+        transition: all 0.15s ease;
     }
 
-        .btn-clinic-outline:hover {
-            background: #f8fafc;
+        .btn-md-outline:hover {
+            background-color: #f8fafc;
             border-color: #94a3b8;
         }
 
-    /* Quick Action Search Bar */
-    .search-panel {
+    /* 🔍 Pro Search Core Bar */
+    .search-console-wrapper {
         background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 100px;
-        padding: 8px 12px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+        border: 1px solid #cbd5e1;
+        border-radius: 14px;
+        padding: 6px 8px;
+        width: 100%;
+        max-width: 520px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
     }
 
-    /* Premium Subscription Membership Cards */
-    .sub-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 24px;
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        position: relative;
-    }
-
-        .sub-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.05);
+        .search-console-wrapper:focus-within {
+            border-color: var(--md-primary);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
         }
 
-    .sub-card-featured {
-        border: 2px solid var(--clinical-cyan) !important;
-        background: radial-gradient(circle at 100% 0%, rgba(6, 182, 212, 0.03) 0%, #ffffff 100%);
-    }
-
-    .sub-feature-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-        .sub-feature-list li {
-            font-size: 0.9rem;
-            color: var(--text-body);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-
-            .sub-feature-list li i {
-                font-size: 1.1rem;
-            }
-
-    /* Specialist Grid Circle Overrides */
-    .avatar-frame {
-        width: 110px;
-        height: 110px;
+    /* 🧑‍⚕️ Clean Doctor Avatars */
+    .doctor-thumbnail {
+        width: 96px;
+        height: 96px;
         border-radius: 50%;
         object-fit: cover;
-        border: 3px solid #ffffff;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        background-color: #f1f5f9;
     }
 </style>
 
-<div class="clinical-glow"></div>
-
-<!-- ========================= HERO CLINICAL DIRECTORY ========================= -->
-<section class="py-5" style="margin-top: 20px;">
+<!-- ========================= 🏥 HERO SECTION: TOP DIRECTORY ========================= -->
+<section class="py-5" style="margin-top: 30px;">
     <div class="container">
         <div class="row align-items-center g-5">
-            <div class="col-lg-6 text-center text-lg-start" data-aos="fade-right" data-aos-duration="700">
-                <div class="d-inline-flex align-items-center gap-2 bg-info bg-opacity-10 text-info fw-semibold rounded-pill px-3 py-1.5 mb-3 small" style="font-size: 0.82rem;">
-                    <i class="bi bi-patch-check-fill"></i> Your Trusted Virtual Primary Care
-                </div>
-                <h1 class="display-4 fw-bold text-dark mb-3" style="font-weight: 800; letter-spacing: -1px; line-height: 1.2;">
-                    Healthcare Made <br><span style="color: var(--clinical-blue);">Simple, Swift & Smart</span>
+            <div class="col-lg-6 text-center text-lg-start">
+                <span class="badge hero-badge rounded-pill px-3 py-2 mb-3">
+                    <i class="bi bi-shield-check me-1"></i> Verified Digital Healthcare Network
+                </span>
+                <h1 class="display-5 fw-bold text-dark mb-3" style="font-weight: 700; letter-spacing: -1px; color: var(--md-dark) !important;">
+                    Your Health, Managed <br><span style="color: var(--md-primary);">Simply & Securely.</span>
                 </h1>
-                <p class="fs-5 text-muted mb-4" style="line-height: 1.7; max-width: 520px;">
-                    Skip the stress of busy clinic waiting blocks. Book immediate consultations with premium certified doctors, request doorstep pharmacy deliveries, and track health vitals on one clinical portal.
+                <p class="fs-5 text-muted mb-4" style="line-height: 1.6; max-width: 520px;">
+                    Skip clinic waiting times. Book instant virtual consultations with certified doctors, manage medical prescriptions, and track health histories seamlessly from one central interface.
                 </p>
 
-                <!-- Quick Interaction Search Panel -->
-                <div class="search-panel d-flex flex-column flex-sm-row gap-2 align-items-center max-width-500 mb-4 me-lg-4">
-                    <div class="d-flex align-items-center gap-2 px-3 w-100">
+                <!-- 🔍 Clean Clinical Search Panel -->
+                <div class="search-console-wrapper d-flex flex-column flex-sm-row gap-2 align-items-center mb-3">
+                    <div class="d-flex align-items-center gap-2 px-2 w-100">
                         <i class="bi bi-search text-muted"></i>
-                        <input type="text" class="form-control border-0 bg-transparent p-1 shadow-none small" placeholder="Search doctors, specialties, or medical conditions..." style="font-size: 0.9rem;" />
+                        <input type="text" class="form-control border-0 bg-transparent p-2 shadow-none" placeholder="Search doctors, specialties, or departments..." style="font-size: 0.92rem; color: var(--md-dark);" />
                     </div>
-                    <button class="btn btn-clinic-primary py-2.5 w-100 w-sm-auto px-4" style="border-radius: 50px; font-size: 0.88rem;">Find Doctor</button>
+                    <button class="btn btn-md-primary py-2 w-100 w-sm-auto px-4">Find Doctor</button>
                 </div>
             </div>
 
-            <div class="col-lg-6 text-center" data-aos="zoom-in" data-aos-duration="900">
-                <div class="position-relative d-inline-block">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=650&q=80"
-                         alt="Modern Clinical Care" class="img-fluid rounded-4 shadow-lg" style="max-height: 400px; object-fit: cover;">
-                </div>
+            <!-- Right Visual Component -->
+            <div class="col-lg-6 text-center">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=580&q=80"
+                     alt="E-Medic Healthcare Portal" class="img-fluid rounded-4 border shadow-sm" style="max-height: 380px; object-fit: cover;">
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========================= CLINICAL OPERATIONS CARD MATRIX ========================= -->
-<section id="services" class="section-gap bg-light bg-opacity-50 border-top border-bottom">
-    <div class="container">
-        <div class="text-center mb-5 max-width-600 mx-auto" data-aos="fade-up">
-            <h2 class="h1 fw-bold text-dark" style="letter-spacing: -0.5px;">Our Patient Services</h2>
-            <p class="text-muted mt-2">Comprehensive health workflows optimized for your family's care.</p>
+<!-- ========================= 🛠️ SERVICES SECTION: WORKFLOW MATRIX ========================= -->
+<section id="services" class="py-5 border-top border-bottom" style="background-color: var(--md-bg-light);">
+    <div class="container py-3">
+        <div class="mb-5 text-center text-lg-start">
+            <h2 class="fw-bold text-dark h2" style="letter-spacing: -0.5px; color: var(--md-dark) !important;">Core Patient Services</h2>
+            <p class="text-muted small mb-0">Reliable medical workflows optimized for healthcare delivery.</p>
         </div>
 
         <div class="row g-4">
             <!-- Video Consultation -->
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="clinic-feature-card">
-                    <div class="clinic-icon-shape" style="background: rgba(2, 132, 199, 0.08); color: var(--clinical-blue);">
-                        <i class="bi bi-camera-video"></i>
+            <div class="col-md-4">
+                <div class="medical-card">
+                    <div class="medical-icon-box mb-4" style="background-color: rgba(2, 132, 199, 0.08); color: var(--md-primary);">
+                        <i class="bi bi-camera-video-fill"></i>
                     </div>
                     <h3 class="h5 fw-bold text-dark mb-2">Video Consultation</h3>
-                    <p class="text-secondary small mb-4" style="line-height: 1.6;">Connect instantly via clear HD video channels with certified medical specialists from any terminal securely.</p>
-                    <a href="#" class="text-info text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1" style="color: var(--clinical-blue) !important;">Book a Slot <i class="bi bi-chevron-right"></i></a>
+                    <p class="small text-secondary mb-4" style="line-height: 1.6;">Connect securely with board-certified physicians from any location via professional encrypted tele-channels.</p>
+                    <a href="#" class="text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1" style="color: var(--md-primary);">Book Consultation <i class="bi bi-chevron-right fs-6"></i></a>
                 </div>
             </div>
-            <!-- Online Pharmacy -->
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="clinic-feature-card">
-                    <div class="clinic-icon-shape" style="background: rgba(6, 182, 212, 0.08); color: var(--clinical-cyan);">
-                        <i class="bi bi-capsule"></i>
+
+            <!-- Pharmacy Delivery -->
+            <div class="col-md-4">
+                <div class="medical-card">
+                    <div class="medical-icon-box mb-4" style="background-color: rgba(14, 165, 233, 0.08); color: var(--md-secondary);">
+                        <i class="bi bi-capsule-pill"></i>
                     </div>
                     <h3 class="h5 fw-bold text-dark mb-2">Prescription Pharmacy</h3>
-                    <p class="text-secondary small mb-4" style="line-height: 1.6;">Drop your script logs down into our dispatcher dashboard to clear fast home deliveries for verified medications.</p>
-                    <a href="#" class="text-info text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1" style="color: var(--clinical-cyan) !important;">Order Medicine <i class="bi bi-chevron-right"></i></a>
+                    <p class="small text-secondary mb-4" style="line-height: 1.6;">Upload verified digital prescriptions to dispatch essential health medications straight to your address.</p>
+                    <a href="#" class="text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1" style="color: var(--md-secondary);">Order Medicine <i class="bi bi-chevron-right fs-6"></i></a>
                 </div>
             </div>
-            <!-- Secure Health Records -->
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="clinic-feature-card">
-                    <div class="clinic-icon-shape" style="background: rgba(16, 185, 129, 0.08); color: var(--clinical-mint);">
-                        <i class="bi bi-file-earmark-medical"></i>
+
+            <!-- Health Records -->
+            <div class="col-md-4">
+                <div class="medical-card">
+                    <div class="medical-icon-box mb-4" style="background-color: rgba(16, 185, 129, 0.08); color: var(--md-success);">
+                        <i class="bi bi-folder-fill"></i>
                     </div>
                     <h3 class="h5 fw-bold text-dark mb-2">Secure Health Records</h3>
-                    <p class="text-secondary small mb-4" style="line-height: 1.6;">Access and map your entire historical laboratory reports and vitals ledger under absolute encryption protocols.</p>
-                    <a href="#" class="text-success text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1" style="color: var(--clinical-mint) !important;">View Vault <i class="bi bi-chevron-right"></i></a>
+                    <p class="small text-secondary mb-4" style="line-height: 1.6;">Access historical clinical logs, diagnostic laboratory metrics, and prescriptions in a protected profile vault.</p>
+                    <a href="#" class="text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1" style="color: var(--md-success);">View Repository <i class="bi bi-chevron-right fs-6"></i></a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========================= SUBSCRIPTION CONTEXT SYSTEM ========================= -->
-<section class="section-gap">
-    <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <span class="badge-premium mb-2" style="background: rgba(6, 182, 212, 0.08); color: #0891b2; font-weight: 600; font-size: 0.85rem; padding: 0.5rem 1.25rem; border-radius: 50px; display: inline-block;">Pricing Plans</span>
-            <h2 class="h1 fw-bold text-dark mt-2" style="letter-spacing: -0.5px;">E-Medic Care Memberships</h2>
-            <p class="text-muted">Continuous preventative care and priority physician access tailored for you.</p>
-        </div>
-
-        <div class="row g-4 align-items-stretch">
-            <!-- Plan 1: Individual -->
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="sub-card p-4 p-xl-5 h-100 d-flex flex-column">
-                    <div class="mb-4">
-                        <h3 class="h5 fw-bold text-dark mb-1">Basic Access</h3>
-                        <p class="text-muted small">Essential digital health triage</p>
-                        <div class="d-flex align-items-baseline mt-3">
-                            <span class="display-5 fw-extrabold text-dark">$19</span>
-                            <span class="text-muted small ms-1">/month</span>
-                        </div>
-                    </div>
-                    <hr class="text-secondary opacity-25 my-2">
-                    <ul class="sub-feature-list my-4 flex-grow-1">
-                        <li><i class="bi bi-check-circle-fill text-info"></i> Unlimited AI triage screening</li>
-                        <li><i class="bi bi-check-circle-fill text-info"></i> 2 Telehealth tokens /month</li>
-                        <li><i class="bi bi-check-circle-fill text-info"></i> Secure digital health vault</li>
-                        <li class="text-muted"><i class="bi bi-x-circle text-opacity-25"></i> Free pharmacy delivery</li>
-                    </ul>
-                    <a href="#" class="btn btn-clinic-outline w-100 py-2.5">Get Basic Access</a>
-                </div>
-            </div>
-
-            <!-- Plan 2: Family Premium -->
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="sub-card sub-card-featured p-4 p-xl-5 h-100 d-flex flex-column shadow-sm">
-                    <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-25 rounded-pill position-absolute top-0 end-0 m-4 py-1.5 px-3 small fw-bold" style="font-size: 0.72rem;">MOST POPULAR</span>
-                    <div class="mb-4">
-                        <h3 class="h5 fw-bold text-dark mb-1">Premium Family</h3>
-                        <p class="text-muted small">Complete medical coverage</p>
-                        <div class="d-flex align-items-baseline mt-3">
-                            <span class="display-5 fw-extrabold text-dark">$49</span>
-                            <span class="text-muted small ms-1">/month</span>
-                        </div>
-                    </div>
-                    <hr class="text-secondary opacity-25 my-2">
-                    <ul class="sub-feature-list my-4 flex-grow-1">
-                        <li><i class="bi bi-check-circle-fill text-cyan" style="color: var(--clinical-cyan);"></i> Coverage for up to 4 members</li>
-                        <li><i class="bi bi-check-circle-fill text-cyan" style="color: var(--clinical-cyan);"></i> Unlimited specialist routing</li>
-                        <li><i class="bi bi-check-circle-fill text-cyan" style="color: var(--clinical-cyan);"></i> Free pharmacy home delivery</li>
-                        <li><i class="bi bi-check-circle-fill text-cyan" style="color: var(--clinical-cyan);"></i> Priority real-time matching</li>
-                    </ul>
-                    <a href="#" class="btn btn-clinic-primary w-100 py-2.5">Subscribe Premium</a>
-                </div>
-            </div>
-
-            <!-- Plan 3: Corporate Pro -->
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="sub-card p-4 p-xl-5 h-100 d-flex flex-column">
-                    <div class="mb-4">
-                        <h3 class="h5 fw-bold text-dark mb-1">Corporate Pro</h3>
-                        <p class="text-muted small">Enterprise health infrastructure</p>
-                        <div class="d-flex align-items-baseline mt-3">
-                            <span class="display-5 fw-extrabold text-dark">$99</span>
-                            <span class="text-muted small ms-1">/month</span>
-                        </div>
-                    </div>
-                    <hr class="text-secondary opacity-25 my-2">
-                    <ul class="sub-feature-list my-4 flex-grow-1">
-                        <li><i class="bi bi-check-circle-fill text-success" style="color: var(--clinical-mint);"></i> Everything in Family plan</li>
-                        <li><i class="bi bi-check-circle-fill text-success" style="color: var(--clinical-mint);"></i> Executive annual diagnostics tests</li>
-                        <li><i class="bi bi-check-circle-fill text-success" style="color: var(--clinical-mint);"></i> Dedicated primary care doctor</li>
-                        <li><i class="bi bi-check-circle-fill text-success" style="color: var(--clinical-mint);"></i> 24/7 Priority hotline route</li>
-                    </ul>
-                    <a href="#" class="btn btn-clinic-outline w-100 py-2.5">Contact Corporate</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ========================= CLINICAL MEDICAL BOARD DIRECTORY ========================= -->
-<section class="section-gap bg-light bg-opacity-40 border-top">
-    <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="h1 fw-bold text-dark" style="letter-spacing: -0.5px;">Meet Our Expert Physicians</h2>
-            <p class="text-secondary mt-1">Fully credentialed healthcare professionals verified for dynamic triage consultations.</p>
+<!-- ========================= 🩺 SECTION: MEDICAL DIRECTORATE ========================= -->
+<section class="py-5">
+    <div class="container py-3">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-dark h2" style="letter-spacing: -0.5px;">Meet Our Verified Physicians</h2>
+            <p class="text-muted small">Fully credentialed healthcare specialists available for consultation.</p>
         </div>
 
         <div class="row g-4 justify-content-center">
-            <!-- Doctor 1 (British) -->
-            <div class="col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                <div class="clinic-feature-card text-center py-4">
-                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Oliver Bennett" class="avatar-frame mb-3">
+            <!-- Doc 1 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="medical-card text-center">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=200&h=200&q=80" alt="Dr. Oliver Bennett" class="doctor-thumbnail mb-3 border">
                     <h4 class="h6 fw-bold text-dark mb-1">Dr. Oliver Bennett</h4>
                     <p class="small text-muted mb-2">Chief Cardiologist [UK]</p>
-                    <div class="small text-warning mb-3" style="font-size: 0.75rem;"><i class="bi bi-star-fill"></i> 4.9 (120+ reviews)</div>
-                    <a href="#" class="btn btn-sm btn-clinic-outline w-100 rounded-pill py-1.5" style="font-size: 0.8rem;">Book Consultation</a>
+                    <div class="text-warning mb-3" style="font-size: 0.8rem;"><i class="bi bi-star-fill"></i> 4.9 (120+ reviews)</div>
+                    <a href="#" class="btn btn-sm btn-md-outline w-100 py-2">Book Now</a>
                 </div>
             </div>
-            <!-- Doctor 2 (American) -->
-            <div class="col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                <div class="clinic-feature-card text-center py-4">
-                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Sarah Jenkins" class="avatar-frame mb-3">
+            <!-- Doc 2 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="medical-card text-center">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=200&h=200&q=80" alt="Dr. Sarah Jenkins" class="doctor-thumbnail mb-3 border">
                     <h4 class="h6 fw-bold text-dark mb-1">Dr. Sarah Jenkins</h4>
                     <p class="small text-muted mb-2">Lead Neurologist [US]</p>
-                    <div class="small text-warning mb-3" style="font-size: 0.75rem;"><i class="bi bi-star-fill"></i> 4.8 (94+ reviews)</div>
-                    <a href="#" class="btn btn-sm btn-clinic-outline w-100 rounded-pill py-1.5" style="font-size: 0.8rem;">Book Consultation</a>
+                    <div class="text-warning mb-3" style="font-size: 0.8rem;"><i class="bi bi-star-fill"></i> 4.8 (94+ reviews)</div>
+                    <a href="#" class="btn btn-sm btn-md-outline w-100 py-2">Book Now</a>
                 </div>
             </div>
-            <!-- Doctor 3 (Bangladeshi) -->
-            <div class="col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                <div class="clinic-feature-card text-center py-4">
-                    <img src="https://images.unsplash.com/photo-1618498082410-b4aa22193b38?auto=format&fit=crop&w=300&h=260&q=80" alt="Dr. Asif Rahman" class="avatar-frame mb-3">
+            <!-- Doc 3 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="medical-card text-center">
+                    <img src="https://images.unsplash.com/photo-1618498082410-b4aa22193b38?auto=format&fit=crop&w=200&h=200&q=80" alt="Dr. Asif Rahman" class="doctor-thumbnail mb-3 border">
                     <h4 class="h6 fw-bold text-dark mb-1">Dr. Asif Rahman</h4>
                     <p class="small text-muted mb-2">Consultant GP [BD]</p>
-                    <div class="small text-warning mb-3" style="font-size: 0.75rem;"><i class="bi bi-star-fill"></i> 5.0 (210+ reviews)</div>
-                    <a href="#" class="btn btn-sm btn-clinic-outline w-100 rounded-pill py-1.5" style="font-size: 0.8rem;">Book Consultation</a>
+                    <div class="text-warning mb-3" style="font-size: 0.8rem;"><i class="bi bi-star-fill"></i> 5.0 (210+ reviews)</div>
+                    <a href="#" class="btn btn-sm btn-md-outline w-100 py-2">Book Now</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========================= VERIFIED PATIENT CLINICAL LOGS ========================= -->
-<section class="section-gap border-top" style="background-color: #fafbfc;">
-    <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="h1 fw-bold text-dark" style="letter-spacing: -0.5px;">What Our Patients Say</h2>
-            <p class="text-muted">Real stories of health recovery and comfort from verified members.</p>
-        </div>
-        <div class="row g-4">
-            <!-- Review 1 -->
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="clinic-feature-card border-light-subtle shadow-sm p-4">
-                    <div class="text-warning mb-2" style="font-size: 0.85rem;"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
-                    <p class="text-dark small mb-4" style="line-height: 1.7;">"The prescription dispatch system is incredibly fast. I uploaded my medication scripts onto the dashboard and the full pack cleared to my house in Dhaka within a few hours."</p>
-                    <div class="d-flex align-items-center gap-3">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Tahmid Rahman" class="rounded-circle border" width="42" height="42">
-                        <div>
-                            <h5 class="h6 fw-bold text-dark mb-0" style="font-size: 0.88rem;">Tahmid Rahman</h5>
-                            <span class="small text-muted" style="font-size: 0.75rem;">Dhaka, Bangladesh</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Review 2 -->
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="clinic-feature-card border-light-subtle shadow-sm p-4">
-                    <div class="text-warning mb-2" style="font-size: 0.85rem;"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
-                    <p class="text-dark small mb-4" style="line-height: 1.7;">"Setting up a tele-consultation appointment thread was completely seamless. Got high-quality diagnostic guidance from a certified physician without any long facility block lines."</p>
-                    <div class="d-flex align-items-center gap-3">
-                        <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="David Miller" class="rounded-circle border" width="42" height="42">
-                        <div>
-                            <h5 class="h6 fw-bold text-dark mb-0" style="font-size: 0.88rem;">David Miller</h5>
-                            <span class="small text-muted" style="font-size: 0.75rem;">Austin, USA</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Review 3 -->
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="clinic-feature-card border-light-subtle shadow-sm p-4">
-                    <div class="text-warning mb-2" style="font-size: 0.85rem;"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
-                    <p class="text-dark small mb-4" style="line-height: 1.7;">"The user health logs vault dashboard organizes previous prescriptions and laboratory test records beautifully. I highly recommend it for managing family tracking scripts."</p>
-                    <div class="d-flex align-items-center gap-3">
-                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Charlotte Rose" class="rounded-circle border" width="42" height="42">
-                        <div>
-                            <h5 class="h6 fw-bold text-dark mb-0" style="font-size: 0.88rem;">Charlotte Rose</h5>
-                            <span class="small text-muted" style="font-size: 0.75rem;">London, UK</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- ========================= 🏁 SECTION: FLAT CALL TO ACTION ========================= -->
+<section class="container my-5">
+    <div class="p-5 text-center rounded-4 border" style="background-color: var(--md-bg-light);">
+        <h2 class="h3 fw-bold text-dark mb-2" style="letter-spacing: -0.5px;">Ready to consult with a medical professional?</h2>
+        <p class="text-muted mx-auto mb-4 small" style="max-width: 500px;">Register an account in a few seconds, complete your registration profile, and secure your online appointment immediately.</p>
+        <div class="d-flex justify-content-center">
+            <a href="#" class="btn btn-md-primary px-5 py-2.5">Schedule Appointment Now</a>
         </div>
     </div>
 </section>
-
-<!-- ========================= FIXED: CLEAN PATIENT CALL TO ACTION PANEL (Removed image_0333e0.png Gradient Issues) ========================= -->
-<section class="container my-5" data-aos="fade-up">
-    <div class="p-5 text-center rounded-4 border" style="background-color: #f8fafc; border-color: #e2e8f0 !important;">
-        <h2 class="display-6 fw-bold text-dark mb-2">Ready to Speak with a Doctor?</h2>
-        <p class="text-muted mx-auto mb-4" style="max-width: 540px; font-size: 0.95rem;">Register an account within seconds, verify your email logs, and secure a premium online diagnostic appointment today.</p>
-        <div class="d-flex justify-content-center gap-3">
-            <a href="#" class="btn btn-clinic-primary px-5 py-3">Book Appointment Now</a>
-        </div>
-    </div>
-</section>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    AOS.init({
-    once: true,
-    mirror: false
-    });
-    });
-</script>
