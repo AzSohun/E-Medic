@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/E_Medic.styles.css" asp-append-version="true" />
 
-    <!-- Google Fonts: Inter & Bootstrap Icons Included -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -100,6 +99,18 @@
                 .footer-link:hover {
                     color: #06b6d4 !important;
                 }
+
+            /* Custom dropdown pointer interaction */
+            .dropdown-item-custom {
+                font-size: 0.88rem;
+                font-weight: 500;
+                transition: background-color 0.1s ease;
+            }
+
+                .dropdown-item-custom:hover {
+                    background-color: #f1f5f9 !important;
+                    color: #0f172a !important;
+                }
     </style>
 </head>
 <body>
@@ -108,7 +119,6 @@
         <nav class="navbar navbar-expand-lg navbar-light modern-nav">
             <div class="container">
 
-                <!-- Brand Identity Core Component -->
                 <a class="navbar-brand d-flex align-items-center gap-2 m-0 p-0" asp-controller="Home" asp-action="Index">
                     <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 32px; height: 32px; background-color: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.25);">
                         <i class="bi bi-plus-lg logo-accent fs-5"></i>
@@ -116,15 +126,12 @@
                     <span class="logo-text fs-4">E<span class="logo-accent">-</span>Medic</span>
                 </a>
 
-                <!-- Custom Minimal Native Hamburger Trigger -->
                 <button class="navbar-toggler border-0 p-1 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="bi bi-list fs-2 text-dark"></i>
                 </button>
 
-                <!-- Collapsible Navigation Context Container -->
-                <div class="collapse navbar-collapse id=" mainNavbar"">
+                <div class="collapse navbar-collapse" id="mainNavbar">
 
-                    <!-- Left Contextual Operations Loop -->
                     <ul class="navbar-nav mx-auto gap-1 mt-3 mt-lg-0">
                         <li class="nav-item">
                             <a class="nav-link nav-link-custom" asp-controller="Home" asp-action="Index">Home</a>
@@ -160,27 +167,61 @@
                         }
                     </ul>
 
-                    <!-- Right Session Authentication Management Wrapper -->
                     <ul class="navbar-nav align-items-center gap-3 m-0 p-0 mt-3 mt-lg-0">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <li class="nav-item">
-                                <div class="d-inline-flex align-items-center gap-2 bg-light px-3 py-1.5 rounded-pill border">
-                                    <i class="bi bi-person-circle text-secondary fs-6"></i>
-                                    <span class="text-dark fw-semibold small">@User.Identity.Name</span>
-                                    <span class="badge bg-dark rounded-pill fw-medium px-2 py-0.5" style="font-size: 0.72rem;">
-                                        @(User.IsInRole("Admin") ? "Admin" : User.IsInRole("Doctor") ? "Doctor" : "Patient")
-                                    </span>
-                                </div>
-                            </li>
-                            <li class="nav-item w-100 w-lg-auto">
-                                <form class="d-inline" asp-controller="Account" asp-action="Logout" method="post">
-                                    @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn nav-link-custom text-danger border-0 w-100 bg-transparent px-3 py-1.5 d-flex align-items-center justify-content-center gap-1.5">
-                                        <i class="bi bi-box-arrow-right"></i> Logout
+                            @if (User.IsInRole("Doctor"))
+                            {
+                                <li class="nav-item dropdown w-100 w-lg-auto text-center">
+                                    <button class="btn btn-light dropdown-toggle d-inline-flex align-items-center gap-2 border px-3 py-1.5 rounded-pill shadow-sm"
+                                            type="button" id="doctorMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-person-circle text-info fs-6"></i>
+                                        <span class="text-dark fw-semibold small">@User.Identity.Name</span>
+                                        <span class="badge bg-dark rounded-pill fw-medium px-2 py-0.5" style="font-size: 0.72rem;">Doctor</span>
                                     </button>
-                                </form>
-                            </li>
+                                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-3 mt-2" aria-labelledby="doctorMenuDropdown">
+                                        <li>
+                                            <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Doctor" asp-action="CompleteProfile">
+                                                <i class="bi bi-person-vcard text-info fs-6"></i> View & Edit Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Doctor" asp-action="Dashboard">
+                                                <i class="bi bi-speedometer2 text-primary fs-6"></i> Doctor Desk
+                                            </a>
+                                        </li>
+                                        <li><hr class="dropdown-divider bg-light"></li>
+                                        <li>
+                                            <form asp-controller="Account" asp-action="Logout" method="post" class="m-0 p-0">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2 text-danger bg-transparent border-0 w-100">
+                                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <div class="d-inline-flex align-items-center gap-2 bg-light px-3 py-1.5 rounded-pill border">
+                                        <i class="bi bi-person-circle text-secondary fs-6"></i>
+                                        <span class="text-dark fw-semibold small">@User.Identity.Name</span>
+                                        <span class="badge bg-dark rounded-pill fw-medium px-2 py-0.5" style="font-size: 0.72rem;">
+                                            @(User.IsInRole("Admin") ? "Admin" : "Patient")
+                                        </span>
+                                    </div>
+                                </li>
+                                <li class="nav-item w-100 w-lg-auto">
+                                    <form class="d-inline" asp-controller="Account" asp-action="Logout" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn nav-link-custom text-danger border-0 w-100 bg-transparent px-3 py-1.5 d-flex align-items-center justify-content-center gap-1.5">
+                                            <i class="bi bi-box-arrow-right"></i> Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            }
                         }
                         else
                         {
@@ -198,27 +239,22 @@
         </nav>
     </header>
 
-    <!-- Structural Dynamic Layout Content Root -->
     <div class="main-wrapper">
         <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <!-- Minimal Slate Light Structural Footer Core Component -->
-    <!-- Minimal Slate Light Structural Footer Core Component (Fixed Padding) -->
     <footer class="modern-footer py-4">
         <div class="container">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
 
-                <!-- Left Structural Matrix Component -->
                 <div class="d-flex align-items-center gap-2 text-secondary small">
                     <span class="text-info fw-bold" style="font-size: 1.1rem; line-height: 1;">+</span>
                     <span class="fw-bold text-dark" style="font-size: 0.95rem; letter-spacing: -0.2px;">E-Medic</span>
                     <span>&copy; 2026 All rights reserved.</span>
                 </div>
 
-                <!-- Right Inter-Domain Horizontal Hyperlinks Alignment -->
                 <div class="d-flex align-items-center justify-content-center gap-4">
                     <a class="text-decoration-none footer-link" asp-controller="Home" asp-action="Index">Home</a>
                     <a class="text-decoration-none footer-link" href="#solutions">Solutions</a>
