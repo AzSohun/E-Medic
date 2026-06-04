@@ -26,49 +26,27 @@ namespace E_Medic.Controllers
             var userId = Guid.Parse(userIdString);
             var doctor = await _doctorService.GetProfileByUserIdAsync(userId);
 
-            if (doctor == null || !doctor.IsProfileCompleted)
-            {
-                return RedirectToAction("CompleteProfile");
-            }
-
             return View(doctor);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> CompleteProfile()
-        {
-            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userIdString == null) return RedirectToAction("Login", "Account");
-
-            var userId = Guid.Parse(userIdString);
-            var doctor = await _doctorService.GetProfileByUserIdAsync(userId);
-
-            var model = new DoctorProfileDto();
-
-            if (doctor != null && doctor.IsProfileCompleted)
-            {
-                model.Qualifications = doctor.Qualifications;
-                model.Specialty = doctor.Specialty;
-                model.AvailableHours = doctor.AvailableHours;
-                model.ConsultationFee = doctor.ConsultationFee;
-                model.ExperienceYears = doctor.ExperienceYears;
-            }
-
-            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CompleteProfile(DoctorProfileDto model)
+        public async Task<IActionResult> UpdateProfile(DoctorProfileDto model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+            {
+                var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userId = Guid.Parse(userIdString!);
+                var doctor = await _doctorService.GetProfileByUserIdAsync(userId);
+                return View("Profile", doctor);
+            }
 
-            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userIdString == null) return RedirectToAction("Login", "Account");
+            var currentUserIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (currentUserIdString == null) return RedirectToAction("Login", "Account");
 
-            var userId = Guid.Parse(userIdString);
+            var currentUserId = Guid.Parse(currentUserIdString);
 
-            var success = await _doctorService.CompleteProfileAsync(userId, model);
+            var success = await _doctorService.CompleteProfileAsync(currentUserId, model);
 
             if (success)
             {
@@ -76,7 +54,10 @@ namespace E_Medic.Controllers
             }
 
             ModelState.AddModelError(string.Empty, "Failed to update profile. Please try again.");
-            return View(model);
+
+            var failedUserId = Guid.Parse(currentUserIdString);
+            var failedDoctor = await _doctorService.GetProfileByUserIdAsync(failedUserId);
+            return View("Profile", failedDoctor);
         }
 
         [HttpGet]
@@ -86,7 +67,6 @@ namespace E_Medic.Controllers
             if (userIdString == null) return RedirectToAction("Login", "Account");
 
             var userId = Guid.Parse(userIdString);
-
             var dashboardData = await _doctorService.GetDashboardDataAsync(userId);
 
             return View(dashboardData);
