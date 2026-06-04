@@ -7,7 +7,7 @@
         public int PatientAge { get; set; }
         public string PatientGender { get; set; } = string.Empty;
         public DateTime AppointmentDate { get; set; }
-        public string Status { get; set; } = string.Empty; // e.g., Pending, Completed
+        public string Status { get; set; } = string.Empty; // Pending, Completed
         public int SerialNumber { get; set; }
     }
 }
