@@ -8,4 +8,3 @@
         public IEnumerable<AppointmentDto> TodaysQueue { get; set; } = new List<AppointmentDto>();
     }
 }
-}
