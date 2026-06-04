@@ -62,6 +62,8 @@ var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
+
+    builder.Configuration.AddUserSecrets<Program>();
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }

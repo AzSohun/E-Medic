@@ -1,0 +1,76 @@
+﻿@model E_Medic.Models.Doctor
+
+@{
+    ViewData["Title"] = "Doctor Profile";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+                <div class="bg-gradient bg-info p-4 text-center text-white" style="background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%) !important;">
+                    <div class="mb-3">
+                        @if (!string.IsNullOrEmpty(Model.DoctorProfilePicture))
+                        {
+                            <img src="@Model.DoctorProfilePicture" alt="Profile Picture" class="rounded-circle border border-4 border-white shadow-sm" style="width: 130px; height: 130px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-white text-info shadow-sm" style="width: 130px; height: 130px;">
+                                <i class="bi bi-person-fill fs-1"></i>
+                            </div>
+                        }
+                    </div>
+                    <h3 class="fw-bold mb-0">@Model.User?.FullName</h3>
+                    <p class="small mb-0 opacity-75"><i class="bi bi-envelope"></i> @Model.User?.Email</p>
+                </div>
+
+                <div class="card-body p-4 bg-white">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <h6 class="text-muted small fw-bold mb-1"><i class="bi bi-patch-check text-info me-1"></i> Specialty Department</h6>
+                                <p class="fw-semibold text-dark mb-0">@Model.Specialty</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <h6 class="text-muted small fw-bold mb-1"><i class="bi bi-mortarboard text-info me-1"></i> Medical Qualifications</h6>
+                                <p class="fw-semibold text-dark mb-0">@Model.Qualifications</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <h6 class="text-muted small fw-bold mb-1"><i class="bi bi-clock text-info me-1"></i> Chamber / Available Hours</h6>
+                                <p class="fw-semibold text-dark mb-0">@Model.AvailableHours</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <div class="row">
+                                    <div class="col-6 border-end">
+                                        <h6 class="text-muted small fw-bold mb-1">Experience</h6>
+                                        <p class="fw-bold text-dark mb-0">@Model.ExperienceYears Years</p>
+                                    </div>
+                                    <div class="col-6 ps-3">
+                                        <h6 class="text-muted small fw-bold mb-1">Visit Fee</h6>
+                                        <p class="fw-bold text-success mb-0">@Model.ConsultationFee ৳</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <a asp-controller="Doctor" asp-action="CompleteProfile" class="btn btn-outline-secondary px-4 py-2 rounded-pill fw-semibold small">
+                            <i class="bi bi-pencil-square me-1"></i> Edit Profile Information
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,12 +2,14 @@
 using CloudinaryDotNet.Actions;
 using E_Medic.Services.Interfaces;
 
+
 namespace E_Medic.Services
 {
     public class CloudinaryService : ICloudinaryService
     {
         private readonly Cloudinary _cloudinary;
 
+        // 🔗 তোর appsettings.json বা user-secrets থেকে CloudinarySettings রিড করার জন্য
         public CloudinaryService(IConfiguration configuration)
         {
             var account = new Account(
