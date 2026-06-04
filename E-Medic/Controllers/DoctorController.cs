@@ -68,6 +68,7 @@ namespace E_Medic.Controllers
 
 
         [HttpGet]
+        [Route("Doctor/PatientsQueue")]
         public async Task<IActionResult> DoctorQueue()
         {
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);

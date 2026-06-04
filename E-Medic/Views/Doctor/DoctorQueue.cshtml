@@ -1,0 +1,151 @@
+﻿@model IEnumerable<E_Medic.DTOs.AppointmentDto>
+
+@{
+    ViewData["Title"] = "Patients Live Queue";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <!-- 📄 হেডিং ও লাইভ স্ট্যাটাস বাটন -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+                <div>
+                    <h2 class="fw-bold text-dark mb-1" style="letter-spacing: -0.5px;">Today's Patient Queue</h2>
+                    <p class="text-muted small mb-0">Manage and consult with your scheduled patients for @DateTime.Today.ToString("dd MMMM, yyyy")</p>
+                </div>
+                <div>
+                    <span class="badge rounded-pill bg-danger px-3 py-2 animate-pulse small fw-bold">
+                        <i class="bi bi-broadcast me-1"></i> Live Queue Active
+                    </span>
+                </div>
+            </div>
+
+            <!-- 🗂️ কিউ টেবিল কার্ড -->
+            <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden shadow">
+                <div class="card-body p-0">
+
+                    @if (Model == null || !Model.Any())
+                    {
+                        <!-- 📭 ফাঁকা কিউ স্টেট -->
+                        <div class="text-center py-5 my-4">
+                            <div class="d-inline-flex align-items-center justify-content-center bg-light text-muted rounded-circle mb-3" style="width: 64px; height: 64px;">
+                                <i class="bi bi-calendar-x fs-2 text-secondary"></i>
+                            </div>
+                            <h4 class="fw-semibold text-dark mb-1">No Appointments Today</h4>
+                            <p class="text-muted small mx-auto" style="max-width: 320px;">There are no patient slots booked or checked-in for today's session yet.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- 📊 লাইভ কিউ ডাটা টেবিল -->
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light text-secondary small fw-bold uppercase border-bottom" style="font-size: 0.82rem;">
+                                    <tr>
+                                        <th class="ps-4 py-3" style="width: 100px;">Serial</th>
+                                        <th class="py-3">Patient Name</th>
+                                        <th class="py-3">Gender</th>
+                                        <th class="py-3">Appointment Time</th>
+                                        <th class="py-3">Status</th>
+                                        <th class="text-end pe-4 py-3" style="width: 220px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-dark small" style="font-size: 0.9rem;">
+                                    @foreach (var appointment in Model)
+                                    {
+                                        <tr>
+                                            <!-- 🔢 সিরিয়াল নাম্বার -->
+                                            <td class="ps-4 fw-bold text-secondary">
+                                                #@appointment.SerialNumber.ToString("D2")
+                                            </td>
+
+                                            <!-- 🧑‍⚕️ পেশেন্টের নাম -->
+                                            <td>
+                                                <div class="fw-semibold text-dark">@appointment.PatientName</div>
+                                            </td>
+
+                                            <!-- ⚧ জেন্ডার -->
+                                            <td>
+                                                <span class="text-muted">@appointment.PatientGender</span>
+                                            </td>
+
+                                            <!-- 🕒 অ্যাপয়েন্টমেন্ট টাইম -->
+                                            <td>
+                                                <div class="d-inline-flex align-items-center gap-1.5 text-secondary">
+                                                    <i class="bi bi-clock text-info"></i>
+                                                    @appointment.AppointmentDate.ToString("hh:mm tt")
+                                                </div>
+                                            </td>
+
+                                            <!-- 🔘 কন্ডিশনাল স্ট্যাটাস ব্যাজ -->
+                                            <td>
+                                                @if (appointment.Status == "Pending")
+                                                {
+                                                    <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-2.5 py-1 rounded-pill fw-semibold" style="font-size: 0.78rem;">Pending</span>
+                                                }
+                                                else if (appointment.Status == "In-Consultation")
+                                                {
+                                                    <span class="badge bg-info-subtle text-info border border-info-subtle px-2.5 py-1 rounded-pill fw-semibold animate-pulse" style="font-size: 0.78rem;">In Session</span>
+                                                }
+                                                else if (appointment.Status == "Completed")
+                                                {
+                                                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1 rounded-pill fw-semibold" style="font-size: 0.78rem;">Completed</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-light text-secondary border px-2.5 py-1 rounded-pill fw-semibold" style="font-size: 0.78rem;">@appointment.Status</span>
+                                                }
+                                            </td>
+
+                                            <!-- ⚡ অ্যাকশন বাটন গ্রুপ -->
+                                            <td class="text-end pe-4">
+                                                @if (appointment.Status != "Completed")
+                                                {
+                                                    <!-- পরবর্তী মডিউলের প্রেসক্রিপশন ইঞ্জিনে রিডাইরেক্ট হওয়ার হুক -->
+                                                    <a asp-controller="Prescription" asp-action="Create" asp-route-appointmentId="@appointment.AppointmentId"
+                                                       class="btn btn-info btn-sm text-white rounded-pill px-3 fw-bold small shadow-sm" style="background-color: #06b6d4 !important; border:none; font-size: 0.8rem;">
+                                                        Start Session <i class="bi bi-arrow-right-short ms-0.5"></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <button class="btn btn-light btn-sm rounded-pill px-3 border disabled" style="font-size: 0.8rem;">
+                                                        Done <i class="bi bi-check-all text-success ms-0.5"></i>
+                                                    </button>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    /* লাইভ ইন্ডিকেটর অ্যানিমেশন পালস */
+    .animate-pulse {
+        animation: pulseAnimation 2s infinite;
+    }
+
+    @@keyframes pulseAnimation {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.6;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+</style>

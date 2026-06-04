@@ -176,7 +176,8 @@
                             @if (User.IsInRole("Doctor"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link nav-link-custom text-success" asp-controller="Appointment" asp-action="DoctorQueue">
+                                    <!-- 🎯 🎯 ফিক্সড লিংক: কন্ট্রোলার পরিবর্তন করে 'Doctor' করা হয়েছে যেন সরাসরি সফল কিউ মেথড ফায়ার হয় -->
+                                    <a class="nav-link nav-link-custom text-success" asp-controller="Doctor" asp-action="DoctorQueue">
                                         <i class="bi bi-calendar-check me-1"></i> Patients Queue
                                     </a>
                                 </li>
@@ -184,7 +185,6 @@
                         }
                         else
                         {
-                            <!-- 🎯 ক্রস-পেজ রাউটিং বাগ ফিক্স: ডাইরেক্ট রুট পাথ সহ হ্যাশ ম্যাপ করা হলো -->
                             <li class="nav-item">
                                 <a class="nav-link nav-link-custom" href="/Home/Index#services">Services</a>
                             </li>
@@ -250,6 +250,7 @@
                                             <i class="bi bi-box-arrow-right"></i> Logout
                                         </button>
                                     </form>
+                                    end
                                 </li>
                             }
                         }
