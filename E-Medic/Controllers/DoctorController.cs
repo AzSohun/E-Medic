@@ -42,5 +42,18 @@ namespace E_Medic.Controllers
             ModelState.AddModelError(string.Empty, "Failed to update profile. Please try again.");
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Dashboard()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userIdString == null) return RedirectToAction("Login", "Account");
+
+            var userId = Guid.Parse(userIdString);
+
+            var dashboardData = await _doctorService.GetDashboardDataAsync(userId);
+
+            return View(dashboardData);
+        }
     }
 }
