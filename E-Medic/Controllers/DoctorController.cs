@@ -65,5 +65,19 @@ namespace E_Medic.Controllers
 
             return View(dashboardData);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DoctorQueue()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userIdString == null) return RedirectToAction("Login", "Account");
+
+            var userId = Guid.Parse(userIdString);
+
+            var dashboardData = await _doctorService.GetDashboardDataAsync(userId);
+
+            return View(dashboardData.TodaysQueue);
+        }
     }
 }
