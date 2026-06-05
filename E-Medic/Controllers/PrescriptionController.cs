@@ -54,7 +54,7 @@ namespace E_Medic.Controllers
             if (isSuccess)
             {
                 TempData["SuccessMessage"] = "Prescription and medical record saved successfully!";
-                return RedirectToAction("DoctorQueue", "Appointment");
+                return RedirectToAction("DoctorQueue", "Doctor");
             }
 
             ModelState.AddModelError("", "Failed to save prescription.");
