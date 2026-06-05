@@ -20,7 +20,11 @@ namespace E_Medic.Controllers
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-            if (User.IsInRole("Doctor"))
+            if (User.IsInRole("Admin"))
+            {
+                return View("AdminDashboard");
+            }
+            else if (User.IsInRole("Doctor"))
             {
                 var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == userId);
                 if (doctor != null)
@@ -47,6 +51,7 @@ namespace E_Medic.Controllers
 
                 return View("PatientDashboard");
             }
+
 
             return View();
         }
