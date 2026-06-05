@@ -260,11 +260,11 @@
 
                                         @if (User.IsInRole("Admin"))
                                         {
-                                            // 🎯 মেইন ফিক্স: কারেন্ট ভিউ চেক করে কন্ডিশনালি Admin Control বাটনটি রেন্ডার করা
-                                            var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
-                                            var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+                                            // 🎯 মেইন ডাইনামিক ফিক্স: কারেন্ট রাউট ট্র্যাক করে শুধুমাত্র এডমিন স্ক্রিনগুলোতে বাটনটি প্রদর্শন করা
+                                            var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+                                            var action = ViewContext.RouteData.Values["action"]?.ToString();
 
-                                            if (!(currentController == "Prescription" && currentAction == "MyHistory"))
+                                            if (controller == "Admin" || action == "AdminDashboard")
                                             {
                                                 <li>
                                                     <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Dashboard" asp-action="AdminDashboard">
