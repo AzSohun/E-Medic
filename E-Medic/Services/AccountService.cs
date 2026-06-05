@@ -59,8 +59,6 @@ namespace E_Medic.Services
                 }
             }
 
-            // 🎯 মেইন ফিক্স: ৩য় প্যারামিটার (isPersistent) সরাসরি true লক করা হয়েছে, 
-            // যেন ব্রাউজার অফ করে অন করলেও আইডেন্টিটি কুকি মেমোরি থেকে ডিলিট না হয়।
             return await _signInManager.PasswordSignInAsync(
                 dto.Email,
                 dto.Password,
