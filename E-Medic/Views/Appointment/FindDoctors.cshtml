@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Available Doctors";
     var doctorUsers = ViewBag.DoctorUsers as List<E_Medic.Models.User>;
+    var doctorProfiles = ViewBag.DoctorProfiles as List<E_Medic.Models.Doctor>;
 }
 
 <div class="container py-5">
@@ -21,7 +22,8 @@
             var profileData = Model[i];
             var userDetail = doctorUsers != null && doctorUsers.Count > i ? doctorUsers[i] : null;
 
-            var imageName = profileData.ProfilePicture != null ? profileData.ProfilePicture.FileName : "doctor-default.png";
+            var dbProfile = userDetail != null ? doctorProfiles?.FirstOrDefault(d => d.UserId == userDetail.Id) : null;
+            var imageName = dbProfile != null ? dbProfile.DoctorProfilePicture : "doctor-default.png";
 
             @if (userDetail != null)
             {

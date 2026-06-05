@@ -2,10 +2,8 @@
 using E_Medic.DTOs;
 using E_Medic.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
 using System.Security.Claims;
 
 namespace E_Medic.Controllers
@@ -34,13 +32,6 @@ namespace E_Medic.Controllers
             var doctors = doctorUsers.Select(u => {
                 var profile = doctorProfiles.FirstOrDefault(d => d.UserId == u.Id);
 
-                IFormFile? mockedFormFile = null;
-                if (profile != null && !string.IsNullOrEmpty(profile.DoctorProfilePicture))
-                {
-                    var stream = new MemoryStream();
-                    mockedFormFile = new FormFile(stream, 0, stream.Length, "ProfilePicture", profile.DoctorProfilePicture);
-                }
-
                 return new DoctorProfileDto
                 {
                     Qualifications = profile != null ? profile.Qualifications : "Qualifications Pending",
@@ -48,12 +39,12 @@ namespace E_Medic.Controllers
                     AvailableHours = profile != null ? profile.AvailableHours : "Hours Not Set Yet",
                     ConsultationFee = profile != null ? profile.ConsultationFee : 0,
                     ExperienceYears = profile != null ? profile.ExperienceYears : 0,
-
-                    ProfilePicture = mockedFormFile
+                    ProfilePicture = null 
                 };
             }).ToList();
 
             ViewBag.DoctorUsers = doctorUsers;
+            ViewBag.DoctorProfiles = doctorProfiles;
 
             return View(doctors);
         }
