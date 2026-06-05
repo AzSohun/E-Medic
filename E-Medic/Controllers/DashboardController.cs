@@ -18,11 +18,17 @@ namespace E_Medic.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdStr))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var userId = Guid.Parse(userIdStr);
 
             if (User.IsInRole("Admin"))
             {
-                return View("AdminDashboard");
+                return RedirectToAction("AdminDashboard");
             }
             else if (User.IsInRole("Doctor"))
             {
@@ -52,8 +58,13 @@ namespace E_Medic.Controllers
                 return View("PatientDashboard");
             }
 
-
             return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminDashboard()
+        {
+            return View("AdminDashboard");
         }
     }
 }
