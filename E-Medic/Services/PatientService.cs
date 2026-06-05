@@ -26,7 +26,14 @@ namespace E_Medic.Services
 
             user.FullName = model.FullName;
             user.Gender = model.Gender;
-            user.DateOfBirth = model.DateOfBirth;
+            if (model.DateOfBirth.HasValue)
+            {
+                user.DateOfBirth = DateTime.SpecifyKind(model.DateOfBirth.Value, DateTimeKind.Utc);
+            }
+            else
+            {
+                user.DateOfBirth = null;
+            }
 
             _context.Users.Update(user);
             return await _context.SaveChangesAsync() > 0;
