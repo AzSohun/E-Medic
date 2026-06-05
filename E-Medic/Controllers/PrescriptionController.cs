@@ -31,7 +31,6 @@ namespace E_Medic.Controllers
 
             if (appointment == null) return NotFound();
 
-
             var dto = new CreatePrescriptionDto
             {
                 AppointmentId = appointment.Id,
@@ -41,7 +40,6 @@ namespace E_Medic.Controllers
 
             return View(dto);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -61,15 +59,24 @@ namespace E_Medic.Controllers
             return View(dto);
         }
 
-
-        [Authorize(Roles = "Patient")]
+        [Authorize(Roles = "Patient,Admin")]
         public async Task<IActionResult> MyHistory()
         {
+            if (User.IsInRole("Admin"))
+            {
+                var allHistory = await _context.MedicalRecords
+                    .Include(m => m.Doctor).ThenInclude(d => d.User)
+                    .Include(m => m.Patient)
+                    .OrderByDescending(m => m.RecordDate)
+                    .ToListAsync();
+
+                return View(allHistory);
+            }
+
             var patientUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
             var history = await _prescriptionService.GetPatientHistoryAsync(patientUserId);
             return View(history);
         }
-
 
         public async Task<IActionResult> DownloadPdf(Guid id)
         {
