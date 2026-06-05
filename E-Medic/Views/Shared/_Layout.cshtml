@@ -43,7 +43,7 @@
                 z-index: 1100 !important;
             }
 
-            /* 🎨 নেভবার ব্যাকগ্রাউন্ড ইন্টিগ্রেশন (ওভারল্যাপিং সম্পূর্ণ ব্লকড) */
+            /* 🎨 নেভবার ব্যাকগ্রাউন্ড ইন্টিগ্রেশন (ওভারল্যাপিং সম্পূর্ণ স্বভাবিক) */
             .modern-nav {
                 background-color: #ffffff !important;
                 backdrop-filter: blur(12px) !important;
@@ -178,6 +178,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link nav-link-custom text-success" asp-controller="Doctor" asp-action="DoctorQueue">
                                         <i class="bi bi-calendar-check me-1"></i> Patients Queue
+                                    </a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link nav-link-custom text-danger fw-semibold" asp-controller="Admin" asp-action="PendingDoctors">
+                                        <i class="bi bi-person-check me-1"></i> Approve Doctors
                                     </a>
                                 </li>
                             }
