@@ -29,7 +29,6 @@ namespace E_Medic.Controllers
 
             var doctorProfiles = await _context.Doctors.ToListAsync();
 
-
             var doctors = doctorUsers.Select(u => {
                 var profile = doctorProfiles.FirstOrDefault(d => d.UserId == u.Id);
 
@@ -42,7 +41,6 @@ namespace E_Medic.Controllers
                     ExperienceYears = profile != null ? profile.ExperienceYears : 0
                 };
             }).ToList();
-
 
             ViewBag.DoctorUsers = doctorUsers;
 

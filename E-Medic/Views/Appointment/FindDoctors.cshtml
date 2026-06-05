@@ -1,48 +1,57 @@
-﻿@model IEnumerable<E_Medic.DTOs.DoctorProfileDto>
+﻿@model List<E_Medic.DTOs.DoctorProfileDto>
 
 @{
     ViewData["Title"] = "Available Doctors";
+    var doctorUsers = ViewBag.DoctorUsers as List<E_Medic.Models.User>;
 }
 
 <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-5">
         <div>
-            <h1 class="display-6 fw-bold text-dark d-flex align-items-center gap-3">
+            <h1 class="display-6 fw-bold text-dark d-flex align-items-center gap-3" style="letter-spacing: -0.5px;">
                 <i class="bi bi-search text-info"></i> Available Medical Professionals
             </h1>
         </div>
-        <span class="badge bg-primary px-3 py-2 rounded-pill font-monospace shadow-sm">SDG 3 Rural Telemedicine</span>
+        <span class="badge px-3 py-2 rounded-pill font-monospace shadow-sm" style="background-color: rgba(6, 182, 212, 0.1) !important; color: #06b6d4 !important; border: 1px solid rgba(6, 182, 212, 0.25);">SDG 3 Rural Telemedicine</span>
     </div>
 
     <div class="row g-4">
-        @foreach (var doctor in Model)
+        @for (int i = 0; i < Model.Count; i++)
         {
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center bg-white" style="border: 1px solid #e2e8f0 !important; transition: transform 0.2s ease;">
-                    
-                    <div class="d-flex align-items-center justify-content-center mx-auto mb-3 rounded-circle bg-light text-info" style="width: 70px; height: 70px; background-color: rgba(6, 182, 212, 0.08) !important;">
-                        <i class="bi bi-person-badge fs-2 text-info"></i>
-                    </div>
+            var profileData = Model[i];
+            var userDetail = doctorUsers != null && doctorUsers.Count > i ? doctorUsers[i] : null;
 
-                    <h3 class="h5 fw-bold text-dark mb-1">@doctor.FullName</h3>
-                    <p class="text-secondary small mb-3"><i class="bi bi-envelope me-1"></i> @doctor.Email</p>
-                    
-                    <div class="mb-3">
-                        <span class="badge bg-success bg-opacity-10 text-success px-3 py-1.5 rounded-pill fw-semibold" style="font-size: 0.82rem; background-color: rgba(25, 135, 84, 0.1) !important;">
-                            @doctor.Specialty
-                        </span>
-                    </div>
+            @if (userDetail != null)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center bg-white" style="border: 1px solid #e2e8f0 !important; transition: transform 0.2s ease;">
 
-                    <div class="p-3 bg-light rounded-3 text-start mb-4" style="background-color: #f8fafc !important; border: 1px solid #f1f5f9;">
-                        <p class="small text-muted mb-1"><strong>Degrees:</strong> @doctor.Qualifications</p>
-                        <p class="small text-muted mb-0"><strong>Chamber Hours:</strong> @doctor.AvailableHours</p>
-                    </div>
+                        <div class="d-flex align-items-center justify-content-center mx-auto mb-3 rounded-3" style="width: 56px; height: 56px; background-color: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.25);">
+                            <i class="bi bi-person-pulse logo-accent fs-3 text-info"></i>
+                        </div>
 
-                    <a asp-controller="Appointment" asp-action="Book" asp-route=Id"@{ doctor.Id }" class="btn btn-primary w-100 py-2.5 rounded-3 fw-semibold shadow-sm text-white" style="background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%) !important; border: none;">
-                        <i class="bi bi-calendar-plus me-2"></i> Book Appointment
-                    </a>
+                        <h3 class="h5 fw-bold text-dark mb-1" style="letter-spacing: -0.3px;">Dr. @userDetail.FullName</h3>
+                        <p class="text-secondary small mb-3"><i class="bi bi-envelope me-1"></i> @userDetail.Email</p>
+
+                        <div class="mb-3">
+                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-1.5 rounded-pill fw-semibold" style="font-size: 0.82rem; background-color: rgba(25, 135, 84, 0.1) !important;">
+                                @profileData.Specialty
+                            </span>
+                        </div>
+
+                        <div class="p-3 rounded-3 text-start mb-4" style="background-color: #f8fafc !important; border: 1px solid #e2e8f0;">
+                            <p class="small text-muted mb-2"><strong>Degrees:</strong> @profileData.Qualifications</p>
+                            <p class="small text-muted mb-2"><strong>Experience:</strong> @profileData.ExperienceYears Years</p>
+                            <p class="small text-muted mb-2"><strong>Fee:</strong> $@profileData.ConsultationFee</p>
+                            <p class="small text-muted mb-0"><strong>Chamber Hours:</strong> @profileData.AvailableHours</p>
+                        </div>
+
+                        <a asp-controller="Appointment" asp-action="Book" asp-route-doctorId="@userDetail.Id" class="btn px-4 py-2 rounded-pill w-100 fw-semibold text-white shadow-sm" style="background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%) !important; border: none; font-size: 0.88rem;">
+                            <i class="bi bi-calendar-plus me-2"></i> Book Appointment
+                        </a>
+                    </div>
                 </div>
-            </div>
+            }
         }
     </div>
 </div>
