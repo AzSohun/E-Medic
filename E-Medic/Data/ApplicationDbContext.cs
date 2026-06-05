@@ -15,8 +15,6 @@ namespace E_Medic.Data
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<Prescription> Prescriptions { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
