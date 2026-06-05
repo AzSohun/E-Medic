@@ -6,7 +6,7 @@ using System.Security.Claims;
 
 namespace E_Medic.Controllers
 {
-    [Authorize(Roles = "Patient")]
+    [Authorize(Roles = "Patient,Admin")]
     public class PatientController : Controller
     {
         private readonly IPatientService _patientService;

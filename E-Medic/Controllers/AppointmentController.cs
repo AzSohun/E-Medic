@@ -16,7 +16,7 @@ namespace E_Medic.Controllers
             _appointmentService = appointmentService;
         }
 
-        [Authorize(Roles = "Patient")]
+        [Authorize(Roles = "Patient,Admin")]
         public async Task<IActionResult> FindDoctors()
         {
             var doctors = await _appointmentService.GetAllDoctorsAsync();

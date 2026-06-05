@@ -22,7 +22,7 @@ namespace E_Medic.Controllers
             _pdfService = pdfService;
         }
 
-        [Authorize(Roles = "Doctor")]
+        [Authorize(Roles = "Patient,Admin")]
         public async Task<IActionResult> Create(Guid appointmentId)
         {
             var appointment = await _context.Appointments
