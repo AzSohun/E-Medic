@@ -31,7 +31,9 @@ namespace E_Medic.Services
                 Id = Guid.NewGuid(),
                 PatientId = patientId,
                 DoctorId = dto.DoctorId,
-                AppointmentDate = dto.AppointmentDate,
+
+                AppointmentDate = DateTime.SpecifyKind(dto.AppointmentDate, DateTimeKind.Utc),
+
                 ProblemDescription = dto.ProblemDescription,
                 Status = "Pending"
             };
