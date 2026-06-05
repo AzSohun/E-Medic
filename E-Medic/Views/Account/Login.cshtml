@@ -5,10 +5,8 @@
 
 <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 75vh;">
     <div class="row w-100 justify-content-center">
-        <!-- 💎 Premium Minimal Form Container -->
         <div class="col-12 col-sm-10 col-md-7 col-lg-5 col-xl-4 bg-white border border-0 shadow-lg rounded-4 p-4 p-sm-5" style="box-shadow: 0 20px 40px rgba(0,0,0,0.06) !important;">
 
-            <!-- 🎯 Core Medical Branding & Header -->
             <div class="text-center mb-4">
                 <div class="d-inline-flex align-items-center justify-content-center rounded-3 mb-3" style="width: 50px; height: 50px; background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.15);">
                     <i class="bi bi-plus-lg text-info fs-3" style="color: #06b6d4 !important;"></i>
@@ -20,10 +18,8 @@
             <form asp-action="Login" method="post">
                 @Html.AntiForgeryToken()
 
-                <!-- 🔥 Universal Model Error Alerts -->
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 px-3 small border-0 rounded-3 mb-4" style="background-color: #fef2f2; color: #991b1b;"></div>
 
-                <!-- ✉️ Email Input Field -->
                 <div class="mb-3">
                     <label class="form-label fw-bold small text-secondary mb-1" style="font-size: 0.8rem; letter-spacing: 0.3px; text-transform: uppercase;">Email Address</label>
                     <div class="input-group">
@@ -33,9 +29,7 @@
                     <span asp-validation-for="Email" class="text-danger small mt-1 d-block" style="font-size: 0.78rem;"></span>
                 </div>
 
-                <!-- 🔐 Password Input Field with Eye Toggle -->
-                <div class="mb-4">
-                    <!-- 💡 গ্যাপ ঠিক রাখার জন্য mb-3 থেকে mb-4 করা হয়েছে -->
+                <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <label class="form-label fw-bold small text-secondary mb-0" style="font-size: 0.8rem; letter-spacing: 0.3px; text-transform: uppercase;">Password</label>
                         <a href="#" class="text-decoration-none small fw-bold" style="color: #06b6d4; font-size: 0.8rem;">Forgot?</a>
@@ -50,14 +44,18 @@
                     <span asp-validation-for="Password" class="text-danger small mt-1 d-block" style="font-size: 0.78rem;"></span>
                 </div>
 
-                <!-- ❌ 'Keep me signed in' চেকবক্স সেকশনটি এখান থেকে সরিয়ে দেওয়া হয়েছে -->
-                <!-- 🚀 Cyan-Blue Premium Action Gradient Button -->
+                <div class="form-check d-flex align-items-center gap-2 mb-4">
+                    <input asp-for="RememberMe" class="form-check-input shadow-none modern-checkbox" type="checkbox" style="cursor: pointer; width: 17px; height: 17px; margin: 0;" />
+                    <label asp-for="RememberMe" class="form-check-label small text-secondary fw-medium" style="cursor: pointer; user-select: none; line-height: 1;">
+                        Remember me on this device
+                    </label>
+                </div>
+
                 <button type="submit" class="btn btn-login-submit py-2.5 rounded-3 fw-bold w-100 border-0" style="font-size: 0.95rem; letter-spacing: 0.3px;">
                     Sign In
                 </button>
             </form>
 
-            <!-- 🔗 Route Navigation Link -->
             <div class="mt-4 text-center">
                 <p class="small text-secondary mb-0">
                     Don't have an account?
@@ -69,7 +67,6 @@
 </div>
 
 <style>
-    /* Premium Input System Rules */
     .modern-input {
         border-radius: 8px !important;
         border: 1px solid #e2e8f0 !important;
@@ -109,7 +106,17 @@
         border-color: #06b6d4 !important;
     }
 
-    /* Linear Cyan-Blue Master Gradient Button Configuration */
+    .modern-checkbox {
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 4px !important;
+        transition: all 0.15s ease-in-out;
+    }
+
+        .modern-checkbox:checked {
+            background-color: #06b6d4 !important;
+            border-color: #06b6d4 !important;
+        }
+
     .btn-login-submit {
         background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%) !important;
         color: white !important;
