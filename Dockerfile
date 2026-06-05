@@ -8,10 +8,13 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY ["E-Medic.csproj", "./"]
-RUN dotnet restore "E-Medic.csproj"
+# Copy project files from the correct sub-folder path
+COPY ["E-Medic/E-Medic.csproj", "E-Medic/"]
+RUN dotnet restore "E-Medic/E-Medic.csproj"
 
+# Copy the entire workspace build context
 COPY . .
+WORKDIR "/src/E-Medic"
 RUN dotnet build "E-Medic.csproj" -c Release -o /app/build
 
 # Stage 3: Publish the Application
@@ -22,8 +25,5 @@ RUN dotnet publish "E-Medic.csproj" -c Release -o /app/publish /p:UseAppHost=fal
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-COPY Views ./Views
-COPY wwwroot ./wwwroot
 
 ENTRYPOINT ["dotnet", "E-Medic.dll"]
