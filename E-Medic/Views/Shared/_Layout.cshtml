@@ -156,10 +156,7 @@
 
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-custom" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-                            </li>
-
+                            <!-- 🎯 মেইন ফিক্স ১: মাঝখানের ডুপ্লিকেট 'Dashboard' বাটনটি সরিয়ে শুধু রোল-বেজড নির্দিষ্ট ফিচার লিংকগুলো রাখা হয়েছে -->
                             @if (User.IsInRole("Patient") || User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
@@ -255,7 +252,6 @@
                                                     <i class="bi bi-person-vcard text-info fs-6"></i> My Profile
                                                 </a>
                                             </li>
-                                            <!-- 🎯 মেইন ফিক্স ২: অ্যাডমিনদের জন্যও Patient Desk বাটন দৃশ্যমান করা -->
                                             <li>
                                                 <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Dashboard" asp-action="Index">
                                                     <i class="bi bi-speedometer2 text-primary fs-6"></i> Patient Desk
