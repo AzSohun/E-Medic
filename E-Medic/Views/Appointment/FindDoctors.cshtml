@@ -1,51 +1,48 @@
-﻿@model IEnumerable<E_Medic.Models.Doctor>
+﻿@model IEnumerable<E_Medic.DTOs.DoctorProfileDto>
+
 @{
-    ViewData["Title"] = "Find Doctors";
+    ViewData["Title"] = "Available Doctors";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2><i class="bi bi-search text-primary"></i> Available Medical Professionals</h2>
-        <span class="badge bg-primary fs-6">SDG 3 Rural Telemedicine</span>
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h1 class="display-6 fw-bold text-dark d-flex align-items-center gap-3">
+                <i class="bi bi-search text-info"></i> Available Medical Professionals
+            </h1>
+        </div>
+        <span class="badge bg-primary px-3 py-2 rounded-pill font-monospace shadow-sm">SDG 3 Rural Telemedicine</span>
     </div>
 
-    <div class="row">
-        @if (!Model.Any())
+    <div class="row g-4">
+        @foreach (var doctor in Model)
         {
-            <div class="col-12 text-center my-5">
-                <div class="alert alert-warning py-4">
-                    <i class="bi bi-exclamation-triangle fs-1 d-block mb-2"></i>
-                    No approved doctors are available in the system right now.
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center bg-white" style="border: 1px solid #e2e8f0 !important; transition: transform 0.2s ease;">
+                    
+                    <div class="d-flex align-items-center justify-content-center mx-auto mb-3 rounded-circle bg-light text-info" style="width: 70px; height: 70px; background-color: rgba(6, 182, 212, 0.08) !important;">
+                        <i class="bi bi-person-badge fs-2 text-info"></i>
+                    </div>
+
+                    <h3 class="h5 fw-bold text-dark mb-1">@doctor.FullName</h3>
+                    <p class="text-secondary small mb-3"><i class="bi bi-envelope me-1"></i> @doctor.Email</p>
+                    
+                    <div class="mb-3">
+                        <span class="badge bg-success bg-opacity-10 text-success px-3 py-1.5 rounded-pill fw-semibold" style="font-size: 0.82rem; background-color: rgba(25, 135, 84, 0.1) !important;">
+                            @doctor.Specialty
+                        </span>
+                    </div>
+
+                    <div class="p-3 bg-light rounded-3 text-start mb-4" style="background-color: #f8fafc !important; border: 1px solid #f1f5f9;">
+                        <p class="small text-muted mb-1"><strong>Degrees:</strong> @doctor.Qualifications</p>
+                        <p class="small text-muted mb-0"><strong>Chamber Hours:</strong> @doctor.AvailableHours</p>
+                    </div>
+
+                    <a asp-controller="Appointment" asp-action="Book" asp-route=Id"@{ doctor.Id }" class="btn btn-primary w-100 py-2.5 rounded-3 fw-semibold shadow-sm text-white" style="background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%) !important; border: none;">
+                        <i class="bi bi-calendar-plus me-2"></i> Book Appointment
+                    </a>
                 </div>
             </div>
-        }
-        else
-        {
-            @foreach (var doctor in Model)
-            {
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0 bg-light">
-                        <div class="card-body text-center d-flex flex-column justify-content-between">
-                            <div>
-                                <i class="bi bi-person-md text-primary display-4 mb-3 d-block"></i>
-                                <h5 class="card-title fw-bold mb-1">@doctor.User?.FullName</h5>
-                                <p class="text-muted small mb-3"><i class="bi bi-envelope"></i> @doctor.User?.Email</p>
-
-                                <span class="badge bg-success mb-3 px-3 py-2">@doctor.Specialty</span>
-
-                                <div class="text-start bg-white p-3 rounded-3 mb-3 border">
-                                    <p class="mb-1"><strong>Degrees:</strong> @doctor.Qualifications</p>
-                                    <p class="mb-0"><strong>Chamber Hours:</strong> @doctor.AvailableHours</p>
-                                </div>
-                            </div>
-
-                            <a asp-action="Book" asp-route-doctorId="@doctor.Id" class="btn btn-primary w-100 fw-semibold mt-2">
-                                <i class="bi bi-calendar-plus"></i> Book Appointment
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            }
         }
     </div>
 </div>

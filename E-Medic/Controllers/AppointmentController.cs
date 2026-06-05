@@ -23,19 +23,28 @@ namespace E_Medic.Controllers
         [Authorize(Roles = "Patient,Admin")]
         public async Task<IActionResult> FindDoctors()
         {
-            var doctors = await _context.Users
+            var doctorUsers = await _context.Users
                 .Where(u => u.Role == "Doctor" && u.IsApprovedByAdmin == true)
-                .Select(u => new {
-                    User = u,
-                    Profile = _context.Doctors.FirstOrDefault(d => d.UserId == u.Id)
-                })
-                .Select(d => new DoctorProfileDto
-                {
-                    Qualifications = d.Profile != null ? d.Profile.Qualifications : "Qualifications Pending",
-                    Specialty = d.Profile != null ? d.Profile.Specialty : "General Health",
-                    AvailableHours = d.Profile != null ? d.Profile.AvailableHours : "Hours Not Set Yet"
-                })
                 .ToListAsync();
+
+            var doctorProfiles = await _context.Doctors.ToListAsync();
+
+
+            var doctors = doctorUsers.Select(u => {
+                var profile = doctorProfiles.FirstOrDefault(d => d.UserId == u.Id);
+
+                return new DoctorProfileDto
+                {
+                    Qualifications = profile != null ? profile.Qualifications : "Qualifications Pending",
+                    Specialty = profile != null ? profile.Specialty : "General Health",
+                    AvailableHours = profile != null ? profile.AvailableHours : "Hours Not Set Yet",
+                    ConsultationFee = profile != null ? profile.ConsultationFee : 0,
+                    ExperienceYears = profile != null ? profile.ExperienceYears : 0
+                };
+            }).ToList();
+
+
+            ViewBag.DoctorUsers = doctorUsers;
 
             return View(doctors);
         }
