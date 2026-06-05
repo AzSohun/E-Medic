@@ -59,6 +59,7 @@ builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 //builder.Services.AddScoped<IEmailService, EmailService>();
 
 
+
 // Fluent Validator Registration
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterDtoValidator>();
 

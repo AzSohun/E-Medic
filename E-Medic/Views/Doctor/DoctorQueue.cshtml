@@ -8,7 +8,6 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
 
-            <!-- 📄 হেডিং ও লাইভ স্ট্যাটাস বাটন -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
                 <div>
                     <h2 class="fw-bold text-dark mb-1" style="letter-spacing: -0.5px;">Today's Patient Queue</h2>
@@ -21,13 +20,11 @@
                 </div>
             </div>
 
-            <!-- 🗂️ কিউ টেবিল কার্ড -->
             <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden shadow">
                 <div class="card-body p-0">
 
                     @if (Model == null || !Model.Any())
                     {
-                        <!-- 📭 ফাঁকা কিউ স্টেট -->
                         <div class="text-center py-5 my-4">
                             <div class="d-inline-flex align-items-center justify-content-center bg-light text-muted rounded-circle mb-3" style="width: 64px; height: 64px;">
                                 <i class="bi bi-calendar-x fs-2 text-secondary"></i>
@@ -38,7 +35,6 @@
                     }
                     else
                     {
-                        <!-- 📊 লাইভ কিউ ডাটা টেবিল -->
                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light text-secondary small fw-bold uppercase border-bottom" style="font-size: 0.82rem;">
@@ -55,30 +51,25 @@
                                     @foreach (var appointment in Model)
                                     {
                                         <tr>
-                                            <!-- 🔢 সিরিয়াল নাম্বার -->
                                             <td class="ps-4 fw-bold text-secondary">
                                                 #@appointment.SerialNumber.ToString("D2")
                                             </td>
 
-                                            <!-- 🧑‍⚕️ পেশেন্টের নাম -->
                                             <td>
                                                 <div class="fw-semibold text-dark">@appointment.PatientName</div>
                                             </td>
 
-                                            <!-- ⚧ জেন্ডার -->
                                             <td>
                                                 <span class="text-muted">@appointment.PatientGender</span>
                                             </td>
 
-                                            <!-- 🕒 অ্যাপয়েন্টমেন্ট টাইম -->
                                             <td>
                                                 <div class="d-inline-flex align-items-center gap-1.5 text-secondary">
                                                     <i class="bi bi-clock text-info"></i>
-                                                    @appointment.AppointmentDate.ToString("hh:mm tt")
+                                                    @appointment.AppointmentDate.ToLocalTime().ToString("hh:mm tt")
                                                 </div>
                                             </td>
 
-                                            <!-- 🔘 কন্ডিশনাল স্ট্যাটাস ব্যাজ -->
                                             <td>
                                                 @if (appointment.Status == "Pending")
                                                 {
@@ -98,11 +89,9 @@
                                                 }
                                             </td>
 
-                                            <!-- ⚡ অ্যাকশন বাটন গ্রুপ -->
                                             <td class="text-end pe-4">
                                                 @if (appointment.Status != "Completed")
                                                 {
-                                                    <!-- পরবর্তী মডিউলের প্রেসক্রিপশন ইঞ্জিনে রিডাইরেক্ট হওয়ার হুক -->
                                                     <a asp-controller="Prescription" asp-action="Create" asp-route-appointmentId="@appointment.AppointmentId"
                                                        class="btn btn-info btn-sm text-white rounded-pill px-3 fw-bold small shadow-sm" style="background-color: #06b6d4 !important; border:none; font-size: 0.8rem;">
                                                         Start Session <i class="bi bi-arrow-right-short ms-0.5"></i>
@@ -130,7 +119,6 @@
 </div>
 
 <style>
-    /* লাইভ ইন্ডিকেটর অ্যানিমেশন পালস */
     .animate-pulse {
         animation: pulseAnimation 2s infinite;
     }

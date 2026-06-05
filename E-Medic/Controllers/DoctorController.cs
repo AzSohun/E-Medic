@@ -2,8 +2,9 @@
 using E_Medic.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
-
+using System.Threading.Tasks;
 
 namespace E_Medic.Controllers
 {
@@ -53,7 +54,6 @@ namespace E_Medic.Controllers
             return Json(new { success = false, message = "Database integration failed. Please check server logs." });
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
@@ -68,14 +68,12 @@ namespace E_Medic.Controllers
 
 
         [HttpGet]
-        [Route("Doctor/PatientsQueue")]
         public async Task<IActionResult> DoctorQueue()
         {
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userIdString == null) return RedirectToAction("Login", "Account");
 
             var userId = Guid.Parse(userIdString);
-
             var dashboardData = await _doctorService.GetDashboardDataAsync(userId);
 
             return View(dashboardData.TodaysQueue);

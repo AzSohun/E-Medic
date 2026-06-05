@@ -3,15 +3,14 @@ using E_Medic.Services;
 using E_Medic.Services.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace E_Medic.Controllers
 {
     public class AccountController : Controller
     {
-
         private readonly IAccountService _accountService;
         private readonly IValidator<RegisterDto> _validator;
-
 
         public AccountController(IAccountService accountService, IValidator<RegisterDto> validator)
         {
@@ -19,39 +18,30 @@ namespace E_Medic.Controllers
             _validator = validator;
         }
 
-
-
         [HttpGet]
-        public IActionResult Register() 
+        public IActionResult Register()
         {
-
             if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
-
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterDto model)
         {
-
             var validationResult = await _validator.ValidateAsync(model);
 
             if (!validationResult.IsValid)
             {
-                foreach(var error in validationResult.Errors)
+                foreach (var error in validationResult.Errors)
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
-
                 return View();
-
             }
-
 
             var result = await _accountService.RegisterUserAsync(model);
 
@@ -61,14 +51,13 @@ namespace E_Medic.Controllers
                 return RedirectToAction("Login");
             }
 
-            foreach(var error in result.Errors)
+            foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
 
             return View(model);
         }
-
 
         [HttpGet]
         public IActionResult Login()
@@ -77,7 +66,6 @@ namespace E_Medic.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
             return View();
         }
 
@@ -123,7 +111,6 @@ namespace E_Medic.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
 
         [HttpGet]
         public IActionResult AccessDenied()
