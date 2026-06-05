@@ -258,21 +258,8 @@
                                             </li>
                                         }
 
-                                        @if (User.IsInRole("Admin"))
-                                        {
-                                            // 🎯 মেইন ডাইনামিক ফিক্স: কারেন্ট রাউট ট্র্যাক করে শুধুমাত্র এডমিন স্ক্রিনগুলোতে বাটনটি প্রদর্শন করা
-                                            var controller = ViewContext.RouteData.Values["controller"]?.ToString();
-                                            var action = ViewContext.RouteData.Values["action"]?.ToString();
+                                        <!-- 🎯 মেইন ফিক্স: 'Admin Control' বাটন ব্লকটি ড্রপডাউন থেকে চিরতরে সম্পূর্ণ রিমুভ করে দেওয়া হয়েছে -->
 
-                                            if (controller == "Admin" || action == "AdminDashboard")
-                                            {
-                                                <li>
-                                                    <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Dashboard" asp-action="AdminDashboard">
-                                                        <i class="bi bi-shield-lock text-danger fs-6"></i> Admin Control
-                                                    </a>
-                                                </li>
-                                            }
-                                        }
                                         <li><hr class="dropdown-divider bg-light"></li>
                                         <li>
                                             <form asp-controller="Account" asp-action="Logout" method="post" class="m-0 p-0">
