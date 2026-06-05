@@ -6,38 +6,50 @@ using E_Medic.Services;
 using E_Medic.Services.Interfaces;
 using E_Medic.Validators;
 using FluentValidation;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.DataProtection;
+using System;
+using System.IO;
+using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 1. User Secrets (Only for local development, must be added BEFORE builder.Build())
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
 
 builder.Services.AddControllersWithViews();
 
-
+// 3. Database Context Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-// Identity
+// 4. Identity Architecture Configuration
 builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 8;
-    options.SignIn.RequireConfirmedEmail = false; // Sign in policy for Mandatory E-mail Verification
-
+    options.SignIn.RequireConfirmedEmail = false;
 }).AddEntityFrameworkStores<ApplicationDbContext>()
-.AddDefaultTokenProviders(); // Generate Token during E-mail Verification
+  .AddDefaultTokenProviders();
 
-
-// For remebering user cookie
+// 5. Data Protection Configuration
+var keysFolder = Path.Combine(builder.Environment.ContentRootPath, "App_Data", "Keys");
+if (!Directory.Exists(keysFolder))
+{
+    Directory.CreateDirectory(keysFolder);
+}
 builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "App_Data", "Keys")));
-// Cookie
+    .PersistKeysToFileSystem(new DirectoryInfo(keysFolder));
+
+// 6. Application Cookie Policies
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
@@ -47,7 +59,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-
+// 7. Custom Application Services Injection (DI)
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
 builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
@@ -57,20 +69,16 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
-//builder.Services.AddScoped<IEmailService, EmailService>();
 
-
-
-// Fluent Validator Registration
+// 8. Fluent Validation Assembly Registration
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterDtoValidator>();
 
 
 var app = builder.Build();
 
+// 9. HTTP Request Pipeline (Middleware execution order)
 if (!app.Environment.IsDevelopment())
 {
-
-    builder.Configuration.AddUserSecrets<Program>();
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
@@ -82,28 +90,34 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
+// 10. Database Automations (Migrations & Seeding)
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
+
+        // Handle Automatic Pendings Migrations
+        if (context.Database.GetPendingMigrations().Any())
+        {
+            context.Database.Migrate();
+        }
+
+        // Handle Database Seeding
         var userManager = services.GetRequiredService<UserManager<User>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
-
         await DbInitializer.SeedDataAsync(context, userManager, roleManager);
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while seeding the database.");
+        logger.LogError(ex, "An error occurred while preparing or seeding the database.");
     }
 }
 
