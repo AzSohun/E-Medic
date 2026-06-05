@@ -43,7 +43,7 @@
                 z-index: 1100 !important;
             }
 
-            /* 🎨 নেভবার ব্যাকগ্রাউন্ড ইন্টিগ্রেশন (ওভারল্যাপিং সম্পূর্ণ স্বভাবিক) */
+            /* 🎨 নেভবার ব্যাকগ্রাউন্ড ইন্টিগ্রেশন */
             .modern-nav {
                 background-color: #ffffff !important;
                 backdrop-filter: blur(12px) !important;
@@ -255,17 +255,15 @@
                                                     <i class="bi bi-person-vcard text-info fs-6"></i> My Profile
                                                 </a>
                                             </li>
-                                        }
-
-                                        @if (User.IsInRole("Patient"))
-                                        {
+                                            <!-- 🎯 মেইন ফিক্স ২: অ্যাডমিনদের জন্যও Patient Desk বাটন দৃশ্যমান করা -->
                                             <li>
                                                 <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Dashboard" asp-action="Index">
                                                     <i class="bi bi-speedometer2 text-primary fs-6"></i> Patient Desk
                                                 </a>
                                             </li>
                                         }
-                                        else if (User.IsInRole("Admin"))
+
+                                        @if (User.IsInRole("Admin"))
                                         {
                                             <li>
                                                 <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Dashboard" asp-action="AdminDashboard">
