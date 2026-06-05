@@ -22,6 +22,7 @@
             var profileData = Model[i];
             var userDetail = doctorUsers != null && doctorUsers.Count > i ? doctorUsers[i] : null;
 
+            // 🎯 ডক্টরস টেবিল থেকে অরিজিনাল মডেলের DoctorProfilePicture ফিল্ড সরাসরি তুলে আনা
             var dbProfile = userDetail != null ? doctorProfiles?.FirstOrDefault(d => d.UserId == userDetail.Id) : null;
             var imageName = dbProfile != null ? dbProfile.DoctorProfilePicture : "doctor-default.png";
 
@@ -33,7 +34,16 @@
                         <div class="mx-auto mb-3 rounded-3 overflow-hidden d-flex align-items-center justify-content-center shadow-sm" style="width: 72px; height: 72px; border: 1px solid #e2e8f0;">
                             @if (!string.IsNullOrEmpty(imageName) && imageName != "doctor-default.png")
                             {
-                                <img src="/uploads/@imageName" alt="Doctor Image" class="w-100 h-100 object-fit-cover" />
+                                // 💡 যদি ডাটাবেসেই ডিরেক্ট Cloudinary-র ফুল http/https লিংক সেভ থাকে
+                                @if (imageName.StartsWith("http://") || imageName.StartsWith("https://"))
+                                {
+                                    <img src="@imageName" alt="Doctor Image" class="w-100 h-100 object-fit-cover" />
+                                }
+                                else
+                                {
+                                    // 💡 আর যদি শুধু ইমেজের নাম বা আইডি সেভ থাকে, তবে তোর Cloudinary ক্লাউড নেম বসিয়ে নিস ভাই (যেমন: /your-cloud-name/image/upload/)
+                                    <img src="https://res.cloudinary.com/demo/image/upload/@imageName" alt="Doctor Image" class="w-100 h-100 object-fit-cover" />
+                                }
                             }
                             else
                             {
