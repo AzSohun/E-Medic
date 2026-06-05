@@ -160,7 +160,7 @@
                                 <a class="nav-link nav-link-custom" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                             </li>
 
-                            @if (User.IsInRole("Patient"))
+                            @if (User.IsInRole("Patient") || User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link nav-link-custom text-info" asp-controller="Appointment" asp-action="FindDoctors">
@@ -248,13 +248,17 @@
                                         </span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-3 mt-2" aria-labelledby="patientMenuDropdown">
-                                        @if (User.IsInRole("Patient"))
+                                        @if (User.IsInRole("Patient") || User.IsInRole("Admin"))
                                         {
                                             <li>
                                                 <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Patient" asp-action="Profile">
                                                     <i class="bi bi-person-vcard text-info fs-6"></i> My Profile
                                                 </a>
                                             </li>
+                                        }
+
+                                        @if (User.IsInRole("Patient"))
+                                        {
                                             <li>
                                                 <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Dashboard" asp-action="Index">
                                                     <i class="bi bi-speedometer2 text-primary fs-6"></i> Patient Desk
