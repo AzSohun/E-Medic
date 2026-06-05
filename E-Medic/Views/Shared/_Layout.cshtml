@@ -176,7 +176,6 @@
                             @if (User.IsInRole("Doctor"))
                             {
                                 <li class="nav-item">
-                                    <!-- 🎯 🎯 ফিক্সড লিংক: কন্ট্রোলার পরিবর্তন করে 'Doctor' করা হয়েছে যেন সরাসরি সফল কিউ মেথড ফায়ার হয় -->
                                     <a class="nav-link nav-link-custom text-success" asp-controller="Doctor" asp-action="DoctorQueue">
                                         <i class="bi bi-calendar-check me-1"></i> Patients Queue
                                     </a>
@@ -234,23 +233,47 @@
                             }
                             else
                             {
-                                <li class="nav-item">
-                                    <div class="d-inline-flex align-items-center gap-2 bg-light px-3 py-1.5 rounded-pill border">
+                                <li class="nav-item dropdown w-100 w-lg-auto text-center">
+                                    <button class="btn btn-light dropdown-toggle d-inline-flex align-items-center gap-2 border px-3 py-1.5 rounded-pill shadow-sm"
+                                            type="button" id="patientMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-person-circle text-secondary fs-6"></i>
                                         <span class="text-dark fw-semibold small">@User.Identity.Name</span>
                                         <span class="badge bg-dark rounded-pill fw-medium px-2 py-0.5" style="font-size: 0.72rem;">
                                             @(User.IsInRole("Admin") ? "Admin" : "Patient")
                                         </span>
-                                    </div>
-                                </li>
-                                <li class="nav-item w-100 w-lg-auto">
-                                    <form class="d-inline" asp-controller="Account" asp-action="Logout" method="post">
-                                        @Html.AntiForgeryToken()
-                                        <button type="submit" class="btn nav-link-custom text-danger border-0 w-100 bg-transparent px-3 py-1.5 d-flex align-items-center justify-content-center gap-1.5">
-                                            <i class="bi bi-box-arrow-right"></i> Logout
-                                        </button>
-                                    </form>
-                                    end
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow rounded-3 mt-2" aria-labelledby="patientMenuDropdown">
+                                        @if (User.IsInRole("Patient"))
+                                        {
+                                            <li>
+                                                <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Patient" asp-action="Profile">
+                                                    <i class="bi bi-person-vcard text-info fs-6"></i> My Profile
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Dashboard" asp-action="Index">
+                                                    <i class="bi bi-speedometer2 text-primary fs-6"></i> Patient Desk
+                                                </a>
+                                            </li>
+                                        }
+                                        else if (User.IsInRole("Admin"))
+                                        {
+                                            <li>
+                                                <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Admin" asp-action="Dashboard">
+                                                    <i class="bi bi-shield-lock text-danger fs-6"></i> Admin Control
+                                                </a>
+                                            </li>
+                                        }
+                                        <li><hr class="dropdown-divider bg-light"></li>
+                                        <li>
+                                            <form asp-controller="Account" asp-action="Logout" method="post" class="m-0 p-0">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2 text-danger bg-transparent border-0 w-100">
+                                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
                                 </li>
                             }
                         }
