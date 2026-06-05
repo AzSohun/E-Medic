@@ -3,7 +3,6 @@ using E_Medic.Services;
 using E_Medic.Services.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace E_Medic.Controllers
 {
@@ -47,7 +46,7 @@ namespace E_Medic.Controllers
 
             if (result.Succeeded)
             {
-                TempData["SuccessMessage"] = "User Registration Successfull. Please Login";
+                TempData["SuccessMessage"] = "User Registration Successful. Please Login";
                 return RedirectToAction("Login");
             }
 
@@ -75,7 +74,9 @@ namespace E_Medic.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
+
             var result = await _accountService.LoginUserAsync(model);
+
             if (result.Succeeded)
             {
                 var isPendingDoctor = await _accountService.IsDoctorProfilePendingAsync(model.Email);

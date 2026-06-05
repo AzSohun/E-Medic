@@ -8,11 +8,9 @@ namespace E_Medic.Services
 {
     public class AccountService : IAccountService
     {
-
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IDoctorService _doctorService;
-
 
         public AccountService(UserManager<User> userManager, SignInManager<User> signInManager, IDoctorService doctorService)
         {
@@ -20,7 +18,6 @@ namespace E_Medic.Services
             _signInManager = signInManager;
             _doctorService = doctorService;
         }
-
 
         public async Task<IdentityResult> RegisterUserAsync(RegisterDto registerDto)
         {
@@ -50,10 +47,8 @@ namespace E_Medic.Services
             return result;
         }
 
-
         public async Task<SignInResult> LoginUserAsync(LoginDto dto)
         {
-
             var user = await _userManager.FindByEmailAsync(dto.Email);
 
             if (user != null)
@@ -64,14 +59,14 @@ namespace E_Medic.Services
                 }
             }
 
-
+            // 🎯 মেইন ফিক্স: ৩য় প্যারামিটার (isPersistent) সরাসরি true লক করা হয়েছে, 
+            // যেন ব্রাউজার অফ করে অন করলেও আইডেন্টিটি কুকি মেমোরি থেকে ডিলিট না হয়।
             return await _signInManager.PasswordSignInAsync(
                 dto.Email,
                 dto.Password,
-                dto.RememberMe,
+                isPersistent: true,
                 lockoutOnFailure: false
-
-                );
+            );
         }
 
         public async Task LogoutAsync()
