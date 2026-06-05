@@ -9,9 +9,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
-using System.Linq;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,13 +30,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // 4. Identity Architecture Configuration
 builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
 {
+    // Password strength settings
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 8;
+
     options.SignIn.RequireConfirmedEmail = false;
-}).AddEntityFrameworkStores<ApplicationDbContext>()
-  .AddDefaultTokenProviders();
+    options.SignIn.RequireConfirmedAccount = false;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
 // 5. Data Protection Configuration
 var keysFolder = Path.Combine(builder.Environment.ContentRootPath, "App_Data", "Keys");
@@ -72,7 +74,6 @@ builder.Services.AddScoped<IPatientService, PatientService>();
 
 // 8. Fluent Validation Assembly Registration
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterDtoValidator>();
-
 
 var app = builder.Build();
 
