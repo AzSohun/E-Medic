@@ -27,8 +27,5 @@
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.77.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.2" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views/**/*" CopyToPublishDirectory="Always" />
-    <Content Include="wwwroot/**/*" CopyToPublishDirectory="Always" />
-  </ItemGroup>
+
 </Project>
