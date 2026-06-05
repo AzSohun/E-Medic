@@ -156,7 +156,6 @@
 
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <!-- 🎯 মেইন ফিক্স ১: মাঝখানের ডুপ্লিকেট 'Dashboard' বাটনটি সরিয়ে শুধু রোল-বেজড নির্দিষ্ট ফিচার লিংকগুলো রাখা হয়েছে -->
                             @if (User.IsInRole("Patient") || User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
@@ -261,11 +260,18 @@
 
                                         @if (User.IsInRole("Admin"))
                                         {
-                                            <li>
-                                                <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Dashboard" asp-action="AdminDashboard">
-                                                    <i class="bi bi-shield-lock text-danger fs-6"></i> Admin Control
-                                                </a>
-                                            </li>
+                                            // 🎯 মেইন ফিক্স: কারেন্ট ভিউ চেক করে কন্ডিশনালি Admin Control বাটনটি রেন্ডার করা
+                                            var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+                                            var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+                                            if (!(currentController == "Prescription" && currentAction == "MyHistory"))
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item dropdown-item-custom d-flex align-items-center gap-2 py-2" asp-controller="Dashboard" asp-action="AdminDashboard">
+                                                        <i class="bi bi-shield-lock text-danger fs-6"></i> Admin Control
+                                                    </a>
+                                                </li>
+                                            }
                                         }
                                         <li><hr class="dropdown-divider bg-light"></li>
                                         <li>
