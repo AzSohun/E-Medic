@@ -49,33 +49,5 @@ namespace E_Medic.Controllers
             ModelState.AddModelError("", "Something went wrong while booking the appointment.");
             return View(dto);
         }
-
-
-        [Authorize(Roles = "Doctor")]
-        public async Task<IActionResult> DoctorQueue()
-        {
-            var doctorUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-
-            var appointments = await _appointmentService.GetDoctorQueueAsync(doctorUserId);
-            return View(appointments);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Doctor")]
-        public async Task<IActionResult> UpdateStatus(Guid appointmentId, string status)
-        {
-            var isSuccess = await _appointmentService.UpdateAppointmentStatusAsync(appointmentId, status);
-            if (isSuccess)
-            {
-                TempData["SuccessMessage"] = $"Appointment status updated to '{status}' successfully!";
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Failed to update appointment status.";
-            }
-
-            return RedirectToAction(nameof(DoctorQueue));
-        }
     }
 }
